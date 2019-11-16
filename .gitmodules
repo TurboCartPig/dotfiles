@@ -1,9 +1,9 @@
 [submodule "/home/dennis/.config/oh-my-zsh"]
 	path = /home/dennis/.config/oh-my-zsh
-	url = https://github.com/robbyrussell/oh-my-zsh
+	url = https://github.com/robbyrussell/oh-my-zsh.git
 [submodule "/home/dennis/.config/tmux/plugins/tpm"]
 	path = /home/dennis/.config/tmux/plugins/tpm
-	url = https://github.com/tmux-plugins/tpm
+	url = https://github.com/tmux-plugins/tpm.git
 [submodule "/home/dennis/.cache/dein/repos/github.com/Shougo/dein.vim"]
 	path = /home/dennis/.cache/dein/repos/github.com/Shougo/dein.vim
-	url = https://github.com/Shougo/dein.vim
+	url = https://github.com/Shougo/dein.vim.git

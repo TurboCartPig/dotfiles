@@ -2,3 +2,12 @@
 [user]
 	name = Dennis Kristiansen
 	email = denniskristiansen@protonmail.com
+[color]
+	ui = auto
+[core]
+	editor = nvim
+[web]
+	browser = firefox
+[credential]
+	# Libsecret/GNOME Keyring
+	helper = /usr/libexec/git-core/git-credential-libsecret

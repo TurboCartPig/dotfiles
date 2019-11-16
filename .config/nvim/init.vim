@@ -45,19 +45,19 @@ if dein#load_state('~/.cache/dein')
 	call dein#add('junegunn/limelight.vim')
 	call dein#add('junegunn/goyo.vim')
 
-	" Lang [completion] support
-	call dein#add('sheerun/vim-polyglot')
+	" Completion framework
 	call dein#add('neoclide/coc.nvim', {
 				\ 'rev': 'release',
 				\ 'bulid': 'call coc#util#install()'
 				\ })
 
 	" Themes
+	call dein#add('sheerun/vim-polyglot')
 	call dein#add('morhetz/gruvbox')
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('vim-airline/vim-airline-themes')
-	call dein#add('edkolev/tmuxline.vim')
-	call dein#add('edkolev/promptline.vim')
+	" call dein#add('edkolev/tmuxline.vim')
+	" call dein#add('edkolev/promptline.vim')
 	call dein#add('ryanoasis/vim-devicons')
 
 	call dein#end()

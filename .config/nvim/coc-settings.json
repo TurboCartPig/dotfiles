@@ -2,12 +2,9 @@
 	"languageserver": {
 		"clangd": {
 			"command": "clangd",
-			"args": ["--background-index"],
-			"rootPatterns": ["compile_flags.txt", "compile_commands.json", ".git/", ".hg/", "Makefile"],
-			"filetypes": ["c", "cpp", "cc", "cxx", "objc", "objcpp"]
+			"args": ["--background-index", "--clang-tidy"],
+			"rootPatterns": ["compile_flags.txt", "compile_commands.json", ".git"],
+			"filetypes": ["c", "cc", "cpp", "cxx", "objc", "objcpp"]
 		}
-	},
-	"tabnine": {
-		"priority": 99
 	}
 }

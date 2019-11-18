@@ -4,15 +4,14 @@
 " (health-check?)
 " rustup, rls, cargo, rustc
 " npm, yarn
-" clang, clangd, clang-format
+" clang, clangd, clang-format, clang-tidy
 " gdb, lldb or something
-" fzf
+" fzf, rg (ripgrep)
 
 " To uninstall unneeded plugins; run:
 " call dein#recache_runtimepath()
 " call map(dein#check_clean(), "delete(v:val, 'rf')")
 
-set runtimepath+=~/.config/nvim/health/dennis.vim
 set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 
 if dein#load_state('~/.cache/dein')
@@ -23,14 +22,18 @@ if dein#load_state('~/.cache/dein')
 	call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
 	call dein#add('junegunn/fzf.vim')
 	call dein#add('editorconfig/editorconfig-vim')
+	call dein#add('rhysd/vim-clang-format')
 
+	" This isn't default?
 	call dein#add('tpope/vim-sensible')
 	call dein#add('tpope/vim-fugitive')
 	call dein#add('tpope/vim-surround')
 	call dein#add('tpope/vim-commentary')
 	call dein#add('tpope/vim-endwise')
+	call dein#add('kana/vim-operator-user')
 	call dein#add('rstacruz/vim-closer')
 	call dein#add('FooSoft/vim-argwrap')
+	call dein#add('airblade/vim-rooter')
 
 	" Motion
 	call dein#add('justinmk/vim-sneak')
@@ -42,8 +45,6 @@ if dein#load_state('~/.cache/dein')
 	call dein#add('scrooloose/nerdtree')
 	call dein#add('jistr/vim-nerdtree-tabs')
 	call dein#add('mhinz/vim-startify')
-	call dein#add('junegunn/limelight.vim')
-	call dein#add('junegunn/goyo.vim')
 
 	" Completion framework
 	call dein#add('neoclide/coc.nvim', {
@@ -56,9 +57,11 @@ if dein#load_state('~/.cache/dein')
 	call dein#add('morhetz/gruvbox')
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('vim-airline/vim-airline-themes')
+	call dein#add('ryanoasis/vim-devicons')
+	call dein#add('junegunn/limelight.vim')
+	call dein#add('junegunn/goyo.vim')
 	" call dein#add('edkolev/tmuxline.vim')
 	" call dein#add('edkolev/promptline.vim')
-	call dein#add('ryanoasis/vim-devicons')
 
 	call dein#end()
 	call dein#save_state()
@@ -70,6 +73,10 @@ endif
 scriptencoding utf-8
 set encoding=utf-8
 set hidden
+
+" Disable backups
+set nobackup
+set nowritebackup
 
 " Search
 set incsearch
@@ -90,12 +97,14 @@ set relativenumber
 set numberwidth=3
 set cursorline
 set termguicolors
-set splitright
-set splitbelow
 set cmdheight=2
 
+" Sane splits
+set splitright
+set splitbelow
+
 " Perf stuff
-set updatetime=200
+set updatetime=16
 set ttyfast
 set lazyredraw
 
@@ -105,11 +114,11 @@ set showmatch
 set nocp
 set so=2
 set mouse=a
-set ssop="blank, buffers, curdir, tabpages, slash, unix, winpos, winsize"
+" set ssop="blank, buffers, curdir, tabpages, slash, unix, winpos, winsize"
 " set ssop="tabpages"
-set completeopt-=preview
+" set completeopt-=preview
 set shortmess+=c
-set signcolumn=yes
+" set signcolumn=yes
 set clipboard+=unnamedplus
 
 " Spelling correction
@@ -221,10 +230,6 @@ let g:argwrap_padded_braces = '{'
 
 nnoremap <silent><leader>a :ArgWrap<CR>
 
-" Fzf
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
-nnoremap <silent>gb :Buffers<CR>
-
 " Remove trailing spaces
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 " function TrimWhiteSpace()
@@ -240,15 +245,15 @@ nnoremap <silent>gb :Buffers<CR>
 
 " Clang options
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
-" autocmd FileType c,cpp setlocal equalprg=clang-format
+autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
 
 " Goyo and limelight
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
-let g:goyo_width = "70%"
+let g:goyo_width = "80%"
 let g:goyo_height = "90%"
 
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+autocmd User GoyoEnter Limelight
+autocmd User GoyoLeave Limelight!
 
 " Hardcopy to pdf
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -276,8 +281,17 @@ vnoremap <silent>K :call comfortable_motion#flick(-50)<CR>
 map , <Plug>Sneak_;
 map ; <Plug>Sneak_,
 
+" Fzf
+" --------------------------------------------------------------------------------------------------------------------------------------------------------
+nnoremap <silent><Leader>b :Buffers<CR>
+nnoremap <silent><Leader>f :Files<CR>
+
 " My own keybinds
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
+
+nnoremap <silent><Leader>rg :Rg<CR>
+
+nnoremap <silent><Leader><Leader> :b#<CR>
 
 nnoremap <silent><Tab> :NERDTreeTabsToggle<CR>
 

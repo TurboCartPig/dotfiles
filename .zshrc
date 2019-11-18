@@ -68,11 +68,12 @@ DISABLE_AUTO_UPDATE="false"
 plugins=(
 	git
 	vi-mode
+	tmux
+	command-not-found
+	thefuck
+	colored-man-pages
 	zsh-syntax-highlighting
 	zsh-autosuggestions
-	command-not-found
-	colored-man-pages
-	tmux
 )
 
 source $ZSH/oh-my-zsh.sh

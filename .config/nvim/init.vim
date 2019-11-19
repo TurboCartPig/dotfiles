@@ -12,14 +12,25 @@
 " call dein#recache_runtimepath()
 " call map(dein#check_clean(), "delete(v:val, 'rf')")
 
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+if has('win32')
+	let dein_install_path = 'C:\Users\dennis\Appdata\Local\dein'
+	let dein_plugin_path = 'C:\Users\dennis\Appdata\Local\dein\repos\github.com\Shougo\dein.vim'
 
-if dein#load_state('~/.cache/dein')
-	call dein#begin('~/.cache/dein')
-	call dein#add('~/.cache/dein/repos/github.com/Shougo/dein.vim')
+	set runtimepath+=C:\Users\dennis\Appdata\Local\dein\repos\github.com\Shougo\dein.vim
+elseif has('unix')
+	let dein_install_path = '~/.cache/dein'
+	let dein_plugin_path = '~/.cache/dein/repos/github.com/Shougo/dein.vim'
+
+	set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+endif
+
+if dein#load_state(dein_install_path)
+	call dein#begin(dein_install_path)
+	call dein#add(dein_plugin_path)
 
 	" Stuff
 	call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
+	call dein#add('junegunn/fzf')
 	call dein#add('junegunn/fzf.vim')
 	call dein#add('editorconfig/editorconfig-vim')
 	call dein#add('rhysd/vim-clang-format')
@@ -285,11 +296,10 @@ map ; <Plug>Sneak_,
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 nnoremap <silent><Leader>b :Buffers<CR>
 nnoremap <silent><Leader>f :Files<CR>
+nnoremap <silent><Leader>rg :Rg<CR>
 
 " My own keybinds
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
-
-nnoremap <silent><Leader>rg :Rg<CR>
 
 nnoremap <silent><Leader><Leader> :b#<CR>
 

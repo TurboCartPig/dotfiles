@@ -133,6 +133,10 @@ let mapleader = ' '
 set background=dark
 colorscheme gruvbox
 
+" Make the beckground transparent
+au ColorScheme * hi Normal ctermbg=none guibg=none
+au ColorScheme * hi NonText ctermbg=none guibg=none
+
 " Airline settings
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 let g:airline_theme = 'base16_colors'

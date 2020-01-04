@@ -82,6 +82,7 @@ source $ZSH/oh-my-zsh.sh
 export DEFAULT_USER=dennis
 export EDITOR=nvim
 export PATH=$PATH:$HOME/.cargo/bin/
+export PATH=$PATH:$HOME/.local/bin/
 
 # Vi mode
 bindkey -e
@@ -102,5 +103,8 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ll="exa -la"
+alias lt="exa -lT"
+alias detach='tmux detach'
 
 eval $(thefuck --alias)

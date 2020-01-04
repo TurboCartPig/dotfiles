@@ -1,4 +1,8 @@
 {
+	"suggest": {
+		"autoTrigger": "trigger",
+		"noselect": false
+	},
 	"languageserver": {
 		"clangd": {
 			"command": "clangd",

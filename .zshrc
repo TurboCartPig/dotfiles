@@ -74,6 +74,7 @@ plugins=(
 	colored-man-pages
 	zsh-syntax-highlighting
 	zsh-autosuggestions
+	zsh-completions
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -81,6 +82,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export DEFAULT_USER=dennis
 export EDITOR=nvim
+export RUSTC_WRAPPER=sccache
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.local/bin/
 

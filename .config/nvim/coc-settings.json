@@ -1,7 +1,7 @@
 {
 	"suggest": {
 		"autoTrigger": "trigger",
-		"noselect": false
+		"noselect": true
 	},
 	"languageserver": {
 		"clangd": {

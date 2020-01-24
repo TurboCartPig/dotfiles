@@ -57,11 +57,13 @@ if dein#load_state(dein_install_path)
 	call dein#add('jistr/vim-nerdtree-tabs')
 	call dein#add('mhinz/vim-startify')
 
+	if !exists('g:vscode')
 	" Completion framework
 	call dein#add('neoclide/coc.nvim', {
 				\ 'rev': 'release',
 				\ 'bulid': 'call coc#util#install()'
 				\ })
+	endif
 
 	" Themes
 	call dein#add('sheerun/vim-polyglot')
@@ -127,14 +129,14 @@ set so=2
 set mouse=a
 " set ssop="blank, buffers, curdir, tabpages, slash, unix, winpos, winsize"
 " set ssop="tabpages"
-" set completeopt-=preview
+set completeopt="menu,preview,noselect,noinsert"
 set shortmess+=c
-" set signcolumn=yes
+set signcolumn=yes
 set clipboard+=unnamedplus
 
 " Spelling correction
 " set spell
-" set spelllang=en_us
+" set spelllang=en_US
 
 " Leader
 let mapleader = ' '
@@ -192,15 +194,20 @@ let g:startify_lists = [
 
 let g:startify_bookmarks = [ '~/.config/nvim/init.vim', '~/.zshrc' ]
 
+if !exists('g:vscode')
+
 " Coc.nvim settings
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 let g:coc_global_extensions = [
 			\ 'coc-rls', 'coc-lists', 'coc-git',
 			\ 'coc-tabnine', 'coc-marketplace',
-			\ 'coc-json', 'coc-yaml', 'coc-highlight'
+			\ 'coc-json', 'coc-yaml', 'coc-highlight',
+			\ 'coc-python'
 			\ ]
 
-"  Use TAB to auto-complete
+" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use TAB to auto-complete
 inoremap <silent><expr> <TAB>
 			\ pumvisible() ? "\<C-n>" :
 			\ <SID>check_back_space() ? "\<TAB>" :
@@ -238,6 +245,8 @@ nmap <silent>gs :CocList symbols<CR>
 
 " Highlight symbol under cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
+
+endif " g:vscode
 
 " ArgWarp
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -309,6 +318,16 @@ nnoremap <silent><Leader><Leader> :b#<CR>
 
 nnoremap <silent><Tab> :NERDTreeTabsToggle<CR>
 
+" " VSCode
+" else 
+
+" nnoremap <silent>J 10j
+" nnoremap <silent>K 10k
+" vnoremap <silent>J 10j
+" vnoremap <silent>K 10k
+
+" endif " g:vscode
+
 " Move around easier in insert mode
 inoremap <c-h> <left>
 inoremap <c-j> <down>
@@ -326,4 +345,3 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
-

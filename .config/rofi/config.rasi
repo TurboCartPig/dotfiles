@@ -3,7 +3,7 @@ configuration {
     lines: 10;
     columns: 2;
     font: "sans 13";
-	dpi: 192;
+	dpi: 96;
     bw: 0;
     location: 0;
     padding: 0;

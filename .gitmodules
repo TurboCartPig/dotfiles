@@ -7,3 +7,12 @@
 [submodule "/home/dennis/.cache/dein/repos/github.com/Shougo/dein.vim"]
 	path = .cache/dein/repos/github.com/Shougo/dein.vim
 	url = https://github.com/Shougo/dein.vim.git
+[submodule "zsh-autosuggestions"]
+	path = zsh-autosuggestions
+	url = /home/dennis/.config/oh-my-zsh/custom/plugins/zsh-autosuggestions.git
+[submodule "zsh-syntax-highlighting"]
+	path = zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule "zsh-completions"]
+	path = zsh-completions
+	url = /home/dennis/.config/oh-my-zsh/custom/plugins/zsh-completions.git

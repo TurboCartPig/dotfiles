@@ -1,6 +1,5 @@
 {
 	"suggest": {
-		"autoTrigger": "trigger",
 		"noselect": true
 	},
 	"languageserver": {

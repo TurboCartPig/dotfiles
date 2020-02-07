@@ -13,6 +13,9 @@ ZSH_THEME="kardan"
 # If set to an empty array, this variable will have no effect.
 # ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
+# Fix completion permissions issues
+ZSH_DISABLE_COMPFIX=true
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -24,7 +27,7 @@ ZSH_THEME="kardan"
 DISABLE_AUTO_UPDATE="false"
 
 # Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -36,7 +39,7 @@ DISABLE_AUTO_UPDATE="false"
 # DISABLE_LS_COLORS="true"
 
 # Uncomment the following line to disable auto-setting terminal title.
-# DISABLE_AUTO_TITLE="true"
+DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
 # ENABLE_CORRECTION="true"
@@ -69,8 +72,10 @@ plugins=(
 	git
 	vi-mode
 	tmux
+	ripgrep
+	cargo
+	rustup
 	command-not-found
-	thefuck
 	colored-man-pages
 	zsh-syntax-highlighting
 	zsh-autosuggestions
@@ -107,6 +112,5 @@ export LANG=en_US.UTF-8
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ll="exa -la"
 alias lt="exa -lT"
-alias detach='tmux detach'
-
-eval $(thefuck --alias)
+alias detach="tmux detach"
+alias v="nvim"

@@ -34,6 +34,7 @@ if dein#load_state(dein_install_path)
 	call dein#add('junegunn/fzf.vim')
 	call dein#add('editorconfig/editorconfig-vim')
 	call dein#add('rhysd/vim-clang-format')
+	call dein#add('honza/vim-snippets')
 
 	" This isn't default?
 	call dein#add('tpope/vim-sensible')
@@ -73,8 +74,6 @@ if dein#load_state(dein_install_path)
 	call dein#add('ryanoasis/vim-devicons')
 	call dein#add('junegunn/limelight.vim')
 	call dein#add('junegunn/goyo.vim')
-	" call dein#add('edkolev/tmuxline.vim')
-	" call dein#add('edkolev/promptline.vim')
 
 	call dein#end()
 	call dein#save_state()
@@ -87,9 +86,10 @@ scriptencoding utf-8
 set encoding=utf-8
 set hidden
 
-" Disable backups
+" Disable backups and swapfiles
 set nobackup
 set nowritebackup
+set noswapfile
 
 " Search
 set incsearch
@@ -106,11 +106,12 @@ set softtabstop=-1
 
 " Visual stuff
 set number
-set relativenumber
+" set relativenumber
 set numberwidth=3
 set cursorline
 set termguicolors
 set cmdheight=2
+set colorcolumn=76
 
 " Sane splits
 set splitright
@@ -146,21 +147,17 @@ let mapleader = ' '
 set background=dark
 colorscheme gruvbox
 
-" Make the beckground transparent
+" Make the background transparent
 au ColorScheme * hi Normal ctermbg=none guibg=none
 au ColorScheme * hi NonText ctermbg=none guibg=none
 
 " Airline settings
 " --------------------------------------------------------------------------------------------------------------------------------------------------------
 let g:airline_theme = 'base16_colors'
-" let g:airline_solarized_bg = 'dark'
 
 let g:airline_skip_empty_sections = 1
 let g:airline_powerline_fonts = 1
 let g:airline_highlighting_cache = 1
-" let g:airline_left_sep = '>'
-" let g:airline_right_sep = '<'
-" let g:airline_left_sep = ''
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
@@ -208,16 +205,16 @@ let g:coc_global_extensions = [
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use TAB to auto-complete
-inoremap <silent><expr> <TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<TAB>" :
-			\ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+" 			\ pumvisible() ? "\<C-n>" :
+" 			\ <SID>check_back_space() ? "\<TAB>" :
+" 			\ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
-	let col = col('.') - 1
-	return !col || getline('.')[col - 1] =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+" 	let col = col('.') - 1
+" 	return !col || getline('.')[col - 1] =~# '\s'
+" endfunction
 
 " Use K to show documentation in preview window
 noremap <silent>gk :call <SID>show_documentation()<CR>
@@ -317,16 +314,6 @@ nnoremap <silent><Leader>rg :Rg<CR>
 nnoremap <silent><Leader><Leader> :b#<CR>
 
 nnoremap <silent><Tab> :NERDTreeTabsToggle<CR>
-
-" " VSCode
-" else 
-
-" nnoremap <silent>J 10j
-" nnoremap <silent>K 10k
-" vnoremap <silent>J 10j
-" vnoremap <silent>K 10k
-
-" endif " g:vscode
 
 " Move around easier in insert mode
 inoremap <c-h> <left>

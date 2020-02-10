@@ -28,13 +28,13 @@ if dein#load_state(dein_install_path)
 	call dein#begin(dein_install_path)
 	call dein#add(dein_plugin_path)
 
-	" Stuff
+	" Utils
 	call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
-	call dein#add('junegunn/fzf')
 	call dein#add('junegunn/fzf.vim')
-	call dein#add('editorconfig/editorconfig-vim')
-	call dein#add('rhysd/vim-clang-format')
 	call dein#add('honza/vim-snippets')
+	call dein#add('scrooloose/nerdtree')
+	call dein#add('jistr/vim-nerdtree-tabs')
+	call dein#add('mhinz/vim-startify')
 
 	" This isn't default?
 	call dein#add('tpope/vim-sensible')
@@ -46,6 +46,9 @@ if dein#load_state(dein_install_path)
 	call dein#add('rstacruz/vim-closer')
 	call dein#add('FooSoft/vim-argwrap')
 	call dein#add('airblade/vim-rooter')
+	call dein#add('editorconfig/editorconfig-vim')
+	call dein#add('rhysd/vim-clang-format')
+	call dein#add('Yggdroot/indentLine')
 
 	" Motion
 	call dein#add('justinmk/vim-sneak')
@@ -53,18 +56,11 @@ if dein#load_state(dein_install_path)
 	call dein#add('yuttie/comfortable-motion.vim')
 	call dein#add('christoomey/vim-tmux-navigator')
 
-	" Utils
-	call dein#add('scrooloose/nerdtree')
-	call dein#add('jistr/vim-nerdtree-tabs')
-	call dein#add('mhinz/vim-startify')
-
-	if !exists('g:vscode')
 	" Completion framework
 	call dein#add('neoclide/coc.nvim', {
 				\ 'rev': 'release',
 				\ 'bulid': 'call coc#util#install()'
 				\ })
-	endif
 
 	" Themes
 	call dein#add('sheerun/vim-polyglot')
@@ -80,7 +76,7 @@ if dein#load_state(dein_install_path)
 endif
 
 " My own settings
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 " Required by something
 scriptencoding utf-8
 set encoding=utf-8
@@ -102,11 +98,10 @@ set autoindent
 set noexpandtab
 set tabstop=4
 set shiftwidth=4
-set softtabstop=-1
+set softtabstop=0
 
 " Visual stuff
 set number
-" set relativenumber
 set numberwidth=3
 set cursorline
 set termguicolors
@@ -142,17 +137,8 @@ set clipboard+=unnamedplus
 " Leader
 let mapleader = ' '
 
-" Theme and colorscheme
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
-set background=dark
-colorscheme gruvbox
-
-" Make the background transparent
-au ColorScheme * hi Normal ctermbg=none guibg=none
-au ColorScheme * hi NonText ctermbg=none guibg=none
-
 " Airline settings
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 let g:airline_theme = 'base16_colors'
 
 let g:airline_skip_empty_sections = 1
@@ -165,7 +151,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#coc#enabled = 1
 
 " Startify
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 let s:neovim_asci = [
 			\ '         _             _            _      _          _        _         _   _       ',
 			\ '        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
@@ -191,10 +177,8 @@ let g:startify_lists = [
 
 let g:startify_bookmarks = [ '~/.config/nvim/init.vim', '~/.zshrc' ]
 
-if !exists('g:vscode')
-
 " Coc.nvim settings
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 let g:coc_global_extensions = [
 			\ 'coc-rls', 'coc-lists', 'coc-git',
 			\ 'coc-tabnine', 'coc-marketplace',
@@ -230,7 +214,7 @@ endfunction
 " Remap for rename current word
 nmap <leader>rn <Plug>(coc-rename)
 
-" Gotos
+" Goto's
 nmap <silent>gd <Plug>(coc-definition)
 nmap <silent>gy <Plug>(coc-type-definition)
 nmap <silent>gi <Plug>(coc-implementation)
@@ -243,16 +227,14 @@ nmap <silent>gs :CocList symbols<CR>
 " Highlight symbol under cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-endif " g:vscode
-
 " ArgWarp
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 let g:argwrap_padded_braces = '{'
 
 nnoremap <silent><leader>a :ArgWrap<CR>
 
 " Remove trailing spaces
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 " function TrimWhiteSpace()
 " 	%s/\s*$//
 " 	''
@@ -265,11 +247,11 @@ nnoremap <silent><leader>a :ArgWrap<CR>
 " autocmd BufWritePre * call TrimWhiteSpace()
 
 " Clang options
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
 
 " Goyo and limelight
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 let g:goyo_width = "80%"
 let g:goyo_height = "90%"
 
@@ -277,12 +259,12 @@ autocmd User GoyoEnter Limelight
 autocmd User GoyoLeave Limelight!
 
 " Hardcopy to pdf
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
 command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
 
 " Comfortable-motion
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 let g:comfortable_motion_no_default_mappings = 1
 let g:comfortable_motion_interval = 1000.0 / 60.0
 let g:comfortable_motion_friction = 110.0
@@ -297,19 +279,19 @@ vnoremap <silent>J :call comfortable_motion#flick(50)<CR>
 vnoremap <silent>K :call comfortable_motion#flick(-50)<CR>
 
 " Vim-sneak
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 " let g:sneak#label = 1
 map , <Plug>Sneak_;
 map ; <Plug>Sneak_,
 
 " Fzf
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 nnoremap <silent><Leader>b :Buffers<CR>
 nnoremap <silent><Leader>f :Files<CR>
 nnoremap <silent><Leader>rg :Rg<CR>
 
 " My own keybinds
-" --------------------------------------------------------------------------------------------------------------------------------------------------------
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 
 nnoremap <silent><Leader><Leader> :b#<CR>
 
@@ -332,3 +314,16 @@ nnoremap <c-h> <c-w>h
 nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
+
+" Theme and colorscheme
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
+set background=dark
+colorscheme gruvbox
+
+highlight link SignColumn GruvboxBg0
+highlight link CocGitAddedSign GruvboxBg2
+highlight link CocGitChangeRemovedSign GruvboxBg2
+highlight link CocGitChangedSign GruvboxBg2
+highlight link CocGitRemoved GruvboxBg2
+highlight link CocGitTopRemovedSign GruvboxBg2
+

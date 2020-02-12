@@ -324,6 +324,6 @@ highlight link SignColumn GruvboxBg0
 highlight link CocGitAddedSign GruvboxBg2
 highlight link CocGitChangeRemovedSign GruvboxBg2
 highlight link CocGitChangedSign GruvboxBg2
-highlight link CocGitRemoved GruvboxBg2
+highlight link CocGitRemovedSign GruvboxBg2
 highlight link CocGitTopRemovedSign GruvboxBg2
 

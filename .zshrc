@@ -90,6 +90,7 @@ export EDITOR=nvim
 export RUSTC_WRAPPER=sccache
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:/var/lib/snapd/snap/bin
 
 # Vi mode
 bindkey -e

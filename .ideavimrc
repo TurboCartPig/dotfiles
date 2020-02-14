@@ -1,0 +1,25 @@
+" Extensions
+set surround
+set commentary
+
+" Search/Filter
+set ignorecase
+set incsearch
+set hlsearch
+
+" IdeaVim stuff
+set ideajoin
+
+" Keymappings
+nmap gs :action GotoSymbol<CR>
+nmap gi :action GotoImplementation<CR>
+
+" Use Up/Down to scroll
+nmap J <C-d>
+nmap K <C-u>
+
+" Map Left/Right to line beginning/end
+nmap H 0
+nmap L $
+vmap H 0
+vmap L $

@@ -7,12 +7,12 @@
 [submodule "/home/dennis/.cache/dein/repos/github.com/Shougo/dein.vim"]
 	path = .cache/dein/repos/github.com/Shougo/dein.vim
 	url = https://github.com/Shougo/dein.vim.git
-[submodule "/home/dennis/.config/oh-my-zsh/custom/plugins/zsh-autosuggestions"]
-	path = .config/oh-my-zsh/custom/plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions.git
-[submodule "/home/dennis/.config/oh-my-zsh/custom/plugins/zsh-syntax-highlighting"]
-	path = .config/oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
-[submodule "/home/dennis/.config/oh-my-zsh/custom/plugins/zsh-completions"]
-	path = .config/oh-my-zsh/custom/plugins/zsh-completions
+[submodule ".config/oh-my-zsh-custom/plugins/zsh-completions"]
+	path = .config/oh-my-zsh-custom/plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git
+[submodule ".config/oh-my-zsh-custom/plugins/zsh-syntax-highlighting"]
+	path = .config/oh-my-zsh-custom/plugins/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting.git
+[submodule ".config/oh-my-zsh-custom/plugins/zsh-autosuggestions"]
+	path = .config/oh-my-zsh-custom/plugins/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions.git

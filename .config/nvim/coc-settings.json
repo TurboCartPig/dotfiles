@@ -1,13 +1,5 @@
 {
 	"suggest": {
 		"noselect": true
-	},
-	"languageserver": {
-		"clangd": {
-			"command": "clangd",
-			"args": ["--background-index", "--clang-tidy"],
-			"rootPatterns": ["compile_flags.txt", "compile_commands.json", ".git"],
-			"filetypes": ["c", "cc", "cpp", "cxx", "objc", "objcpp"]
-		}
 	}
 }

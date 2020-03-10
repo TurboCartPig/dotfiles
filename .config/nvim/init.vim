@@ -35,6 +35,7 @@ if dein#load_state(dein_install_path)
 	call dein#add('scrooloose/nerdtree')
 	call dein#add('jistr/vim-nerdtree-tabs')
 	call dein#add('mhinz/vim-startify')
+	call dein#add('vimwiki/vimwiki')
 
 	" This isn't default?
 	call dein#add('tpope/vim-sensible')
@@ -70,6 +71,8 @@ if dein#load_state(dein_install_path)
 	call dein#add('ryanoasis/vim-devicons')
 	call dein#add('junegunn/limelight.vim')
 	call dein#add('junegunn/goyo.vim')
+	call dein#add('camspiers/animate.vim')
+	call dein#add('camspiers/lens.vim')
 
 	call dein#end()
 	call dein#save_state()
@@ -183,7 +186,7 @@ let g:coc_global_extensions = [
 			\ 'coc-rls', 'coc-lists', 'coc-git',
 			\ 'coc-tabnine', 'coc-marketplace',
 			\ 'coc-json', 'coc-yaml', 'coc-highlight',
-			\ 'coc-python'
+			\ 'coc-python', 'coc-clangd', 'coc-cmake'
 			\ ]
 
 " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -200,7 +203,7 @@ let g:coc_global_extensions = [
 " 	return !col || getline('.')[col - 1] =~# '\s'
 " endfunction
 
-" Use K to show documentation in preview window
+" Show documentation in preview window
 noremap <silent>gk :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
@@ -211,21 +214,32 @@ function! s:show_documentation()
 	endif
 endfunction
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+" Format current buffer
+nmap <C-f> :CocAction('format')<CR>
+
+" Rename word under cursor
+nnoremap <leader>rn <Plug>(coc-rename)
 
 " Goto's
-nmap <silent>gd <Plug>(coc-definition)
-nmap <silent>gy <Plug>(coc-type-definition)
-nmap <silent>gi <Plug>(coc-implementation)
-nmap <silent>gr <Plug>(coc-references)
+nnoremap <silent>gd <Plug>(coc-definition)
+nnoremap <silent>gy <Plug>(coc-type-definition)
+nnoremap <silent>gi <Plug>(coc-implementation)
+nnoremap <silent>gr <Plug>(coc-references)
 
-nnoremap <silent><C-y> :CocList --normal yank<CR>
+nnoremap <silent><A-y> :CocList --normal yank<CR>
 
 nmap <silent>gs :CocList symbols<CR>
 
 " Highlight symbol under cursor
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" VimWiki
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
+let g:vimwiki_list = [{
+			\ 'path': '~/vimwiki/',
+			\ 'syntax': 'markdown',
+			\ 'ext': '.md'
+			\ }]
 
 " ArgWarp
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -233,22 +247,9 @@ let g:argwrap_padded_braces = '{'
 
 nnoremap <silent><leader>a :ArgWrap<CR>
 
-" Remove trailing spaces
+" Clang/LLVM stuff
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
-" function TrimWhiteSpace()
-" 	%s/\s*$//
-" 	''
-" endfunction
-
-" set list listchars=trail:.,extends:>
-" autocmd FileWritePre * call TrimWhiteSpace()
-" autocmd FileAppendPre * call TrimWhiteSpace()
-" autocmd FilterWritePre * call TrimWhiteSpace()
-" autocmd BufWritePre * call TrimWhiteSpace()
-
-" Clang options
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
-autocmd FileType c,cpp,objc map <buffer> = <Plug>(operator-clang-format)
+autocmd FileType c,cpp,objc map <buffer>= <Plug>(operator-clang-format)
 
 " Goyo and limelight
 " ----------------------------------------------------------------------------------------------------------------------------------------------------

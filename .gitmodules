@@ -17,44 +17,47 @@
 	path = .config/oh-my-zsh-custom/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-rooter"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-rooter
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/sensible"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/sensible
+	path = .local/share/nvim/site/pack/turbocartpig/start/sensible
 	url = https://github.com/tpope/vim-sensible.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/fugitive"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/fugitive
+	path = .local/share/nvim/site/pack/turbocartpig/start/fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/surround"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/surround
+	path = .local/share/nvim/site/pack/turbocartpig/start/surround
 	url = https://github.com/tpope/vim-surround.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/commentary"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/commentary
+	path = .local/share/nvim/site/pack/turbocartpig/start/commentary
 	url = https://github.com/tpope/vim-commentary.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/endwise"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/endwise
+	path = .local/share/nvim/site/pack/turbocartpig/start/endwise
 	url = https://github.com/tpope/vim-endwise.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-devicons"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-devicons
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-devicons
 	url = https://github.com/ryanoasis/vim-devicons.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/gruvbox"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/gruvbox
+	path = .local/share/nvim/site/pack/turbocartpig/start/gruvbox
 	url = https://github.com/morhetz/gruvbox.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-polyglot"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-polyglot
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-tmux-navigator"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-tmux-navigator
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/targets.vim"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/targets.vim
+	path = .local/share/nvim/site/pack/turbocartpig/start/targets.vim
 	url = https://github.com/wellle/targets.vim.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-sneak"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-sneak
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-sneak
 	url = https://github.com/justinmk/vim-sneak.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/nerdtree"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/nerdtree
+	path = .local/share/nvim/site/pack/turbocartpig/start/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
 [submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-nerdtree-tabs"]
-	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/start/vim-nerdtree-tabs
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-nerdtree-tabs
 	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule "/home/dennis/.local/share/nvim/site/pack/turbocartpig/nvim-lsp"]
+	path = /home/dennis/.local/share/nvim/site/pack/turbocartpig/nvim-lsp
+	url = https://github.com/neovim/nvim-lsp.git

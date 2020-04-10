@@ -16,3 +16,45 @@
 [submodule ".config/oh-my-zsh-custom/plugins/zsh-autosuggestions"]
 	path = .config/oh-my-zsh-custom/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/nvim-lsp"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/nvim-lsp
+	url = https://github.com/neovim/nvim-lsp.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/nerdtree"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-nerdtree-tabs"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-nerdtree-tabs
+	url = https://github.com/jistr/vim-nerdtree-tabs.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-sneak"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-sneak
+	url = https://github.com/justinmk/vim-sneak.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/targets.vim"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/targets.vim
+	url = https://github.com/wellle/targets.vim.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-tmux-navigator"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-tmux-navigator
+	url = https://github.com/christoomey/vim-tmux-navigator.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-polyglot"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/gruvbox"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/gruvbox
+	url = https://github.com/morhetz/gruvbox.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-devicons"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-devicons
+	url = https://github.com/ryanoasis/vim-devicons.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-sensible"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-sensible
+	url = https://github.com/tpope/vim-sensible.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-fugitive"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-surround"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-commentary"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-endwise"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/vim-endwise
+	url = https://github.com/tpope/vim-endwise.git

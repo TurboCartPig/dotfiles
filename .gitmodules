@@ -58,3 +58,9 @@
 [submodule ".local/share/nvim/site/pack/turbocartpig/start/vim-endwise"]
 	path = .local/share/nvim/site/pack/turbocartpig/start/vim-endwise
 	url = https://github.com/tpope/vim-endwise.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/rust.vim"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim.git
+[submodule ".local/share/nvim/site/pack/turbocartpig/start/asyncomplete.vim"]
+	path = .local/share/nvim/site/pack/turbocartpig/start/asyncomplete.vim
+	url = https://github.com/prabirshrestha/asyncomplete.vim

@@ -5,7 +5,8 @@ export ZSH=/home/dennis/.config/oh-my-zsh/
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-ZSH_THEME="kardan"
+# ZSH_THEME="kardan"
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -75,6 +76,7 @@ plugins=(
 	ripgrep
 	cargo
 	rustup
+	stack
 	command-not-found
 	colored-man-pages
 	zsh-syntax-highlighting
@@ -91,6 +93,8 @@ export RUSTC_WRAPPER=sccache
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:/var/lib/snapd/snap/bin
+
+if [ -e /home/dennis/.nix-profile/etc/profile.d/nix.sh ]; then . /home/dennis/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
 
 # Vi mode
 bindkey -e
@@ -111,7 +115,11 @@ export LANG=en_US.UTF-8
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ls="exa"
 alias ll="exa -la"
 alias lt="exa -lT"
-alias detach="tmux detach"
 alias v="nvim"
+alias sv="sudo nvim"
+
+# Evals
+eval $(starship init zsh)

@@ -1,5 +1,40 @@
 {
 	"suggest": {
 		"noselect": true
+	},
+	"python": {
+		"jediEnabled": true,
+		"jediPath": "jedi",
+		"formatting.provider": "autopep8",
+		"formatting.autopep8Path": "autopep8",
+		"linting.enabled": true,
+		"linting.pylintEnabled": true,
+		"linting.pylintPath": "/usr/bin/pylint3",
+		"pipenvPath": "pipenv",
+		"venvFolders": ["envs",".pyenv",".direnv", "~/.local/share/virtualenvs"]
+	},
+	"languageserver": {
+		"haskell": {
+			"command": "stack",
+			"args": ["exec", "--", "hie-wrapper", "--lsp"],
+			"rootPatterns": [
+				"*.cabal",
+				"stack.yaml",
+				"cabal.project",
+				"package.yaml"
+			],
+			"filetypes": [
+				"hs",
+				"lhs",
+				"haskell"
+			],
+			"initializationOptions": {
+				"languageServerHaskell": {
+					"hlint": true,
+					"useCustomWrapper": true,
+					"useCustomWrapperPath": "hie-wrapper"
+				}
+			}
+		}
 	}
 }

@@ -2,7 +2,6 @@
 [user]
 	name = Dennis Kristiansen
 	email = denniskristiansen@protonmail.com
-	username = TurboCartPig
 [color]
 	ui = auto
 [core]
@@ -12,5 +11,5 @@
 [credential]
 	# Libsecret/GNOME Keyring
 	helper = /usr/libexec/git-core/git-credential-libsecret
-[github]
-	user = TurboCartPig
+[diff]
+	tool = vimdiff

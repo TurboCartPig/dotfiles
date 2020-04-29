@@ -71,12 +71,15 @@ ZSH_CUSTOM=$HOME/.config/oh-my-zsh-custom/
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
 	git
+	gitignore
+	git-auto-fetch
 	vi-mode
 	tmux
 	ripgrep
 	cargo
 	rustup
 	stack
+	pipenv
 	command-not-found
 	colored-man-pages
 	zsh-syntax-highlighting
@@ -94,7 +97,10 @@ export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:/var/lib/snapd/snap/bin
 
-if [ -e /home/dennis/.nix-profile/etc/profile.d/nix.sh ]; then . /home/dennis/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
+# added by Nix installer
+if [ -e /home/dennis/.nix-profile/etc/profile.d/nix.sh ]; then
+	. /home/dennis/.nix-profile/etc/profile.d/nix.sh;
+fi
 
 # Vi mode
 bindkey -e

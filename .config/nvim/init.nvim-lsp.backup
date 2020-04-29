@@ -1,0 +1,150 @@
+" My broken shitty vimrc file
+"
+" List of binaries it needs (incomplete) (I should check for these)
+" (health-check?)
+" rustup, rls, cargo, rustc
+" npm, yarn
+" clang, clangd, clang-format, clang-tidy
+" gdb, lldb or something
+" fzf, rg (ripgrep)
+
+" Plugins:
+" Plugins are managed by vim8 packages stored in
+" ~/.local/share/nvim/site/pack/turbocartpig/{start,opt}
+luafile ~/.config/nvim/init-plugins.lua
+autocmd Filetype rust,cpp,c,python,lua setlocal omnifunc=v:lua.vim.lsp.omnifunc
+
+" My own settings
+" ------------------------------------------------------------------------
+" Required by something
+scriptencoding utf-8
+set encoding=utf-8
+set hidden
+
+" Disable backups and swapfiles
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Search
+set incsearch
+set hlsearch
+
+" Formatting
+set ignorecase
+set smartcase
+set autoindent
+set noexpandtab
+set tabstop=4
+set shiftwidth=4
+set softtabstop=0
+
+" Visual stuff
+set number
+set numberwidth=3
+set cursorline
+set termguicolors
+set cmdheight=2
+set colorcolumn=76
+
+" Sane splits
+set splitright
+set splitbelow
+
+" Perf stuff
+set updatetime=50
+
+" Misc
+set wildmenu
+set showmatch
+set nocp
+set so=2
+set mouse=a
+" set ssop="blank, buffers, curdir, tabpages, slash, unix, winpos, winsize"
+" set ssop="tabpages"
+set completeopt="menuone,noselect,noinsert,preview"
+set shortmess+=c
+set signcolumn=yes
+set clipboard+=unnamedplus
+
+" Spelling correction
+" set spell
+" set spelllang=en_US
+
+" Leader
+let mapleader = ' '
+
+" Airline settings
+" ------------------------------------------------------------------------
+" let g:airline_theme = 'base16_colors'
+
+" let g:airline_skip_empty_sections = 1
+" let g:airline_powerline_fonts = 1
+" let g:airline_highlighting_cache = 1
+
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" let g:airline#extensions#coc#enabled = 1
+
+
+" VimWiki
+" ------------------------------------------------------------------------
+" let g:vimwiki_list = [{
+" 			\ 'path': '~/vimwiki/',
+" 			\ 'syntax': 'markdown',
+" 			\ 'ext': '.md'
+" 			\ }]
+
+" Hardcopy to pdf
+" ------------------------------------------------------------------------
+set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
+command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
+
+" Vim-sneak
+" ------------------------------------------------------------------------
+" let g:sneak#label = 1
+map , <Plug>Sneak_;
+map ; <Plug>Sneak_,
+
+" My own keybinds
+" ------------------------------------------------------------------------
+
+nnoremap <silent><Leader><Leader> :b#<CR>
+
+nnoremap <silent><Tab> :NERDTreeTabsToggle<CR>
+
+" nvim-lsp keys
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+
+" Move around easier in insert mode
+inoremap <c-h> <left>
+inoremap <c-j> <down>
+inoremap <c-k> <up>
+inoremap <c-l> <right>
+
+" Strong H/L
+nnoremap H 0
+nnoremap L $
+vnoremap H 0
+vnoremap L $
+
+" Move between windows in normal mode
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
+
+" Theme and colorscheme
+" ------------------------------------------------------------------------
+set background=dark
+colorscheme gruvbox
+
+highlight link SignColumn GruvboxBg0

@@ -12,6 +12,7 @@
 " call dein#recache_runtimepath()
 " call map(dein#check_clean(), "delete(v:val, 'rf')")
 
+" Handle Platform specifics
 if has('win32')
 	let dein_install_path = 'C:\Users\dennis\Appdata\Local\dein'
 	let dein_plugin_path = 'C:\Users\dennis\Appdata\Local\dein\repos\github.com\Shougo\dein.vim'
@@ -43,19 +44,22 @@ if dein#load_state(dein_install_path)
 	call dein#add('tpope/vim-surround')
 	call dein#add('tpope/vim-commentary')
 	call dein#add('tpope/vim-endwise')
+	call dein#add('tpope/vim-repeat')
 	call dein#add('kana/vim-operator-user')
-	call dein#add('rstacruz/vim-closer')
-	call dein#add('FooSoft/vim-argwrap')
 	call dein#add('airblade/vim-rooter')
-	call dein#add('editorconfig/editorconfig-vim')
-	call dein#add('rhysd/vim-clang-format')
-	call dein#add('Yggdroot/indentLine')
 
 	" Motion
 	call dein#add('justinmk/vim-sneak')
 	call dein#add('wellle/targets.vim')
 	call dein#add('yuttie/comfortable-motion.vim')
 	call dein#add('christoomey/vim-tmux-navigator')
+
+	" Lang support
+	call dein#add('sheerun/vim-polyglot')
+	call dein#add('neovimhaskell/haskell-vim') " I might not need thees
+	call dein#add('rust-lang/rust.vim')        " ^
+	call dein#add('sbdchd/neoformat')
+	call dein#add('lervag/vimtex')
 
 	" Completion framework
 	call dein#add('neoclide/coc.nvim', {
@@ -64,15 +68,12 @@ if dein#load_state(dein_install_path)
 				\ })
 
 	" Themes
-	call dein#add('sheerun/vim-polyglot')
 	call dein#add('morhetz/gruvbox')
+	call dein#add('sainnhe/edge')
+	call dein#add('ajh17/spacegray.vim')
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('vim-airline/vim-airline-themes')
 	call dein#add('ryanoasis/vim-devicons')
-	call dein#add('junegunn/limelight.vim')
-	call dein#add('junegunn/goyo.vim')
-	call dein#add('camspiers/animate.vim')
-	call dein#add('camspiers/lens.vim')
 
 	call dein#end()
 	call dein#save_state()
@@ -84,8 +85,9 @@ endif
 scriptencoding utf-8
 set encoding=utf-8
 set hidden
+filetype plugin indent on
 
-" Disable backups and swapfiles
+" Disable backups and swapfiles. Thats what VCS' are for.
 set nobackup
 set nowritebackup
 set noswapfile
@@ -102,6 +104,12 @@ set noexpandtab
 set tabstop=4
 set shiftwidth=4
 set softtabstop=0
+
+" Formatting overrides
+augroup FormattingOverrides
+	autocmd FileType haskell,cabal set expandtab
+	autocmd FileType haskell,cabal set shiftwidth=2
+augroup END
 
 " Visual stuff
 set number
@@ -140,71 +148,67 @@ set clipboard+=unnamedplus
 " Leader
 let mapleader = ' '
 
-" Airline settings
+" Polyglot settings
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
-let g:airline_theme = 'base16_colors'
+let g:polyglot_disabled = ['rust', 'haskell', 'latex']
 
-let g:airline_skip_empty_sections = 1
-let g:airline_powerline_fonts = 1
-let g:airline_highlighting_cache = 1
-
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
-
-let g:airline#extensions#coc#enabled = 1
-
-" Startify
+" Neoformat settings
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
-let s:neovim_asci = [
-			\ '         _             _            _      _          _        _         _   _       ',
-			\ '        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
-			\ '       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
-			\ '      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
-			\ '     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
-			\ '    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
-			\ '   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
-			\ '  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
-			\ ' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
-			\ '/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
-			\ '\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
-			\ '                                                                                     ',
-			\ ]
+let g:neoformat_basic_format_align = 0
+let g:neoformat_basic_format_retab = 1
+let g:neoformat_basic_format_trim  = 1
+let g:neoformat_enabled_haskell    = ['ormolu']
 
-let g:startify_custom_header = map(s:neovim_asci, '"   ".v:val')
+" Format on save
+augroup fmt
+	autocmd!
+	" Merge neoformat changes with previous changes
+	" autocmd BufWritePre * undojoin | Neoformat
+	" Keed neoformat as separate undo block
+	autocmd BufWritePre * Neoformat
+augroup END
 
-let g:startify_lists = [
-			\ { 'type': 'bookmarks', 'header': ['   Bookmarks'] },
-			\ { 'type': 'files', 'header': ['   Files'] },
-			\ { 'type': 'sessions', 'header': ['   Sessions'] },
-			\ ]
+" My own keybinds
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
 
-let g:startify_bookmarks = [ '~/.config/nvim/init.vim', '~/.zshrc' ]
+nnoremap <silent><Leader><Leader> :b#<CR>
+
+nnoremap <silent><Tab> :NERDTreeTabsToggle<CR>
+
+" Move around easier in insert mode
+inoremap <c-h> <left>
+inoremap <c-j> <down>
+inoremap <c-k> <up>
+inoremap <c-l> <right>
+
+" Strong H/L
+nnoremap H 0
+nnoremap L $
+vnoremap H 0
+vnoremap L $
+
+" Move between windows in normal mode
+nnoremap <c-h> <c-w>h
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-l> <c-w>l
 
 " Coc.nvim settings
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
 let g:coc_global_extensions = [
-			\ 'coc-rls', 'coc-lists', 'coc-git',
-			\ 'coc-tabnine', 'coc-marketplace',
-			\ 'coc-json', 'coc-yaml', 'coc-highlight',
-			\ 'coc-python', 'coc-clangd', 'coc-cmake'
+			\ 'coc-git',
+			\ 'coc-lists',
+			\ 'coc-marketplace',
+			\ 'coc-highlight',
+			\ 'coc-json',
+			\ 'coc-yaml',
+			\ 'coc-tabnine',
+			\ 'coc-clangd',
+			\ 'coc-cmake',
+			\ 'coc-rls',
+			\ 'coc-python',
+			\ 'coc-vimlsp'
 			\ ]
-
-" inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Use TAB to auto-complete
-" inoremap <silent><expr> <TAB>
-" 			\ pumvisible() ? "\<C-n>" :
-" 			\ <SID>check_back_space() ? "\<TAB>" :
-" 			\ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" function! s:check_back_space() abort
-" 	let col = col('.') - 1
-" 	return !col || getline('.')[col - 1] =~# '\s'
-" endfunction
-
-" Show documentation in preview window
-noremap <silent>gk :call <SID>show_documentation()<CR>
 
 function! s:show_documentation()
 	if (index(['vim','help'], &filetype) >= 0)
@@ -214,11 +218,17 @@ function! s:show_documentation()
 	endif
 endfunction
 
+" Show documentation in preview window
+noremap <silent>gk :call <SID>show_documentation()<CR>
+
 " Format current buffer
-nmap <C-f> :CocAction('format')<CR>
+" nmap <C-f> :CocAction('format')<CR>
 
 " Rename word under cursor
 nnoremap <leader>rn <Plug>(coc-rename)
+
+" Quickfix
+nnoremap <leader>qf <Plug>(coc-fix-current)
 
 " Goto's
 nnoremap <silent>gd <Plug>(coc-definition)
@@ -231,7 +241,14 @@ nnoremap <silent><A-y> :CocList --normal yank<CR>
 nmap <silent>gs :CocList symbols<CR>
 
 " Highlight symbol under cursor
-" autocmd CursorHold * silent call CocActionAsync('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Coc-git settings
+nmap [g <Plug>(coc-git-prevchunk)
+nmap ]g <Plug>(coc-git-nextchunk)
+
+nnoremap <silent><Leader>gs :CocCommand git.chunkStage<CR>
+nnoremap <silent><Leader>gu :CocCommand git.chunkUndo<CR>
 
 " VimWiki
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -240,29 +257,6 @@ let g:vimwiki_list = [{
 			\ 'syntax': 'markdown',
 			\ 'ext': '.md'
 			\ }]
-
-" ArgWarp
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
-let g:argwrap_padded_braces = '{'
-
-nnoremap <silent><leader>a :ArgWrap<CR>
-
-" Clang/LLVM stuff
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
-autocmd FileType c,cpp,objc map <buffer>= <Plug>(operator-clang-format)
-
-" Goyo and limelight
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
-let g:goyo_width = "80%"
-let g:goyo_height = "90%"
-
-autocmd User GoyoEnter Limelight
-autocmd User GoyoLeave Limelight!
-
-" Hardcopy to pdf
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
-set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
-command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
 
 " Comfortable-motion
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -291,33 +285,55 @@ nnoremap <silent><Leader>b :Buffers<CR>
 nnoremap <silent><Leader>f :Files<CR>
 nnoremap <silent><Leader>rg :Rg<CR>
 
-" My own keybinds
+" Hardcopy to pdf
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
+set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
+command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
 
-nnoremap <silent><Leader><Leader> :b#<CR>
+" Startify
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
+let s:neovim_asci = [
+			\ '         _             _            _      _          _        _         _   _       ',
+			\ '        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
+			\ '       /  \ \   /\_\ /  \ \       /  \ \  \ \ \  /_/ / /      \ \ \    / / / / //\_\ ',
+			\ '      / /\ \ \_/ / // /\ \ \     / /\ \ \  \ \ \ \___\/       /\ \_\  /\ \/ \ \/ / / ',
+			\ '     / / /\ \___/ // / /\ \_\   / / /\ \ \ / / /  \ \ \      / /\/_/ /  \____\__/ /  ',
+			\ '    / / /  \/____// /_/_ \/_/  / / /  \ \_\\ \ \   \_\ \    / / /   / /\/________/   ',
+			\ '   / / /    / / // /____/\    / / /   / / / \ \ \  / / /   / / /   / / /\/_// / /    ',
+			\ '  / / /    / / // /\____\/   / / /   / / /   \ \ \/ / /   / / /   / / /    / / /     ',
+			\ ' / / /    / / // / /______  / / /___/ / /     \ \ \/ /___/ / /__ / / /    / / /      ',
+			\ '/ / /    / / // / /_______\/ / /____\/ /       \ \  //\__\/_/___\\/_/    / / /       ',
+			\ '\/_/     \/_/ \/__________/\/_________/         \_\/ \/_________/        \/_/        ',
+			\ '                                                                                     ',
+			\ ]
 
-nnoremap <silent><Tab> :NERDTreeTabsToggle<CR>
+let g:startify_custom_header = map(s:neovim_asci, '"   ".v:val')
 
-" Move around easier in insert mode
-inoremap <c-h> <left>
-inoremap <c-j> <down>
-inoremap <c-k> <up>
-inoremap <c-l> <right>
+let g:startify_lists = [
+			\ { 'type': 'bookmarks', 'header': ['   Bookmarks'] },
+			\ { 'type': 'files', 'header': ['   Files'] },
+			\ { 'type': 'sessions', 'header': ['   Sessions'] },
+			\ ]
 
-" Strong H/L
-nnoremap H 0
-nnoremap L $
-vnoremap H 0
-vnoremap L $
+let g:startify_bookmarks = [ '~/.config/nvim/init.vim', '~/.zshrc' ]
 
-" Move between windows in normal mode
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
+" Airline settings
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
+let g:airline_theme = 'minimalist'
+
+let g:airline_skip_empty_sections = 1
+let g:airline_powerline_fonts     = 1
+let g:airline_highlighting_cache  = 1
+
+let g:airline#extensions#coc#enabled       = 1
+let g:airline#extensions#tabline#enabled   = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Theme and colorscheme
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
+" let g:edge_style = 'neon'
+" let g:edge_disable_italic_comment = 1
+
 set background=dark
 colorscheme gruvbox
 

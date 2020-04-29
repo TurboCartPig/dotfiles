@@ -13,6 +13,9 @@
 		"pipenvPath": "pipenv",
 		"venvFolders": ["envs",".pyenv",".direnv", "~/.local/share/virtualenvs"]
 	},
+	"git": {
+		"gitlab.hosts": ["gitlab.com", "git.gvk.idi.ntnu.no"]
+	},
 	"languageserver": {
 		"haskell": {
 			"command": "stack",

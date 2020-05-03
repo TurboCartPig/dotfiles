@@ -3,6 +3,7 @@
 	name = Dennis Kristiansen
 	email = denniskristiansen@protonmail.com
 	username = TurboCartPig
+	signingkey = 2923CCC946A6C027
 [color]
 	ui = auto
 [core]
@@ -19,3 +20,8 @@
 	conflictstyle = diff3
 [mergetool "vimdiff"]
 	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

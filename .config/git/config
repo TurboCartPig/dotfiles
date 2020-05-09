@@ -10,9 +10,6 @@
 	editor = nvim
 [web]
 	browser = firefox
-[credential]
-	# Libsecret/GNOME Keyring
-	helper = /usr/libexec/git-core/git-credential-libsecret
 [diff]
 	tool = vimdiff
 [merge]
@@ -25,3 +22,4 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+

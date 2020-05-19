@@ -3,7 +3,7 @@
 	name = Dennis Kristiansen
 	email = denniskristiansen@protonmail.com
 	username = TurboCartPig
-	signingkey = 2923CCC946A6C027
+	signingkey = 05178B761EDFCFC5
 [color]
 	ui = auto
 [core]
@@ -23,4 +23,6 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[commit]
+	gpgSign = true
 

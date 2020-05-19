@@ -193,6 +193,13 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 
+" Fzf settings
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
+nnoremap <silent> <Leader>rg :Rg<CR>
+nnoremap <silent> <Leader>fi :Files<CR>
+nnoremap <silent> <Leader>gi :GFiles<CR>
+nnoremap <silent> <Leader>bu :Buffers<CR>
+
 " Coc.nvim settings
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
 let g:coc_global_extensions = [
@@ -278,12 +285,6 @@ vnoremap <silent>K :call comfortable_motion#flick(-50)<CR>
 " let g:sneak#label = 1
 map , <Plug>Sneak_;
 map ; <Plug>Sneak_,
-
-" Fzf
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
-nnoremap <silent><Leader>b :Buffers<CR>
-nnoremap <silent><Leader>f :Files<CR>
-nnoremap <silent><Leader>rg :Rg<CR>
 
 " Hardcopy to pdf
 " ----------------------------------------------------------------------------------------------------------------------------------------------------

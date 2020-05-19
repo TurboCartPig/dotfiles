@@ -97,6 +97,8 @@ export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:/var/lib/snapd/snap/bin
 
+export GPG_TTY=$(tty)
+
 # added by Nix installer
 if [ -e /home/dennis/.nix-profile/etc/profile.d/nix.sh ]; then
 	. /home/dennis/.nix-profile/etc/profile.d/nix.sh;
@@ -126,6 +128,7 @@ alias ll="exa -la"
 alias lt="exa -lT"
 alias v="nvim"
 alias sv="sudo nvim"
+alias vcpkg="/home/dennis/Projects/vcpkg/vcpkg"
 
 # Evals
 eval $(starship init zsh)

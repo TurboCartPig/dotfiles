@@ -24,3 +24,4 @@
 	required = true
 [commit]
 	gpgSign = true
+

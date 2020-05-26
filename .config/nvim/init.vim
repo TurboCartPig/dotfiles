@@ -117,7 +117,7 @@ set numberwidth=3
 set cursorline
 set termguicolors
 set cmdheight=2
-set colorcolumn=76
+autocmd FileType cpp,c set colorcolumn=76
 
 " Sane splits
 set splitright
@@ -247,6 +247,8 @@ nnoremap <silent><A-y> :CocList --normal yank<CR>
 
 nmap <silent>gs :CocList symbols<CR>
 
+nnoremap <silent><C-.> :CocList actions<CR>
+
 " Highlight symbol under cursor
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -336,6 +338,7 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 " let g:edge_disable_italic_comment = 1
 
 set background=dark
+set guifont=SauceCodePro\ NF:h16
 colorscheme gruvbox
 
 highlight link SignColumn GruvboxBg0

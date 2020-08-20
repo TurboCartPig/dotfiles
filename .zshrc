@@ -92,10 +92,8 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export DEFAULT_USER=dennis
 export EDITOR=nvim
-export RUSTC_WRAPPER=sccache
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.local/bin/
-export PATH=$PATH:/var/lib/snapd/snap/bin
 
 export GPG_TTY=$(tty)
 

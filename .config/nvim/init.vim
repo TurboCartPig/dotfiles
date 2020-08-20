@@ -164,6 +164,7 @@ augroup fmt
 	autocmd!
 	" Merge neoformat changes with previous changes
 	" autocmd BufWritePre * undojoin | Neoformat
+
 	" Keed neoformat as separate undo block
 	autocmd BufWritePre * Neoformat
 augroup END
@@ -265,6 +266,10 @@ let g:vimwiki_list = [{
 			\ 'ext': '.md'
 			\ }]
 
+" vimtex
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
+let g:tex_flavor = 'latex'
+
 " Comfortable-motion
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
 let g:comfortable_motion_no_default_mappings = 1
@@ -332,9 +337,6 @@ let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Theme and colorscheme
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
-" let g:edge_style = 'neon'
-" let g:edge_disable_italic_comment = 1
-
 set background=dark
 colorscheme gruvbox
 

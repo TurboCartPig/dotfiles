@@ -58,19 +58,23 @@ if dein#load_state(dein_install_path)
 	call dein#add('sheerun/vim-polyglot')
 	call dein#add('neovimhaskell/haskell-vim') " I might not need thees
 	call dein#add('rust-lang/rust.vim')        " ^
-	call dein#add('sbdchd/neoformat')
 	call dein#add('lervag/vimtex')
+	call dein#add('mattn/emmet-vim')
+
+	" Auto do stuff
+	call dein#add('sbdchd/neoformat')
+	call dein#add('turbio/bracey.vim', {
+				\ 'build': 'npm install --prefix server'
+				\ })
 
 	" Completion framework
 	call dein#add('neoclide/coc.nvim', {
 				\ 'rev': 'release',
-				\ 'bulid': 'call coc#util#install()'
+				\ 'bulid': 'nvim +call coc#util#install()'
 				\ })
 
 	" Themes
 	call dein#add('morhetz/gruvbox')
-	call dein#add('sainnhe/edge')
-	call dein#add('ajh17/spacegray.vim')
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('vim-airline/vim-airline-themes')
 	call dein#add('ryanoasis/vim-devicons')
@@ -87,7 +91,7 @@ set encoding=utf-8
 set hidden
 filetype plugin indent on
 
-" Disable backups and swapfiles. Thats what VCS' are for.
+" Disable backups and swapfiles. Thats what a VCS are for.
 set nobackup
 set nowritebackup
 set noswapfile
@@ -107,8 +111,8 @@ set softtabstop=0
 
 " Formatting overrides
 augroup FormattingOverrides
-	autocmd FileType haskell,cabal set expandtab
-	autocmd FileType haskell,cabal set shiftwidth=2
+	autocmd FileType html,haskell,cabal set expandtab
+	autocmd FileType html,haskell,cabal set shiftwidth=2
 augroup END
 
 " Visual stuff
@@ -125,7 +129,6 @@ set splitbelow
 
 " Perf stuff
 set updatetime=16
-set ttyfast
 set lazyredraw
 
 " Misc
@@ -215,7 +218,10 @@ let g:coc_global_extensions = [
 			\ 'coc-cmake',
 			\ 'coc-rls',
 			\ 'coc-python',
-			\ 'coc-vimlsp'
+			\ 'coc-vimlsp',
+			\ 'coc-html',
+			\ 'coc-css',
+			\ 'coc-emmet'
 			\ ]
 
 function! s:show_documentation()
@@ -271,6 +277,11 @@ let g:vimwiki_list = [{
 " vimtex
 " ----------------------------------------------------------------------------------------------------------------------------------------------------
 let g:tex_flavor = 'latex'
+
+" Emmet.vim
+" ----------------------------------------------------------------------------------------------------------------------------------------------------
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 
 " Comfortable-motion
 " ----------------------------------------------------------------------------------------------------------------------------------------------------

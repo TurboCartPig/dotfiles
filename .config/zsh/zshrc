@@ -94,6 +94,18 @@ export DEFAULT_USER=dennis
 export EDITOR=nvim
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.local/bin/
+export PATH=$PATH:$HOME/.npm-modules/bin/
+
+# Compilers
+# export CC="clang"
+# export CXX="clang++"
+
+# User configuration for cmake
+export CMAKE_GENERATOR="Ninja"
+export CMAKE_EXPORT_COMPILE_COMMANDS="ON"
+export CMAKE_C_COMPILER_LAUNCHER="sccache"
+export CMAKE_CXX_COMPILER_LAUNCHER="sccache"
+export CMAKE_TOOLCHAIN_FILE="/home/dennis/Projects/vcpkg/scripts/buildsystems/vcpkg.cmake"
 
 export GPG_TTY=$(tty)
 
@@ -124,6 +136,8 @@ export LANG=en_US.UTF-8
 alias ls="exa"
 alias ll="exa -la"
 alias lt="exa -lT"
+alias cat="bat"
+alias diff="colordiff"
 alias v="nvim"
 alias sv="sudo nvim"
 alias vcpkg="/home/dennis/Projects/vcpkg/vcpkg"

@@ -1,10 +1,10 @@
-[submodule "/home/dennis/.config/oh-my-zsh"]
+[submodule ".config/oh-my-zsh"]
 	path = .config/oh-my-zsh
 	url = https://github.com/ohmyzsh/ohmyzsh.git
-[submodule "/home/dennis/.config/tmux/plugins/tpm"]
+[submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
-[submodule "/home/dennis/.cache/dein/repos/github.com/Shougo/dein.vim"]
+[submodule ".cache/dein/repos/github.com/Shougo/dein.vim"]
 	path = .cache/dein/repos/github.com/Shougo/dein.vim
 	url = https://github.com/Shougo/dein.vim.git
 [submodule ".config/oh-my-zsh-custom/plugins/zsh-completions"]

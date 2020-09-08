@@ -26,3 +26,6 @@
 [commit]
 	gpgSign = true
 
+[pull]
+	rebase = false
+	ff = only

@@ -4,7 +4,9 @@
   "beta_enabled": "No",
   "ignore_all_lsp": true,
   "creation_time": "2019-09-28T01:03:20.864210694Z",
-  "semantic_status": {},
+  "semantic_status": {
+    "cpp": "Enabled"
+  },
   "disable_auto_update": false,
   "enable_telemetry": false,
   "user_understands_that_enabling_tabnine_cloud_sends_code_to_tabnine_servers": false,

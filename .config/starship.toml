@@ -1,0 +1,23 @@
+add_newline = false
+
+prompt_order = [
+		"username",
+		"directory",
+		"git_branch",
+		"git_state",
+		"git_status",
+		"package",
+		"rust",
+		"python",
+		"cmd_duration",
+		"jobs",
+		"line_break",
+		"character",
+	]
+
+scan_timout = 20
+
+[character]
+symbol = "->"
+
+

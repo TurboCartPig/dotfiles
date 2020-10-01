@@ -72,12 +72,12 @@ ZSH_CUSTOM=$HOME/.config/oh-my-zsh-custom/
 plugins=(
 	git
 	gitignore
-	git-auto-fetch
 	vi-mode
 	tmux
 	ripgrep
 	cargo
 	rustup
+	gh
 	stack
 	pipenv
 	command-not-found
@@ -144,3 +144,5 @@ alias vcpkg="/home/dennis/Projects/vcpkg/vcpkg"
 
 # Evals
 eval $(starship init zsh)
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

@@ -1,0 +1,49 @@
+{
+    "extensions.ignoreRecommendations": false,
+    "git.autofetch": true,
+    "update.mode": "none",
+    "rust-client.engine": "rust-analyzer",
+    "tabnine.experimentalAutoImports": true,
+    "vim.useSystemClipboard": true,
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["H"],
+            "after": ["0"]
+        },
+        {
+            "before": ["L"],
+            "after": ["$"]
+        },
+        {
+            "before": ["J"],
+            "after": ["G"]
+        },
+        {
+            "before": ["K"],
+            "after": ["g", "g"]
+        }
+    ],
+    "vscode-neovim.neovimExecutablePaths.win32": "C:\\Users\\Dennis\\scoop\\apps\\neovim\\current\\bin\\nvim.exe",
+    "vscode-neovim.neovimInitVimPaths.win32": "C:\\Users\\Dennis\\Desktop\\init.vim",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "vscode-neovim.neovimInitVimPaths.linux": "/home/dennis/.config/nvim/vscode.vim",
+    "liveServer.settings.donotShowInfoMsg": true,
+    "html.autoClosingTags": false,
+    "html.format.wrapLineLength": 90,
+    "css.remoteStyleSheets": [
+        "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    ],
+    "workbench.iconTheme": "Monokai Pro Icons",
+    "workbench.colorTheme": "Monokai Pro",
+    "window.menuBarVisibility": "toggle",
+    "window.titleBarStyle": "custom",
+    "C_Cpp.clang_format_fallbackStyle": "LLVM",
+    "settingsSync.ignoredSettings": [
+        "cmake.configureArgs"
+    ],
+    "cmake.configureOnOpen": false,
+    "cmake.generator": "Ninja",
+    "cmake.configureArgs": [
+        "-DCMAKE_TOOLCHAIN_FILE=/home/dennis/Projects/vcpkg/scripts/buildsystems/vcpkg.cmake"
+    ]
+}

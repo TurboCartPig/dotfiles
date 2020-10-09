@@ -8,6 +8,10 @@
 " gdb, lldb or something
 " fzf, rg (ripgrep)
 
+" Polyglot settings
+" ------------------------------------------------------------------------------------------------------------
+let g:polyglot_disabled = ['rust', 'haskell', 'latex']
+
 " To uninstall unneeded plugins; run:
 " call dein#recache_runtimepath()
 " call map(dein#check_clean(), "delete(v:val, 'rf')")
@@ -84,7 +88,7 @@ if dein#load_state(dein_install_path)
 endif
 
 " My own settings
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 " Required by something
 scriptencoding utf-8
 set encoding=utf-8
@@ -98,7 +102,6 @@ set noswapfile
 
 " Search
 set incsearch
-set hlsearch
 
 " Formatting
 set ignorecase
@@ -121,7 +124,6 @@ set numberwidth=3
 set cursorline
 set termguicolors
 set cmdheight=2
-autocmd FileType cpp,c set colorcolumn=76
 
 " Sane splits
 set splitright
@@ -129,7 +131,6 @@ set splitbelow
 
 " Perf stuff
 set updatetime=16
-set lazyredraw
 
 " Misc
 set wildmenu
@@ -151,12 +152,8 @@ set clipboard+=unnamedplus
 " Leader
 let mapleader = ' '
 
-" Polyglot settings
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
-let g:polyglot_disabled = ['rust', 'haskell', 'latex']
-
 " Neoformat settings
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 let g:neoformat_basic_format_align = 0
 let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim  = 1
@@ -173,7 +170,7 @@ augroup fmt
 augroup END
 
 " My own keybinds
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 
 nnoremap <silent><Leader><Leader> :b#<CR>
 
@@ -198,14 +195,14 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 
 " Fzf settings
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 nnoremap <silent> <Leader>rg :Rg<CR>
 nnoremap <silent> <Leader>fi :Files<CR>
 nnoremap <silent> <Leader>gi :GFiles<CR>
 nnoremap <silent> <Leader>bu :Buffers<CR>
 
 " Coc.nvim settings
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 let g:coc_global_extensions = [
 			\ 'coc-git',
 			\ 'coc-lists',
@@ -213,6 +210,7 @@ let g:coc_global_extensions = [
 			\ 'coc-highlight',
 			\ 'coc-json',
 			\ 'coc-yaml',
+			\ 'coc-toml',
 			\ 'coc-tabnine',
 			\ 'coc-clangd',
 			\ 'coc-cmake',
@@ -232,11 +230,14 @@ function! s:show_documentation()
 	endif
 endfunction
 
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
 " Show documentation in preview window
 noremap <silent>gk :call <SID>show_documentation()<CR>
-
-" Format current buffer
-" nmap <C-f> :CocAction('format')<CR>
 
 " Rename word under cursor
 nnoremap <leader>rn <Plug>(coc-rename)
@@ -249,6 +250,11 @@ nnoremap <silent>gd <Plug>(coc-definition)
 nnoremap <silent>gy <Plug>(coc-type-definition)
 nnoremap <silent>gi <Plug>(coc-implementation)
 nnoremap <silent>gr <Plug>(coc-references)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ca <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf <Plug>(coc-fix-current)
 
 nnoremap <silent><A-y> :CocList --normal yank<CR>
 
@@ -267,7 +273,7 @@ nnoremap <silent><Leader>gs :CocCommand git.chunkStage<CR>
 nnoremap <silent><Leader>gu :CocCommand git.chunkUndo<CR>
 
 " VimWiki
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 let g:vimwiki_list = [{
 			\ 'path': '~/vimwiki/',
 			\ 'syntax': 'markdown',
@@ -275,16 +281,16 @@ let g:vimwiki_list = [{
 			\ }]
 
 " vimtex
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 let g:tex_flavor = 'latex'
 
 " Emmet.vim
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
 " Comfortable-motion
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 let g:comfortable_motion_no_default_mappings = 1
 let g:comfortable_motion_interval = 1000.0 / 60.0
 let g:comfortable_motion_friction = 110.0
@@ -299,18 +305,18 @@ vnoremap <silent>J :call comfortable_motion#flick(50)<CR>
 vnoremap <silent>K :call comfortable_motion#flick(-50)<CR>
 
 " Vim-sneak
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 " let g:sneak#label = 1
 map , <Plug>Sneak_;
 map ; <Plug>Sneak_,
 
 " Hardcopy to pdf
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
 command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
 
 " Startify
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 let s:neovim_asci = [
 			\ '         _             _            _      _          _        _         _   _       ',
 			\ '        /\ \     _    /\ \         /\ \   /\ \    _ / /\      /\ \      /\_\/\_\ _   ',
@@ -337,7 +343,7 @@ let g:startify_lists = [
 let g:startify_bookmarks = [ '~/.config/nvim/init.vim', '~/.zshrc' ]
 
 " Airline settings
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 let g:airline_theme = 'minimalist'
 
 let g:airline_skip_empty_sections = 1
@@ -349,7 +355,7 @@ let g:airline#extensions#tabline#enabled   = 1
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
 " Theme and colorscheme
-" ----------------------------------------------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------------------------------------------------------------------
 set background=dark
 set guifont=SauceCodePro\ NF:h16
 colorscheme gruvbox

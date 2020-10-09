@@ -5,7 +5,6 @@ set commentary
 " Search/Filter
 set ignorecase
 set incsearch
-set hlsearch
 
 " IdeaVim stuff
 set ideajoin

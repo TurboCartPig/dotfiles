@@ -34,7 +34,6 @@ if dein#load_state(dein_install_path)
 	call dein#add(dein_plugin_path)
 
 	" Utils
-	call dein#add('Shougo/vimproc.vim', { 'build': 'make' })
 	call dein#add('junegunn/fzf.vim')
 	call dein#add('honza/vim-snippets')
 	call dein#add('scrooloose/nerdtree')
@@ -68,13 +67,13 @@ if dein#load_state(dein_install_path)
 	" Auto do stuff
 	call dein#add('sbdchd/neoformat')
 	call dein#add('turbio/bracey.vim', {
-				\ 'build': 'npm install --prefix server'
+				\ 'build': 'yarn install --prefix server'
 				\ })
 
 	" Completion framework
 	call dein#add('neoclide/coc.nvim', {
+				\ 'merged': 0,
 				\ 'rev': 'release',
-				\ 'bulid': 'nvim +call coc#util#install()'
 				\ })
 
 	" Themes
@@ -219,7 +218,8 @@ let g:coc_global_extensions = [
 			\ 'coc-vimlsp',
 			\ 'coc-html',
 			\ 'coc-css',
-			\ 'coc-emmet'
+			\ 'coc-emmet',
+			\ 'coc-rome'
 			\ ]
 
 function! s:show_documentation()

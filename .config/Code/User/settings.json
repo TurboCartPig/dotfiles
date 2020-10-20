@@ -1,49 +1,94 @@
 {
-    "extensions.ignoreRecommendations": false,
-    "git.autofetch": true,
+    "editor.fontFamily": "'FiraCode NF', 'Fira Code', 'Source Code Pro', Consolas, 'Courier New', monospace",
+    "editor.fontLigatures": true,
+    "editor.formatOnPaste": true,
+    "editor.formatOnSave": true,
+    "editor.formatOnSaveMode": "modifications",
+    "editor.insertSpaces": false,
+    "extensions.ignoreRecommendations": true,
+    "explorer.confirmDelete": false,
+    "extensions.showRecommendationsOnlyOnDemand": true,
+    "files.autoSave": "onFocusChange",
+    "update.showReleaseNotes": false,
     "update.mode": "none",
-    "rust-client.engine": "rust-analyzer",
-    "tabnine.experimentalAutoImports": true,
-    "vim.useSystemClipboard": true,
-    "vim.normalModeKeyBindings": [
-        {
-            "before": ["H"],
-            "after": ["0"]
-        },
-        {
-            "before": ["L"],
-            "after": ["$"]
-        },
-        {
-            "before": ["J"],
-            "after": ["G"]
-        },
-        {
-            "before": ["K"],
-            "after": ["g", "g"]
-        }
-    ],
-    "vscode-neovim.neovimExecutablePaths.win32": "C:\\Users\\Dennis\\scoop\\apps\\neovim\\current\\bin\\nvim.exe",
-    "vscode-neovim.neovimInitVimPaths.win32": "C:\\Users\\Dennis\\Desktop\\init.vim",
-    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
-    "vscode-neovim.neovimInitVimPaths.linux": "/home/dennis/.config/nvim/vscode.vim",
-    "liveServer.settings.donotShowInfoMsg": true,
-    "html.autoClosingTags": false,
-    "html.format.wrapLineLength": 90,
-    "css.remoteStyleSheets": [
-        "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    "settingsSync.ignoredSettings": [
+        "cmake.configureArgs",
     ],
     "workbench.iconTheme": "Monokai Pro Icons",
     "workbench.colorTheme": "Monokai Pro",
+    "workbench.tree.indent": 32,
+    "workbench.tree.renderIndentGuides": "always",
     "window.menuBarVisibility": "toggle",
     "window.titleBarStyle": "custom",
-    "C_Cpp.clang_format_fallbackStyle": "LLVM",
-    "settingsSync.ignoredSettings": [
-        "cmake.configureArgs"
+    "git.autofetch": true,
+    "vim.useSystemClipboard": true,
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-y>": true,
+        "<C-n>": true,
+        "<C-p>": true
+    },
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "H"
+            ],
+            "after": [
+                "0"
+            ]
+        },
+        {
+            "before": [
+                "L"
+            ],
+            "after": [
+                "$"
+            ]
+        },
+        {
+            "before": [
+                "J"
+            ],
+            "after": [
+                "G"
+            ]
+        },
+        {
+            "before": [
+                "K"
+            ],
+            "after": [
+                "g",
+                "g"
+            ]
+        }
     ],
+    "vscode-neovim.neovimExecutablePaths.win32": "C:\\Users\\Dennis\\scoop\\apps\\neovim\\current\\bin\\nvim.exe",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "vscode-neovim.neovimInitVimPaths.linux": "/home/dennis/.config/nvim/vscode.vim",
+    "tabnine.experimentalAutoImports": true,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "C_Cpp.clang_format_sortIncludes": true,
+    "C_Cpp.clang_format_fallbackStyle": "LLVM",
+    "[cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "html.autoClosingTags": false,
+    "html.format.wrapLineLength": 90,
+    "[html]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "typescript.surveys.enabled": false,
+    "javascript.suggest.completeFunctionCalls": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "prettier.useTabs": true,
     "cmake.configureOnOpen": false,
     "cmake.generator": "Ninja",
     "cmake.configureArgs": [
-        "-DCMAKE_TOOLCHAIN_FILE=/home/dennis/Projects/vcpkg/scripts/buildsystems/vcpkg.cmake"
-    ]
+        "-DCMAKE_TOOLCHAIN_FILE=/home/dennis/Projects/vcpkg/scripts/buildsystems/vcpkg.cmake",
+        "-DCMAKE_CXX_COMPILER_LAUNCHER=sccache"
+    ],
+    "vim.highlightedyank.enable": true,
 }

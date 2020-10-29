@@ -20,7 +20,7 @@
   "api_base_url": null,
   "binary_update_interval_seconds": null,
   "local_enabled": "Unset",
-  "disable_local_when_using_battery": false,
+  "disable_local_when_using_battery": true,
   "hide_deep_information_message": false,
   "enable_power_saving_mode": false,
   "rate_limit_interval_seconds": null,

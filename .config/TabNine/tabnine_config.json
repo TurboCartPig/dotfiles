@@ -7,7 +7,6 @@
   "semantic_status": {
     "cpp": "Enabled"
   },
-  "disable_auto_update": false,
   "enable_telemetry": false,
   "user_understands_that_enabling_tabnine_cloud_sends_code_to_tabnine_servers": false,
   "hosted_deep_completions_enabled": "Disabled",

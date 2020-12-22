@@ -35,6 +35,7 @@ if dein#load_state(dein_install_path)
 
 	" Utils
 	call dein#add('junegunn/fzf.vim')
+	call dein#add('junegunn/fzf')
 	call dein#add('honza/vim-snippets')
 	call dein#add('scrooloose/nerdtree')
 	call dein#add('jistr/vim-nerdtree-tabs')
@@ -48,6 +49,7 @@ if dein#load_state(dein_install_path)
 	call dein#add('tpope/vim-commentary')
 	call dein#add('tpope/vim-endwise')
 	call dein#add('tpope/vim-repeat')
+	call dein#add('tpope/vim-projectionist')
 	call dein#add('kana/vim-operator-user')
 	call dein#add('airblade/vim-rooter')
 
@@ -151,6 +153,11 @@ set clipboard+=unnamedplus
 " Leader
 let mapleader = ' '
 
+" Termdebug settings
+" ------------------------------------------------------------------------------------------------------------
+let g:termdebug_popup = 0
+let g:termdebug_wide  = 163
+
 " Neoformat settings
 " ------------------------------------------------------------------------------------------------------------
 let g:neoformat_basic_format_align = 0
@@ -195,10 +202,11 @@ nnoremap <c-l> <c-w>l
 
 " Fzf settings
 " ------------------------------------------------------------------------------------------------------------
-nnoremap <silent> <Leader>rg :Rg<CR>
-nnoremap <silent> <Leader>fi :Files<CR>
-nnoremap <silent> <Leader>gi :GFiles<CR>
-nnoremap <silent> <Leader>bu :Buffers<CR>
+nnoremap <silent><c-p> :Files<CR>
+nnoremap <silent><Leader>r :Rg<CR>
+nnoremap <silent><Leader>f :Files<CR>
+nnoremap <silent><Leader>g :GFiles<CR>
+nnoremap <silent><Leader>b :Buffers<CR>
 
 " Coc.nvim settings
 " ------------------------------------------------------------------------------------------------------------
@@ -242,9 +250,6 @@ noremap <silent>gk :call <SID>show_documentation()<CR>
 " Rename word under cursor
 nnoremap <leader>rn <Plug>(coc-rename)
 
-" Quickfix
-nnoremap <leader>qf <Plug>(coc-fix-current)
-
 " Goto's
 nnoremap <silent>gd <Plug>(coc-definition)
 nnoremap <silent>gy <Plug>(coc-type-definition)
@@ -275,7 +280,7 @@ nnoremap <silent><Leader>gu :CocCommand git.chunkUndo<CR>
 " VimWiki
 " ------------------------------------------------------------------------------------------------------------
 let g:vimwiki_list = [{
-			\ 'path': '~/vimwiki/',
+			\ 'path': '~/.vimwiki/',
 			\ 'syntax': 'markdown',
 			\ 'ext': '.md'
 			\ }]
@@ -350,9 +355,11 @@ let g:airline_skip_empty_sections = 1
 let g:airline_powerline_fonts     = 1
 let g:airline_highlighting_cache  = 1
 
-let g:airline#extensions#coc#enabled       = 1
-let g:airline#extensions#tabline#enabled   = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#coc#enabled        = 1
+let g:airline#extensions#tabline#enabled    = 1
+let g:airline#extensions#tabline#formatter  = 'unique_tail'
 
 " Theme and colorscheme
 " ------------------------------------------------------------------------------------------------------------

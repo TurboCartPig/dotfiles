@@ -114,7 +114,7 @@ if [ -e /home/dennis/.nix-profile/etc/profile.d/nix.sh ]; then
 fi
 
 # Vi mode
-bindkey -e
+# bindkey -v
 
 # export MANPATH="/usr/local/man:$MANPATH"
 

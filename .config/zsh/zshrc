@@ -25,10 +25,10 @@ ZSH_DISABLE_COMPFIX=true
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="false"
+DISABLE_AUTO_UPDATE="true"
 
 # Uncomment the following line to automatically update without prompting.
-DISABLE_UPDATE_PROMPT="true"
+# DISABLE_UPDATE_PROMPT="true"
 
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
@@ -74,12 +74,10 @@ plugins=(
 	gitignore
 	vi-mode
 	tmux
-	ripgrep
 	cargo
 	rustup
 	gh
-	stack
-	pipenv
+	golang
 	command-not-found
 	colored-man-pages
 	zsh-syntax-highlighting
@@ -92,20 +90,21 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 export DEFAULT_USER=dennis
 export EDITOR=nvim
+export VOLTA_HOME="$HOME/.volta"
 export PATH=$PATH:$HOME/.cargo/bin/
 export PATH=$PATH:$HOME/.local/bin/
 export PATH=$PATH:$HOME/.npm-modules/bin/
-
-# Compilers
-# export CC="clang"
-# export CXX="clang++"
+export PATH="$VOLTA_HOME/bin:$PATH"
 
 # User configuration for cmake
 export CMAKE_GENERATOR="Ninja"
 export CMAKE_EXPORT_COMPILE_COMMANDS="ON"
 export CMAKE_C_COMPILER_LAUNCHER="sccache"
 export CMAKE_CXX_COMPILER_LAUNCHER="sccache"
-export CMAKE_TOOLCHAIN_FILE="/home/dennis/Projects/vcpkg/scripts/buildsystems/vcpkg.cmake"
+
+# Fzf configuration
+export FZF_DEFAULT_COMMAND="fd --type f --hidden"
+export FZF_DEFAULT_OPTS="--layout=reverse --tabstop=4"
 
 export GPG_TTY=$(tty)
 
@@ -131,12 +130,9 @@ export LANG=en_US.UTF-8
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="exa"
-alias ll="exa -la"
-alias lt="exa -lT"
-alias cat="bat"
+alias ll="exa -la --git-ignore"
+alias lt="exa -lT --git-ignore"
 alias diff="colordiff"
 alias v="nvim"
 alias sv="sudo nvim"
@@ -144,5 +140,3 @@ alias vcpkg="/home/dennis/Projects/vcpkg/vcpkg"
 
 # Evals
 eval $(starship init zsh)
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"

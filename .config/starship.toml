@@ -6,9 +6,9 @@ prompt_order = [
 		"git_branch",
 		"git_state",
 		"git_status",
-		"package",
 		"rust",
 		"python",
+		"package",
 		"cmd_duration",
 		"jobs",
 		"line_break",
@@ -16,8 +16,4 @@ prompt_order = [
 	]
 
 scan_timout = 20
-
-[character]
-symbol = "->"
-
 

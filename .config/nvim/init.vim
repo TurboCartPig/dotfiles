@@ -1,20 +1,19 @@
 " My broken shitty vimrc file
-"
-" List of binaries it needs (incomplete) (I should check for these)
-" (health-check?)
-" rustup, rls, cargo, rustc
-" npm, yarn
-" clang, clangd, clang-format, clang-tidy
-" gdb, lldb or something
-" fzf, rg (ripgrep)
+
+" TODO: List all the programs that the config depends on, like rls or ripgrep
+" TODO: Define checkhealth stuff to check that everything works
+
+" Delete and uninstall plugins not installed below
+function CleanPluggins()
+	call dein#recache_runtimepath()
+	call map(dein#check_clean(), "delete(v:val, 'rf')")
+endfunction
+
+command! DeinClean call CleanPluggins()
 
 " Polyglot settings
 " ------------------------------------------------------------------------------------------------------------
-let g:polyglot_disabled = ['rust', 'haskell', 'latex']
-
-" To uninstall unneeded plugins; run:
-" call dein#recache_runtimepath()
-" call map(dein#check_clean(), "delete(v:val, 'rf')")
+let g:polyglot_disabled = ['latex']
 
 " Handle Platform specifics
 if has('win32')
@@ -36,7 +35,6 @@ if dein#load_state(dein_install_path)
 	" Utils
 	call dein#add('junegunn/fzf.vim')
 	call dein#add('junegunn/fzf')
-	call dein#add('honza/vim-snippets')
 	call dein#add('scrooloose/nerdtree')
 	call dein#add('jistr/vim-nerdtree-tabs')
 	call dein#add('mhinz/vim-startify')
@@ -49,40 +47,37 @@ if dein#load_state(dein_install_path)
 	call dein#add('tpope/vim-commentary')
 	call dein#add('tpope/vim-endwise')
 	call dein#add('tpope/vim-repeat')
-	call dein#add('tpope/vim-projectionist')
 	call dein#add('kana/vim-operator-user')
 	call dein#add('airblade/vim-rooter')
 
 	" Motion
-	call dein#add('justinmk/vim-sneak')
 	call dein#add('wellle/targets.vim')
 	call dein#add('yuttie/comfortable-motion.vim')
 	call dein#add('christoomey/vim-tmux-navigator')
 
 	" Lang support
 	call dein#add('sheerun/vim-polyglot')
-	call dein#add('neovimhaskell/haskell-vim') " I might not need thees
-	call dein#add('rust-lang/rust.vim')        " ^
 	call dein#add('lervag/vimtex')
 	call dein#add('mattn/emmet-vim')
-
-	" Auto do stuff
 	call dein#add('sbdchd/neoformat')
-	call dein#add('turbio/bracey.vim', {
-				\ 'build': 'yarn install --prefix server'
-				\ })
-
-	" Completion framework
-	call dein#add('neoclide/coc.nvim', {
-				\ 'merged': 0,
-				\ 'rev': 'release',
-				\ })
+	call dein#add('RishabhRD/popfix')
+	call dein#add('RishabhRD/nvim-lsputils')
+	call dein#add('neovim/nvim-lspconfig')
+	call dein#add('nvim-lua/completion-nvim')
+	call dein#add('nvim-lua/lsp_extensions.nvim')
+	call dein#add('nvim-lua/lsp-status.nvim')
+	call dein#add('aca/completion-tabnine', { 'build': './install.sh' })
+	call dein#add('nvim-treesitter/nvim-treesitter', {
+		\ 'hook_post_update': ':TSUpdate'
+		\ })
 
 	" Themes
-	call dein#add('morhetz/gruvbox')
+	" call dein#add('morhetz/gruvbox')
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('vim-airline/vim-airline-themes')
 	call dein#add('ryanoasis/vim-devicons')
+	call dein#add('tjdevries/colorbuddy.vim')
+	call dein#add('npxbr/gruvbox.nvim')
 
 	call dein#end()
 	call dein#save_state()
@@ -115,8 +110,8 @@ set softtabstop=0
 
 " Formatting overrides
 augroup FormattingOverrides
-	autocmd FileType html,haskell,cabal set expandtab
-	autocmd FileType html,haskell,cabal set shiftwidth=2
+	autocmd FileType haskell,cabal setlocal expandtab
+	autocmd FileType haskell,cabal setlocal shiftwidth=2
 augroup END
 
 " Visual stuff
@@ -130,54 +125,32 @@ set cmdheight=2
 set splitright
 set splitbelow
 
-" Perf stuff
-set updatetime=16
-
 " Misc
 set wildmenu
 set showmatch
 set nocp
 set so=2
 set mouse=a
-" set ssop="blank, buffers, curdir, tabpages, slash, unix, winpos, winsize"
-" set ssop="tabpages"
-set completeopt="menu,preview,noselect,noinsert"
+set completeopt=menu,noselect,noinsert
 set shortmess+=c
 set signcolumn=yes
 set clipboard+=unnamedplus
-
-" Spelling correction
-" set spell
-" set spelllang=en_US
+set updatetime=200
 
 " Leader
 let mapleader = ' '
 
+" Abbreviatoins
+ab lenght length
+
 " Termdebug settings
 " ------------------------------------------------------------------------------------------------------------
+packadd termdebug
 let g:termdebug_popup = 0
 let g:termdebug_wide  = 163
 
-" Neoformat settings
-" ------------------------------------------------------------------------------------------------------------
-let g:neoformat_basic_format_align = 0
-let g:neoformat_basic_format_retab = 1
-let g:neoformat_basic_format_trim  = 1
-let g:neoformat_enabled_haskell    = ['ormolu']
-
-" Format on save
-augroup fmt
-	autocmd!
-	" Merge neoformat changes with previous changes
-	" autocmd BufWritePre * undojoin | Neoformat
-
-	" Keed neoformat as separate undo block
-	autocmd BufWritePre * Neoformat
-augroup END
-
 " My own keybinds
 " ------------------------------------------------------------------------------------------------------------
-
 nnoremap <silent><Leader><Leader> :b#<CR>
 
 nnoremap <silent><Tab> :NERDTreeTabsToggle<CR>
@@ -208,74 +181,91 @@ nnoremap <silent><Leader>f :Files<CR>
 nnoremap <silent><Leader>g :GFiles<CR>
 nnoremap <silent><Leader>b :Buffers<CR>
 
-" Coc.nvim settings
+" Treesitter settings
 " ------------------------------------------------------------------------------------------------------------
-let g:coc_global_extensions = [
-			\ 'coc-git',
-			\ 'coc-lists',
-			\ 'coc-marketplace',
-			\ 'coc-highlight',
-			\ 'coc-json',
-			\ 'coc-yaml',
-			\ 'coc-toml',
-			\ 'coc-tabnine',
-			\ 'coc-clangd',
-			\ 'coc-cmake',
-			\ 'coc-rls',
-			\ 'coc-python',
-			\ 'coc-vimlsp',
-			\ 'coc-html',
-			\ 'coc-css',
-			\ 'coc-emmet',
-			\ 'coc-rome'
-			\ ]
+lua <<EOF
+local configs = require'nvim-treesitter.configs'
 
-function! s:show_documentation()
-	if (index(['vim','help'], &filetype) >= 0)
-		execute 'h '.expand('<cword>')
-	else
-		call CocAction('doHover')
-	endif
-endfunction
+configs.setup {
+	ensure_installed = "maintained",
+	highlight = {
+		enable = true,
+	},
+	indent = {
+		enable = true,
+	},
+}
+EOF
 
-" Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+set background=dark
+lua require('colorbuddy').colorscheme('gruvbox')
 
-" Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" LSP settings
+" ------------------------------------------------------------------------------------------------------------
+lua <<EOF
+local lspc = require'lspconfig'
 
-" Show documentation in preview window
-noremap <silent>gk :call <SID>show_documentation()<CR>
+lspc.rust_analyzer.setup {}
+lspc.clangd.setup {}
+lspc.gopls.setup {}
+lspc.hls.setup {}
+lspc.pyls.setup {}
+lspc.vimls.setup {}
 
-" Rename word under cursor
-nnoremap <leader>rn <Plug>(coc-rename)
+-- Setup lua language server
+local sumneko_root = vim.fn.expand("$HOME/Projects/lua-language-server")
+local sumneko_bin  = sumneko_root .. "/bin/Linux/lua-language-server"
+lspc.sumneko_lua.setup {
+	cmd = { sumneko_bin, "-E", sumneko_root .. "/main.lua"};
+	settings = {
+		Lua = {
+			runtime = {
+				version = "LuaJIT",
+				path = vim.split(package.path, ";"),
+			},
+		},
+		diagnostics = { globals = { 'vim' }, },
+		workspace = {
+			library = {
+				[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+				[vim.fn.expand("VIMRUNTIME/lua/vim/lsp")] = true,
+			},
+		},
+	},
+}
 
-" Goto's
-nnoremap <silent>gd <Plug>(coc-definition)
-nnoremap <silent>gy <Plug>(coc-type-definition)
-nnoremap <silent>gi <Plug>(coc-implementation)
-nnoremap <silent>gr <Plug>(coc-references)
+vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
+vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
+vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
+vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
+vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
+vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
+vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+EOF
 
-" Remap keys for applying codeAction to the current buffer.
-nmap <leader>ca <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-nmap <leader>qf <Plug>(coc-fix-current)
+nnoremap <silent> gd     <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> <c-t>  <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gI     <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-s>  <cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr     <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0     <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW     <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> gD     <cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> <M-CR> <cmd>lua vim.lsp.buf.code_action()<CR>
 
-nnoremap <silent><A-y> :CocList --normal yank<CR>
+" Enable completions for supported languages
+autocmd Filetype rust,go,c,cpp,python,haskell,cabal,lua,vim setlocal omnifunc=v:lua.vim.lsp.omnifunc
+autocmd BufWritePre *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua lua vim.lsp.buf.formatting_sync(nil, 1000)
+autocmd BufEnter * lua require'completion'.on_attach()
 
-nmap <silent>gs :CocList symbols<CR>
+" Show diagnostic popup on cursor hover
+autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
 
-nnoremap <silent><C-.> :CocList actions<CR>
-
-" Highlight symbol under cursor
-autocmd CursorHold * silent call CocActionAsync('highlight')
-
-" Coc-git settings
-nmap [g <Plug>(coc-git-prevchunk)
-nmap ]g <Plug>(coc-git-nextchunk)
-
-nnoremap <silent><Leader>gs :CocCommand git.chunkStage<CR>
-nnoremap <silent><Leader>gu :CocCommand git.chunkUndo<CR>
+" Enable type inlay hints
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
+\ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
 
 " VimWiki
 " ------------------------------------------------------------------------------------------------------------
@@ -309,11 +299,14 @@ nnoremap <silent>K :call comfortable_motion#flick(-50)<CR>
 vnoremap <silent>J :call comfortable_motion#flick(50)<CR>
 vnoremap <silent>K :call comfortable_motion#flick(-50)<CR>
 
-" Vim-sneak
+" Neoformat settings
 " ------------------------------------------------------------------------------------------------------------
-" let g:sneak#label = 1
-map , <Plug>Sneak_;
-map ; <Plug>Sneak_,
+let g:neoformat_basic_format_align = 0
+let g:neoformat_basic_format_retab = 1
+let g:neoformat_basic_format_trim  = 1
+let g:neoformat_enabled_haskell    = ['ormolu']
+
+nnoremap <silent><c-M-L> <cmd>Neoformat<CR>
 
 " Hardcopy to pdf
 " ------------------------------------------------------------------------------------------------------------
@@ -355,22 +348,7 @@ let g:airline_skip_empty_sections = 1
 let g:airline_powerline_fonts     = 1
 let g:airline_highlighting_cache  = 1
 
-
 let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#coc#enabled        = 1
 let g:airline#extensions#tabline#enabled    = 1
 let g:airline#extensions#tabline#formatter  = 'unique_tail'
-
-" Theme and colorscheme
-" ------------------------------------------------------------------------------------------------------------
-set background=dark
-set guifont=SauceCodePro\ NF:h16
-colorscheme gruvbox
-
-highlight link SignColumn GruvboxBg0
-highlight link CocGitAddedSign GruvboxBg2
-highlight link CocGitChangeRemovedSign GruvboxBg2
-highlight link CocGitChangedSign GruvboxBg2
-highlight link CocGitRemovedSign GruvboxBg2
-highlight link CocGitTopRemovedSign GruvboxBg2
 

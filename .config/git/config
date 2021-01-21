@@ -9,6 +9,7 @@
 
 [core]
 	editor = nvim
+	pager  = bat
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f

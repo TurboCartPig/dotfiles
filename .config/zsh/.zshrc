@@ -70,37 +70,59 @@ ZSH_CUSTOM=$HOME/.config/oh-my-zsh-custom/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-	git
-	gitignore
 	vi-mode
-	tmux
-	cargo
-	rustup
-	gh
-	golang
 	command-not-found
 	colored-man-pages
 	zsh-syntax-highlighting
 	zsh-autosuggestions
 	zsh-completions
+	git
+	docker
+	cargo
+	rustup
+	golang
+	cabal
+	ghcup
+	gh
 )
+
+# Reload completions
+autoload -U compinit && compinit
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export DEFAULT_USER=dennis
 export EDITOR=nvim
+export VISUAL=nvim
+export PAGER=bat
+
+export PATH="$PATH:$HOME/.local/bin/"
+export PATH="$PATH:$HOME/.npm-modules/bin/"
+
+# Cargo rust
+export PATH="$PATH:$HOME/.cargo/bin/"
+
+# Go
+export PATH="$PATH:$HOME/go/bin/"
+
+# Volta nodejs
 export VOLTA_HOME="$HOME/.volta"
-export PATH=$PATH:$HOME/.cargo/bin/
-export PATH=$PATH:$HOME/.local/bin/
-export PATH=$PATH:$HOME/.npm-modules/bin/
 export PATH="$VOLTA_HOME/bin:$PATH"
 
-# User configuration for cmake
+# Haskell
+export CABAL_DIR="$HOME/.config/cabal"
+export GHCUP_USE_XDG_DIRS="ON"
+
+# Cmake
 export CMAKE_GENERATOR="Ninja"
+export CMAKE_CONFIG_TYPE="Debug"
 export CMAKE_EXPORT_COMPILE_COMMANDS="ON"
 export CMAKE_C_COMPILER_LAUNCHER="sccache"
 export CMAKE_CXX_COMPILER_LAUNCHER="sccache"
+
+# Vcpkg path
+export VCPKG_ROOT="$HOME/Projects/vcpkg"
 
 # Fzf configuration
 export FZF_DEFAULT_COMMAND="fd --type f --hidden"
@@ -108,21 +130,7 @@ export FZF_DEFAULT_OPTS="--layout=reverse --tabstop=4"
 
 export GPG_TTY=$(tty)
 
-# added by Nix installer
-if [ -e /home/dennis/.nix-profile/etc/profile.d/nix.sh ]; then
-	. /home/dennis/.nix-profile/etc/profile.d/nix.sh;
-fi
-
-# Vi mode
-# bindkey -v
-
-# export MANPATH="/usr/local/man:$MANPATH"
-
-# You may need to manually set your language environment
-export LANG=en_US.UTF-8
-
-# Compilation flags
-# export ARCHFLAGS="-arch x86_64"
+export MANPATH="$MANPATH:/usr/local/man"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -130,6 +138,8 @@ export LANG=en_US.UTF-8
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
+#
+# My aliases
 alias ls="exa"
 alias ll="exa -la --git-ignore"
 alias lt="exa -lT --git-ignore"
@@ -140,3 +150,4 @@ alias vcpkg="/home/dennis/Projects/vcpkg/vcpkg"
 
 # Evals
 eval $(starship init zsh)
+

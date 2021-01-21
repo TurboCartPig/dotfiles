@@ -4,6 +4,7 @@
   "beta_enabled": "No",
   "ignore_all_lsp": true,
   "creation_time": "2019-09-28T01:03:20.864210694Z",
+  "guuid": null,
   "semantic_status": {
     "cpp": "Enabled"
   },
@@ -14,8 +15,9 @@
   "tabnine_cloud_certificate_domain": null,
   "tabnine_cloud_port": null,
   "cloud_whitelist": [],
+  "num_of_suggestions": null,
+  "multiline_suggestions": null,
   "api_key": "mxosjqbxuknoyselmvnjnmbuthtehx",
-  "api_key_service_level": "Cloud",
   "api_base_url": null,
   "binary_update_interval_seconds": null,
   "local_enabled": "Unset",
@@ -26,5 +28,7 @@
   "rate_limit_amount": null,
   "generation": 0,
   "local_model_size": null,
-  "local_indexing": null
+  "model_hash_override": null,
+  "local_indexing": null,
+  "heartbeat_interval_seconds": null
 }

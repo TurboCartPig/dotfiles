@@ -3,6 +3,8 @@
 " TODO: List all the programs that the config depends on, like rls or ripgrep
 " TODO: Define checkhealth stuff to check that everything works
 
+" Custom functions and commands {{{
+
 " Delete and uninstall plugins not installed below
 function CleanPluggins()
 	call dein#recache_runtimepath()
@@ -11,11 +13,15 @@ endfunction
 
 command! DeinClean call CleanPluggins()
 
-" Polyglot settings
-" ------------------------------------------------------------------------------------------------------------
-let g:polyglot_disabled = ['latex']
+ " }}}
 
-" Handle Platform specifics
+" Polyglot settings {{{
+" ------------------------------------------------------------------------------------------------------------
+let g:polyglot_disabled = ['latex', 'go', 'rust']
+
+" }}}
+
+" Handle platform specifics for plugins {{{
 if has('win32')
 	let dein_install_path = 'C:\Users\dennis\Appdata\Local\dein'
 	let dein_plugin_path = 'C:\Users\dennis\Appdata\Local\dein\repos\github.com\Shougo\dein.vim'
@@ -28,6 +34,9 @@ elseif has('unix')
 	set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 endif
 
+" }}}
+
+" Define plugins {{{
 if dein#load_state(dein_install_path)
 	call dein#begin(dein_install_path)
 	call dein#add(dein_plugin_path)
@@ -38,6 +47,8 @@ if dein#load_state(dein_install_path)
 	call dein#add('scrooloose/nerdtree')
 	call dein#add('jistr/vim-nerdtree-tabs')
 	call dein#add('mhinz/vim-startify')
+	call dein#add('sbdchd/neoformat')
+	call dein#add('editorconfig/editorconfig-vim')
 	call dein#add('vimwiki/vimwiki')
 
 	" This isn't default?
@@ -57,16 +68,18 @@ if dein#load_state(dein_install_path)
 
 	" Lang support
 	call dein#add('sheerun/vim-polyglot')
-	call dein#add('lervag/vimtex')
-	call dein#add('mattn/emmet-vim')
-	call dein#add('sbdchd/neoformat')
-	call dein#add('RishabhRD/popfix')
-	call dein#add('RishabhRD/nvim-lsputils')
+	call dein#add('lervag/vimtex', { 'lazy': v:true, 'on_ft': ['latex', 'tex']})
+	call dein#add('mattn/emmet-vim', { 'lazy': v:true, 'on_ft': ['html', 'css']})
+	call dein#add('fatih/vim-go')
+	call dein#add('rust-lang/rust.vim')
 	call dein#add('neovim/nvim-lspconfig')
+	call dein#add('glepnir/lspsaga.nvim')
 	call dein#add('nvim-lua/completion-nvim')
 	call dein#add('nvim-lua/lsp_extensions.nvim')
 	call dein#add('nvim-lua/lsp-status.nvim')
-	call dein#add('aca/completion-tabnine', { 'build': './install.sh' })
+	" FIXME: This plugin is a bit shit atm
+	" call dein#add('aca/completion-tabnine', { 'build': './install.sh' })
+	call dein#add('nvim-treesitter/completion-treesitter')
 	call dein#add('nvim-treesitter/nvim-treesitter', {
 		\ 'hook_post_update': ':TSUpdate'
 		\ })
@@ -83,21 +96,21 @@ if dein#load_state(dein_install_path)
 	call dein#save_state()
 endif
 
-" My own settings
+" }}}
+
+" My own settings {{{
 " ------------------------------------------------------------------------------------------------------------
-" Required by something
-scriptencoding utf-8
-set encoding=utf-8
 set hidden
 filetype plugin indent on
 
-" Disable backups and swapfiles. Thats what a VCS are for.
+" Disable backups and swapfiles. Thats what a VCS' are for.
 set nobackup
 set nowritebackup
 set noswapfile
 
 " Search
 set incsearch
+set showmatch
 
 " Formatting
 set ignorecase
@@ -108,52 +121,101 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=0
 
-" Formatting overrides
-augroup FormattingOverrides
-	autocmd FileType haskell,cabal setlocal expandtab
-	autocmd FileType haskell,cabal setlocal shiftwidth=2
-augroup END
-
 " Visual stuff
 set number
 set numberwidth=3
+set signcolumn=yes
 set cursorline
-set termguicolors
 set cmdheight=2
+set scrolloff=5
+set termguicolors
 
 " Sane splits
 set splitright
 set splitbelow
 
-" Misc
+" Menues
 set wildmenu
-set showmatch
-set nocp
-set so=2
-set mouse=a
 set completeopt=menu,noselect,noinsert
-set shortmess+=c
-set signcolumn=yes
+set shortmess=filoOTcF
+
+" Misc
+set mouse=a
 set clipboard+=unnamedplus
 set updatetime=200
 
 " Leader
 let mapleader = ' '
 
-" Abbreviatoins
-ab lenght length
+" }}}
 
-" Termdebug settings
+" Abbreviations {{{
+
+" Command abbreviations
+cnoreabbrev Q q
+cnoreabbrev Q! q!
+cnoreabbrev Qa qa
+cnoreabbrev W w
+cnoreabbrev W! w!
+cnoreabbrev Wa wa
+cnoreabbrev WA wa
+cnoreabbrev Wq wq
+cnoreabbrev WQ wq
+cnoreabbrev WQ! wq!
+
+" Abbreviations
+noreabbrev lenght length
+noreabbrev widht width
+noreabbrev higth height
+
+" }}}
+
+" Per language options {{{
+" Formatting overrides
+augroup FormattingOverrides
+	autocmd!
+	autocmd FileType haskell,cabal setlocal expandtab
+	autocmd FileType haskell,cabal setlocal shiftwidth=2
+augroup END
+
+augroup FoldingSettings
+	autocmd!
+	autocmd FileType c,cpp,rust setlocal foldmethod=syntax
+	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+" }}}
+
+" Neovide (GUI) settings {{{
+" See: https://github.com/Kethku/neovide/wiki/Configuration
 " ------------------------------------------------------------------------------------------------------------
-packadd termdebug
+" Fixes broken AltGr keybinds
+inoremap <C-M-[> [
+inoremap <C-M-]> ]
+inoremap <C-M-{> {
+inoremap <C-M-}> }
+inoremap <C-M-@> @
+inoremap <C-M-`> `
+inoremap <C-M-´> ´
+
+" FIXME: Neovide draws fonts smaller than they should be.
+set guifont=FiraCode\ NF:h15
+
+let g:neovide_refresh_rate=165
+
+" }}}
+
+" Termdebug settings {{{
+" ------------------------------------------------------------------------------------------------------------
 let g:termdebug_popup = 0
 let g:termdebug_wide  = 163
 
-" My own keybinds
+" }}}
+
+" My own keybinds {{{
 " ------------------------------------------------------------------------------------------------------------
 nnoremap <silent><Leader><Leader> :b#<CR>
 
-nnoremap <silent><Tab> :NERDTreeTabsToggle<CR>
+" nnoremap <silent><Tab> :NERDTreeTabsToggle<CR>
 
 " Move around easier in insert mode
 inoremap <c-h> <left>
@@ -173,7 +235,9 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-l> <c-w>l
 
-" Fzf settings
+" }}}
+
+" Fzf settings {{{
 " ------------------------------------------------------------------------------------------------------------
 nnoremap <silent><c-p> :Files<CR>
 nnoremap <silent><Leader>r :Rg<CR>
@@ -181,13 +245,15 @@ nnoremap <silent><Leader>f :Files<CR>
 nnoremap <silent><Leader>g :GFiles<CR>
 nnoremap <silent><Leader>b :Buffers<CR>
 
-" Treesitter settings
+" }}}
+
+" Treesitter settings {{{
 " ------------------------------------------------------------------------------------------------------------
 lua <<EOF
 local configs = require'nvim-treesitter.configs'
 
 configs.setup {
-	ensure_installed = "maintained",
+	ensure_installed = { "bash", "c", "cpp", "css", "go", "haskell", "html", "javascript", "json", "lua", "python", "rust", "toml", "yaml" },
 	highlight = {
 		enable = true,
 	},
@@ -200,17 +266,19 @@ EOF
 set background=dark
 lua require('colorbuddy').colorscheme('gruvbox')
 
-" LSP settings
+" }}}
+
+" LSP settings {{{
 " ------------------------------------------------------------------------------------------------------------
 lua <<EOF
 local lspc = require'lspconfig'
 
 lspc.rust_analyzer.setup {}
 lspc.clangd.setup {}
-lspc.gopls.setup {}
 lspc.hls.setup {}
 lspc.pyls.setup {}
 lspc.vimls.setup {}
+lspc.gopls.setup {}
 
 -- Setup lua language server
 local sumneko_root = vim.fn.expand("$HOME/Projects/lua-language-server")
@@ -234,40 +302,70 @@ lspc.sumneko_lua.setup {
 	},
 }
 
-vim.lsp.handlers['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
-vim.lsp.handlers['textDocument/references'] = require'lsputil.locations'.references_handler
-vim.lsp.handlers['textDocument/definition'] = require'lsputil.locations'.definition_handler
-vim.lsp.handlers['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
-vim.lsp.handlers['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
-vim.lsp.handlers['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
-vim.lsp.handlers['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-vim.lsp.handlers['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+local saga = require'lspsaga'
+saga.init_lsp_saga()
 EOF
 
-nnoremap <silent> gd     <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> <c-t>  <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gI     <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-s>  <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD    <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr     <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0     <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW     <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> gD     <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> <M-CR> <cmd>lua vim.lsp.buf.code_action()<CR>
+nnoremap <silent> gd      <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
+nnoremap <silent> gD      <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
+nnoremap <silent> <M-CR>  <cmd>lua require'lspsaga.codeaction'.code_action()<CR>
+nnoremap <silent> <C-t>   <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> <C-s>   <cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>
+nnoremap <silent> R       <cmd>lua require'lspsaga.rename'.rename()<CR>
+
+let g:completion_confirm_key = "\<C-y>"
+let g:completion_enable_auto_paren = v:true
+let g:completion_auto_change_source = v:true
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+let g:completion_chain_complete_list = {
+	\ 'default': {
+	\     'default': [
+	\         { 'complete_items': ['lsp', 'tabnine', 'ts'] },
+	\         { 'complete_items': ['path'], 'trigger_only': ['/'] },
+	\         { 'mode': '<c-p>' },
+	\         { 'mode': '<c-n>' }
+	\     ],
+	\     'comment': [
+	\         { 'complete_items': ['tabnine', 'ts'] },
+	\         { 'mode': '<c-p>' },
+	\         { 'mode': '<c-n>' }
+	\     ],
+	\     'string': [
+	\         { 'complete_items': ['tabnine', 'ts'] },
+	\         { 'mode': '<c-p>' },
+	\         { 'mode': '<c-n>' }
+	\     ]
+	\ }
+\ }
 
 " Enable completions for supported languages
-autocmd Filetype rust,go,c,cpp,python,haskell,cabal,lua,vim setlocal omnifunc=v:lua.vim.lsp.omnifunc
-autocmd BufWritePre *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua lua vim.lsp.buf.formatting_sync(nil, 1000)
-autocmd BufEnter * lua require'completion'.on_attach()
+augroup neovim_lsp
+	autocmd!
 
-" Show diagnostic popup on cursor hover
-autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()
+	autocmd BufEnter * lua require'completion'.on_attach()
 
-" Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
-\ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
+	autocmd FileType rust,go,c,cpp,python,haskell,cabal,lua,vim
+		\ setlocal omnifunc=v:lua.vim.lsp.omnifunc
 
-" VimWiki
+	autocmd BufWritePre *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua
+		\ lua vim.lsp.buf.formatting_sync(nil, 1000)
+
+	" Show diagnostic popup on cursor hover
+	autocmd CursorHold *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua
+		\ lua require'lspsaga.diagnostic'.show_line_diagnostics()
+
+	" Show signature help on hover
+	autocmd CursorHoldI *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua
+		\ lua require'lspsaga.signaturehelp'.signature_help()
+
+	" Enable type inlay hints (Only for rust)
+	autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
+		\ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
+augroup END
+
+" }}}
+
+" VimWiki {{{
 " ------------------------------------------------------------------------------------------------------------
 let g:vimwiki_list = [{
 			\ 'path': '~/.vimwiki/',
@@ -275,16 +373,49 @@ let g:vimwiki_list = [{
 			\ 'ext': '.md'
 			\ }]
 
-" vimtex
+" }}}
+
+" vimtex {{{
 " ------------------------------------------------------------------------------------------------------------
 let g:tex_flavor = 'latex'
 
-" Emmet.vim
+" }}}
+
+" Emmet.vim {{{
 " ------------------------------------------------------------------------------------------------------------
 let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
 
-" Comfortable-motion
+augroup EmmetFileType
+	autocmd FileType html,css EmmetInstall
+augroup END
+
+" }}}
+
+" vim-go {{{
+" ------------------------------------------------------------------------------------------------------------
+" Disable functionality included by neovim itself
+let g:go_code_completion_enabled = v:false
+let g:go_gopls_enabled           = v:false
+
+" Autoformatting
+let g:go_fmt_autosave        = v:true
+let g:go_imports_autosave    = v:true
+let g:go_mod_fmt_autosave    = v:true
+
+" Syntax
+" let g:go_highlight_types     = v:true
+" let g:go_highlight_fields    = v:true
+" let g:go_highlight_functions = v:true
+
+" Misc
+let g:go_def_mapping_enabled = v:false
+let g:go_auto_type_info      = v:false
+let g:go_auto_sameids        = v:false
+let g:go_jump_to_error       = v:true
+
+" }}}
+
+" Comfortable-motion {{{
 " ------------------------------------------------------------------------------------------------------------
 let g:comfortable_motion_no_default_mappings = 1
 let g:comfortable_motion_interval = 1000.0 / 60.0
@@ -299,21 +430,28 @@ nnoremap <silent>K :call comfortable_motion#flick(-50)<CR>
 vnoremap <silent>J :call comfortable_motion#flick(50)<CR>
 vnoremap <silent>K :call comfortable_motion#flick(-50)<CR>
 
-" Neoformat settings
+" }}}
+
+" Neoformat settings {{{
 " ------------------------------------------------------------------------------------------------------------
 let g:neoformat_basic_format_align = 0
 let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim  = 1
+let g:neoformat_enabled_python     = ['black']
 let g:neoformat_enabled_haskell    = ['ormolu']
 
 nnoremap <silent><c-M-L> <cmd>Neoformat<CR>
 
-" Hardcopy to pdf
+" }}}
+
+" Hardcopy to pdf {{{
 " ------------------------------------------------------------------------------------------------------------
 set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
 command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
 
-" Startify
+" }}}
+
+" Startify {{{
 " ------------------------------------------------------------------------------------------------------------
 let s:neovim_asci = [
 			\ '         _             _            _      _          _        _         _   _       ',
@@ -340,7 +478,9 @@ let g:startify_lists = [
 
 let g:startify_bookmarks = [ '~/.config/nvim/init.vim', '~/.zshrc' ]
 
-" Airline settings
+" }}}
+
+" Airline settings {{{
 " ------------------------------------------------------------------------------------------------------------
 let g:airline_theme = 'minimalist'
 
@@ -352,3 +492,4 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#tabline#enabled    = 1
 let g:airline#extensions#tabline#formatter  = 'unique_tail'
 
+" }}}

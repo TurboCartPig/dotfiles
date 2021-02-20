@@ -42,8 +42,14 @@ if dein#load_state(dein_install_path)
 	call dein#add(dein_plugin_path)
 
 	" Utils
-	call dein#add('junegunn/fzf.vim')
-	call dein#add('junegunn/fzf')
+	call dein#add('junegunn/fzf', {
+		\ 'hook_post_update': 'call fzf::install()',
+		\ 'merged': v:false
+		\ })
+	call dein#add('junegunn/fzf.vim', {
+		\ 'depends': 'fzf',
+		\ 'merged': v:false
+		\ })
 	call dein#add('scrooloose/nerdtree')
 	call dein#add('jistr/vim-nerdtree-tabs')
 	call dein#add('mhinz/vim-startify')

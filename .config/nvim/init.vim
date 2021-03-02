@@ -42,30 +42,24 @@ if dein#load_state(dein_install_path)
 	call dein#add(dein_plugin_path)
 
 	" Utils
-	call dein#add('junegunn/fzf', {
-		\ 'hook_post_update': 'call fzf::install()',
-		\ 'merged': v:false
-		\ })
-	call dein#add('junegunn/fzf.vim', {
-		\ 'depends': 'fzf',
-		\ 'merged': v:false
-		\ })
 	call dein#add('scrooloose/nerdtree')
 	call dein#add('jistr/vim-nerdtree-tabs')
 	call dein#add('mhinz/vim-startify')
 	call dein#add('sbdchd/neoformat')
 	call dein#add('editorconfig/editorconfig-vim')
 	call dein#add('vimwiki/vimwiki')
+	" call dein#add('andweeb/presence.nvim')
 
 	" This isn't default?
 	call dein#add('tpope/vim-sensible')
 	call dein#add('tpope/vim-fugitive')
 	call dein#add('tpope/vim-surround')
 	call dein#add('tpope/vim-commentary')
-	call dein#add('tpope/vim-endwise')
+	" call dein#add('tpope/vim-endwise')
 	call dein#add('tpope/vim-repeat')
 	call dein#add('kana/vim-operator-user')
 	call dein#add('airblade/vim-rooter')
+	call dein#add('cohama/lexima.vim')
 
 	" Motion
 	call dein#add('wellle/targets.vim')
@@ -74,15 +68,20 @@ if dein#load_state(dein_install_path)
 
 	" Lang support
 	call dein#add('sheerun/vim-polyglot')
-	call dein#add('lervag/vimtex', { 'lazy': v:true, 'on_ft': ['latex', 'tex']})
-	call dein#add('mattn/emmet-vim', { 'lazy': v:true, 'on_ft': ['html', 'css']})
-	call dein#add('fatih/vim-go')
-	call dein#add('rust-lang/rust.vim')
+	call dein#add('lervag/vimtex', { 'lazy': v:true, 'on_ft': ['latex', 'tex'] })
+	call dein#add('mattn/emmet-vim', { 'lazy': v:true, 'on_ft': ['html', 'css'] })
+	call dein#add('fatih/vim-go', { 'lazy': v:true, 'merged': v:false })
+	call dein#add('rust-lang/rust.vim', { 'merged': v:false })
+
+	" LSP and completions
 	call dein#add('neovim/nvim-lspconfig')
+	call dein#add('nvim-lua/popup.nvim')
+	call dein#add('nvim-lua/plenary.nvim')
+	call dein#add('nvim-telescope/telescope.nvim')
+	call dein#add('kosayoda/nvim-lightbulb')
 	call dein#add('glepnir/lspsaga.nvim')
-	call dein#add('nvim-lua/completion-nvim')
 	call dein#add('nvim-lua/lsp_extensions.nvim')
-	call dein#add('nvim-lua/lsp-status.nvim')
+	call dein#add('nvim-lua/completion-nvim')
 	" FIXME: This plugin is a bit shit atm
 	" call dein#add('aca/completion-tabnine', { 'build': './install.sh' })
 	call dein#add('nvim-treesitter/completion-treesitter')
@@ -92,11 +91,14 @@ if dein#load_state(dein_install_path)
 
 	" Themes
 	" call dein#add('morhetz/gruvbox')
+	" call dein#add('mhinz/vim-signify')
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('vim-airline/vim-airline-themes')
 	call dein#add('ryanoasis/vim-devicons')
-	call dein#add('tjdevries/colorbuddy.vim')
+	call dein#add('rktjmp/lush.nvim')
 	call dein#add('npxbr/gruvbox.nvim')
+	" call dein#add('tjdevries/colorbuddy.vim')
+	" call dein#add('tjdevries/gruvbuddy.nvim')
 
 	call dein#end()
 	call dein#save_state()
@@ -140,7 +142,7 @@ set termguicolors
 set splitright
 set splitbelow
 
-" Menues
+" Menu's
 set wildmenu
 set completeopt=menu,noselect,noinsert
 set shortmess=filoOTcF
@@ -148,7 +150,7 @@ set shortmess=filoOTcF
 " Misc
 set mouse=a
 set clipboard+=unnamedplus
-set updatetime=200
+set updatetime=1000
 
 " Leader
 let mapleader = ' '
@@ -180,14 +182,19 @@ noreabbrev higth height
 " Formatting overrides
 augroup FormattingOverrides
 	autocmd!
-	autocmd FileType haskell,cabal setlocal expandtab
-	autocmd FileType haskell,cabal setlocal shiftwidth=2
+	autocmd FileType haskell,cabal setlocal expandtab shiftwidth=2
 augroup END
 
 augroup FoldingSettings
 	autocmd!
 	autocmd FileType c,cpp,rust setlocal foldmethod=syntax
 	autocmd FileType vim setlocal foldmethod=marker
+augroup END
+
+" Spell checking
+augroup SpellChecking
+	autocmd!
+	autocmd FileType md,text,rst, setlocal spell spelllang=en_us
 augroup END
 " }}}
 
@@ -243,16 +250,6 @@ nnoremap <c-l> <c-w>l
 
 " }}}
 
-" Fzf settings {{{
-" ------------------------------------------------------------------------------------------------------------
-nnoremap <silent><c-p> :Files<CR>
-nnoremap <silent><Leader>r :Rg<CR>
-nnoremap <silent><Leader>f :Files<CR>
-nnoremap <silent><Leader>g :GFiles<CR>
-nnoremap <silent><Leader>b :Buffers<CR>
-
-" }}}
-
 " Treesitter settings {{{
 " ------------------------------------------------------------------------------------------------------------
 lua <<EOF
@@ -269,10 +266,11 @@ configs.setup {
 }
 EOF
 
-set background=dark
-lua require('colorbuddy').colorscheme('gruvbox')
-
 " }}}
+
+set background=dark
+lua vim.cmd([[colorscheme gruvbox]])
+" lua require('colorbuddy').colorscheme('gruvbox')
 
 " LSP settings {{{
 " ------------------------------------------------------------------------------------------------------------
@@ -313,15 +311,21 @@ saga.init_lsp_saga()
 EOF
 
 nnoremap <silent> gd      <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
-nnoremap <silent> gD      <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
+" nnoremap <silent> gD      <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
 nnoremap <silent> <M-CR>  <cmd>lua require'lspsaga.codeaction'.code_action()<CR>
-nnoremap <silent> <C-t>   <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent> <C-s>   <cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>
 nnoremap <silent> R       <cmd>lua require'lspsaga.rename'.rename()<CR>
+nnoremap <silent> gD      <cmd>lua require'telescope.builtin'.lsp_references()<CR>
+nnoremap <silent> gs      <cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>
+" nnoremap <silent> <M-CR>  <cmd>lua require'telescope.builtin'.lsp_code_actions()<CR>
+nnoremap <silent> <C-p>   <cmd>lua require'telescope.builtin'.git_files()<CR>
+nnoremap <silent> <C-t>   <cmd>lua vim.lsp.buf.hover()<CR>
 
 let g:completion_confirm_key = "\<C-y>"
 let g:completion_enable_auto_paren = v:true
 let g:completion_auto_change_source = v:true
+let g:completion_enable_auto_signature = 1
+let g:completion_enable_auto_hover = 1
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 let g:completion_chain_complete_list = {
 	\ 'default': {
@@ -367,7 +371,26 @@ augroup neovim_lsp
 	" Enable type inlay hints (Only for rust)
 	autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
 		\ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
+
+	" Show a lightbulb in the gutter if a codeaction is available
+	autocmd CursorHold,CursorHoldI *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua
+		\ lua require'nvim-lightbulb'.update_lightbulb()
 augroup END
+
+" }}}
+
+" Discord presence {{{
+" ------------------------------------------------------------------------------------------------------------
+
+" lua <<EOF
+" local presence = require("presence")
+
+" presence.setup{
+"	auto_update       = true,
+"	neovim_image_text = "Better than whatever you are using",
+"	main_image        = "neovim",
+" }
+" EOF
 
 " }}}
 
@@ -405,13 +428,8 @@ let g:go_gopls_enabled           = v:false
 
 " Autoformatting
 let g:go_fmt_autosave        = v:true
-let g:go_imports_autosave    = v:true
+let g:go_imports_autosave    = v:false
 let g:go_mod_fmt_autosave    = v:true
-
-" Syntax
-" let g:go_highlight_types     = v:true
-" let g:go_highlight_fields    = v:true
-" let g:go_highlight_functions = v:true
 
 " Misc
 let g:go_def_mapping_enabled = v:false

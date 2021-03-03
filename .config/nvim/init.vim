@@ -432,10 +432,11 @@ let g:go_imports_autosave    = v:false
 let g:go_mod_fmt_autosave    = v:true
 
 " Misc
-let g:go_def_mapping_enabled = v:false
-let g:go_auto_type_info      = v:false
-let g:go_auto_sameids        = v:false
-let g:go_jump_to_error       = v:true
+let g:go_doc_keywordprg_enabled = v:false
+let g:go_def_mapping_enabled 	= v:false
+let g:go_auto_type_info      	= v:false
+let g:go_auto_sameids        	= v:false
+let g:go_jump_to_error       	= v:true
 
 " }}}
 

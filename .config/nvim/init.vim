@@ -267,9 +267,14 @@ EOF
 
 " }}}
 
+" Clear annoying colors
+highlight clear SignColumn
+highlight clear Folded
+highlight clear FoldColumn
+
+" Set theme
 set background=dark
 lua vim.cmd([[colorscheme gruvbox]])
-" lua require('colorbuddy').colorscheme('gruvbox')
 
 " LSP settings {{{
 " ------------------------------------------------------------------------------------------------------------

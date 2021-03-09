@@ -55,11 +55,10 @@ if dein#load_state(dein_install_path)
 	call dein#add('tpope/vim-fugitive')
 	call dein#add('tpope/vim-surround')
 	call dein#add('tpope/vim-commentary')
-	" call dein#add('tpope/vim-endwise')
+	call dein#add('tpope/vim-endwise')
 	call dein#add('tpope/vim-repeat')
 	call dein#add('kana/vim-operator-user')
 	call dein#add('airblade/vim-rooter')
-	call dein#add('cohama/lexima.vim')
 
 	" Motion
 	call dein#add('wellle/targets.vim')
@@ -79,7 +78,7 @@ if dein#load_state(dein_install_path)
 	call dein#add('nvim-lua/plenary.nvim')
 	call dein#add('nvim-telescope/telescope.nvim')
 	call dein#add('kosayoda/nvim-lightbulb')
-	call dein#add('glepnir/lspsaga.nvim')
+	call dein#add('f-person/git-blame.nvim')
 	call dein#add('nvim-lua/lsp_extensions.nvim')
 	call dein#add('nvim-lua/completion-nvim')
 	" FIXME: This plugin is a bit shit atm
@@ -305,19 +304,11 @@ lspc.sumneko_lua.setup {
 		},
 	},
 }
-
-local saga = require'lspsaga'
-saga.init_lsp_saga()
 EOF
 
-nnoremap <silent> gd      <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>
-" nnoremap <silent> gD      <cmd>lua require'lspsaga.provider'.preview_definition()<CR>
-nnoremap <silent> <M-CR>  <cmd>lua require'lspsaga.codeaction'.code_action()<CR>
-nnoremap <silent> <C-s>   <cmd>lua require'lspsaga.signaturehelp'.signature_help()<CR>
-nnoremap <silent> R       <cmd>lua require'lspsaga.rename'.rename()<CR>
 nnoremap <silent> gD      <cmd>lua require'telescope.builtin'.lsp_references()<CR>
 nnoremap <silent> gs      <cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>
-" nnoremap <silent> <M-CR>  <cmd>lua require'telescope.builtin'.lsp_code_actions()<CR>
+nnoremap <silent> <M-CR>  <cmd>lua require'telescope.builtin'.lsp_code_actions()<CR>
 nnoremap <silent> <C-p>   <cmd>lua require'telescope.builtin'.git_files()<CR>
 nnoremap <silent> <C-t>   <cmd>lua vim.lsp.buf.hover()<CR>
 
@@ -360,17 +351,9 @@ augroup neovim_lsp
 	autocmd BufWritePre *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua
 		\ lua vim.lsp.buf.formatting_sync(nil, 1000)
 
-	" Show diagnostic popup on cursor hover
-	autocmd CursorHold *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua
-		\ lua require'lspsaga.diagnostic'.show_line_diagnostics()
-
-	" Show signature help on hover
-	autocmd CursorHoldI *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua
-		\ lua require'lspsaga.signaturehelp'.signature_help()
-
 	" Enable type inlay hints (Only for rust)
 	autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
-		\ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
+		\ lua require'lsp_extensions'.inlay_hints{ prefix = '» ', highlight = "Comment" }
 
 	" Show a lightbulb in the gutter if a codeaction is available
 	autocmd CursorHold,CursorHoldI *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua
@@ -391,6 +374,13 @@ augroup END
 "	main_image        = "neovim",
 " }
 " EOF
+
+" }}}
+
+" git-blame.nvim settings {{{
+" ------------------------------------------------------------------------------------------------------------
+let g:gitblame_enabled = v:false
+let g:gitblame_message_template = '<author> • <summary> • <date>'
 
 " }}}
 

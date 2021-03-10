@@ -47,8 +47,6 @@ if dein#load_state(dein_install_path)
 	call dein#add('mhinz/vim-startify')
 	call dein#add('sbdchd/neoformat')
 	call dein#add('editorconfig/editorconfig-vim')
-	call dein#add('vimwiki/vimwiki')
-	" call dein#add('andweeb/presence.nvim')
 
 	" This isn't default?
 	call dein#add('tpope/vim-sensible')
@@ -67,8 +65,6 @@ if dein#load_state(dein_install_path)
 
 	" Lang support
 	call dein#add('sheerun/vim-polyglot')
-	call dein#add('lervag/vimtex', { 'lazy': v:true, 'on_ft': ['latex', 'tex'] })
-	call dein#add('mattn/emmet-vim', { 'lazy': v:true, 'on_ft': ['html', 'css'] })
 	call dein#add('fatih/vim-go', { 'lazy': v:true, 'merged': v:false })
 	call dein#add('rust-lang/rust.vim', { 'merged': v:false })
 
@@ -81,8 +77,6 @@ if dein#load_state(dein_install_path)
 	call dein#add('f-person/git-blame.nvim')
 	call dein#add('nvim-lua/lsp_extensions.nvim')
 	call dein#add('nvim-lua/completion-nvim')
-	" FIXME: This plugin is a bit shit atm
-	" call dein#add('aca/completion-tabnine', { 'build': './install.sh' })
 	call dein#add('nvim-treesitter/completion-treesitter')
 	call dein#add('nvim-treesitter/nvim-treesitter', {
 		\ 'hook_post_update': ':TSUpdate'
@@ -96,8 +90,6 @@ if dein#load_state(dein_install_path)
 	call dein#add('ryanoasis/vim-devicons')
 	call dein#add('rktjmp/lush.nvim')
 	call dein#add('npxbr/gruvbox.nvim')
-	" call dein#add('tjdevries/colorbuddy.vim')
-	" call dein#add('tjdevries/gruvbuddy.nvim')
 
 	call dein#end()
 	call dein#save_state()
@@ -367,51 +359,10 @@ augroup END
 
 " }}}
 
-" Discord presence {{{
-" ------------------------------------------------------------------------------------------------------------
-
-" lua <<EOF
-" local presence = require("presence")
-
-" presence.setup{
-"	auto_update       = true,
-"	neovim_image_text = "Better than whatever you are using",
-"	main_image        = "neovim",
-" }
-" EOF
-
-" }}}
-
 " git-blame.nvim settings {{{
 " ------------------------------------------------------------------------------------------------------------
 let g:gitblame_enabled = v:false
 let g:gitblame_message_template = '<author> • <summary> • <date>'
-
-" }}}
-
-" VimWiki {{{
-" ------------------------------------------------------------------------------------------------------------
-let g:vimwiki_list = [{
-			\ 'path': '~/.vimwiki/',
-			\ 'syntax': 'markdown',
-			\ 'ext': '.md'
-			\ }]
-
-" }}}
-
-" vimtex {{{
-" ------------------------------------------------------------------------------------------------------------
-let g:tex_flavor = 'latex'
-
-" }}}
-
-" Emmet.vim {{{
-" ------------------------------------------------------------------------------------------------------------
-let g:user_emmet_install_global = 0
-
-augroup EmmetFileType
-	autocmd FileType html,css EmmetInstall
-augroup END
 
 " }}}
 

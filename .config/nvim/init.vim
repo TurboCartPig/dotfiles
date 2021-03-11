@@ -303,11 +303,12 @@ lspc.sumneko_lua.setup {
 }
 EOF
 
-nnoremap <silent> gD      <cmd>lua require'telescope.builtin'.lsp_references()<CR>
+nnoremap <silent> gd      <cmd>lua require'telescope.builtin'.lsp_references()<CR>
 nnoremap <silent> gs      <cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>
 nnoremap <silent> <M-CR>  <cmd>lua require'telescope.builtin'.lsp_code_actions()<CR>
 nnoremap <silent> <C-p>   <cmd>lua require'telescope.builtin'.git_files()<CR>
 nnoremap <silent> <C-t>   <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> R       <cmd>lua vim.lsp.buf.rename()<CR>
 
 let g:completion_confirm_key = "\<C-y>"
 let g:completion_enable_auto_paren = v:true

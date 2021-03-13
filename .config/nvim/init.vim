@@ -13,11 +13,15 @@ endfunction
 
 command! DeinClean call CleanPluggins()
 
+" Hardcopy to pdf
+set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
+command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
+
  " }}}
 
 " Polyglot settings {{{
 " ------------------------------------------------------------------------------------------------------------
-let g:polyglot_disabled = ['latex', 'go', 'rust']
+let g:polyglot_disabled = ['go', 'rust']
 
 " }}}
 
@@ -78,6 +82,7 @@ if dein#load_state(dein_install_path)
 	call dein#add('nvim-lua/lsp_extensions.nvim')
 	call dein#add('nvim-lua/completion-nvim')
 	call dein#add('nvim-treesitter/completion-treesitter')
+	call dein#add('romgrk/nvim-treesitter-context')
 	call dein#add('nvim-treesitter/nvim-treesitter', {
 		\ 'hook_post_update': ':TSUpdate'
 		\ })
@@ -166,6 +171,7 @@ cnoreabbrev WQ! wq!
 noreabbrev lenght length
 noreabbrev widht width
 noreabbrev higth height
+noreabbrev nigthly nightly
 
 " }}}
 
@@ -178,14 +184,14 @@ augroup END
 
 augroup FoldingSettings
 	autocmd!
-	autocmd FileType c,cpp,rust setlocal foldmethod=syntax
+	autocmd FileType c,cpp setlocal foldmethod=syntax
 	autocmd FileType vim setlocal foldmethod=marker
 augroup END
 
 " Spell checking
 augroup SpellChecking
 	autocmd!
-	autocmd FileType md,text,rst, setlocal spell spelllang=en_us
+	autocmd FileType markdown,text,rst, setlocal spell spelllang=en_us
 augroup END
 " }}}
 
@@ -204,7 +210,7 @@ inoremap <C-M-´> ´
 " FIXME: Neovide draws fonts smaller than they should be.
 set guifont=FiraCode\ NF:h15
 
-let g:neovide_refresh_rate=165
+let g:neovide_refresh_rate = 165
 
 " }}}
 
@@ -303,20 +309,20 @@ lspc.sumneko_lua.setup {
 }
 EOF
 
-nnoremap <silent> gd      <cmd>lua require'telescope.builtin'.lsp_references()<CR>
-nnoremap <silent> gs      <cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>
-nnoremap <silent> <M-CR>  <cmd>lua require'telescope.builtin'.lsp_code_actions()<CR>
-nnoremap <silent> <C-p>   <cmd>lua require'telescope.builtin'.git_files()<CR>
-nnoremap <silent> <C-t>   <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> R       <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap <silent>gd      <cmd>lua require'telescope.builtin'.lsp_references()<CR>
+nnoremap <silent>gs      <cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>
+nnoremap <silent><M-CR>  <cmd>lua require'telescope.builtin'.lsp_code_actions()<CR>
+nnoremap <silent><C-p>   <cmd>lua require'telescope.builtin'.git_files()<CR>
+nnoremap <silent><C-t>   <cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent>R       <cmd>lua vim.lsp.buf.rename()<CR>
 
-let g:completion_confirm_key = "\<C-y>"
-let g:completion_enable_auto_paren = v:true
-let g:completion_auto_change_source = v:true
-let g:completion_enable_auto_signature = 1
-let g:completion_enable_auto_hover = 1
+let g:completion_confirm_key            = "\<C-y>"
+let g:completion_enable_auto_paren      = v:true
+let g:completion_auto_change_source     = v:true
+let g:completion_enable_auto_signature  = v:true
+let g:completion_enable_auto_hover      = v:true
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:completion_chain_complete_list = {
+let g:completion_chain_complete_list    = {
 	\ 'default': {
 	\     'default': [
 	\         { 'complete_items': ['lsp', 'tabnine', 'ts'] },
@@ -362,7 +368,7 @@ augroup END
 
 " git-blame.nvim settings {{{
 " ------------------------------------------------------------------------------------------------------------
-let g:gitblame_enabled = v:false
+let g:gitblame_enabled          = v:false
 let g:gitblame_message_template = '<author> • <summary> • <date>'
 
 " }}}
@@ -374,33 +380,33 @@ let g:go_code_completion_enabled = v:false
 let g:go_gopls_enabled           = v:false
 
 " Autoformatting
-let g:go_fmt_autosave        = v:true
-let g:go_imports_autosave    = v:false
-let g:go_mod_fmt_autosave    = v:true
+let g:go_fmt_autosave            = v:true
+let g:go_imports_autosave        = v:false
+let g:go_mod_fmt_autosave        = v:true
 
 " Misc
-let g:go_doc_keywordprg_enabled = v:false
-let g:go_def_mapping_enabled 	= v:false
-let g:go_auto_type_info      	= v:false
-let g:go_auto_sameids        	= v:false
-let g:go_jump_to_error       	= v:true
+let g:go_doc_keywordprg_enabled  = v:false
+let g:go_def_mapping_enabled 	 = v:false
+let g:go_auto_type_info      	 = v:false
+let g:go_auto_sameids        	 = v:false
+let g:go_jump_to_error       	 = v:true
 
 " }}}
 
 " Comfortable-motion {{{
 " ------------------------------------------------------------------------------------------------------------
 let g:comfortable_motion_no_default_mappings = 1
-let g:comfortable_motion_interval = 1000.0 / 60.0
-let g:comfortable_motion_friction = 110.0
-let g:comfortable_motion_air_drag = 5.0
+let g:comfortable_motion_interval            = 1000.0 / 60.0
+let g:comfortable_motion_friction            = 110.0
+let g:comfortable_motion_air_drag            = 5.0
 
-noremap <silent><ScrollWheelUp> :call comfortable_motion#flick(-50)<CR>
-noremap <silent><ScrollWheelDown> :call comfortable_motion#flick(50)<CR>
+noremap  <silent><ScrollWheelUp>   <cmd>call comfortable_motion#flick(-50)<CR>
+noremap  <silent><ScrollWheelDown> <cmd>call comfortable_motion#flick(50)<CR>
 
-nnoremap <silent>J :call comfortable_motion#flick(50)<CR>
-nnoremap <silent>K :call comfortable_motion#flick(-50)<CR>
-vnoremap <silent>J :call comfortable_motion#flick(50)<CR>
-vnoremap <silent>K :call comfortable_motion#flick(-50)<CR>
+nnoremap <silent>J                 <cmd>call comfortable_motion#flick(50)<CR>
+nnoremap <silent>K                 <cmd>call comfortable_motion#flick(-50)<CR>
+vnoremap <silent>J                 <cmd>call comfortable_motion#flick(50)<CR>
+vnoremap <silent>K                 <cmd>call comfortable_motion#flick(-50)<CR>
 
 " }}}
 
@@ -412,14 +418,7 @@ let g:neoformat_basic_format_trim  = 1
 let g:neoformat_enabled_python     = ['black']
 let g:neoformat_enabled_haskell    = ['ormolu']
 
-nnoremap <silent><c-M-L> <cmd>Neoformat<CR>
-
-" }}}
-
-" Hardcopy to pdf {{{
-" ------------------------------------------------------------------------------------------------------------
-set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
-command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
+nnoremap <silent><C-M-L> <cmd>Neoformat<CR>
 
 " }}}
 

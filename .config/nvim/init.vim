@@ -80,6 +80,7 @@ if dein#load_state(dein_install_path)
 	call dein#add('kosayoda/nvim-lightbulb')
 	call dein#add('f-person/git-blame.nvim')
 	call dein#add('nvim-lua/lsp_extensions.nvim')
+	call dein#add('nvim-lua/lsp-status.nvim')
 	call dein#add('nvim-lua/completion-nvim')
 	call dein#add('nvim-treesitter/completion-treesitter')
 	call dein#add('romgrk/nvim-treesitter-context')
@@ -292,19 +293,75 @@ lua vim.cmd([[colorscheme gruvbox]])
 " LSP settings {{{
 " ------------------------------------------------------------------------------------------------------------
 lua <<EOF
-local lspc = require'lspconfig'
+local lsp_config = require('lspconfig');
+local lsp_status = require("lsp-status")
 
-lspc.rust_analyzer.setup {}
-lspc.clangd.setup {}
-lspc.hls.setup {}
-lspc.pyls.setup {}
-lspc.vimls.setup {}
-lspc.gopls.setup {}
+-- use LSP SymbolKinds themselves as the kind labels
+local kind_labels_mt = {__index = function(_, k) return k end}
+local kind_labels = {}
+setmetatable(kind_labels, kind_labels_mt)
+
+-- setup lsp_status line
+lsp_status.register_progress()
+lsp_status.config({
+  kind_labels = kind_labels,
+  indicator_errors = "×",
+  indicator_warnings = "!",
+  indicator_info = "i",
+  indicator_hint = "›",
+  -- the default is a wide codepoint which breaks absolute and relative
+  -- line counts if placed before airline's Z section
+  status_symbol = "",
+})
+
+local on_attach = function(client, bufnr)
+	require("completion").on_attach(client, bufnr)
+	lsp_status.on_attach(client, bufnr)
+
+	-- Only setup format on save for servers that support it
+	if client.resolved_capabilities.document_formatting then
+		vim.api.nvim_command("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
+	end
+
+	-- Setup completion
+	vim.api.nvim_buf_set_option(0, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+	-- Setup lightbulb on code_action
+	vim.api.nvim_command("autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()")
+end
+
+-- List all the servers and any custom configuration
+local servers = {
+	rust_analyzer = {
+		["rust-analyzer"] = {
+			checkOnSave = {
+				command = "clippy",
+			},
+		},
+	},
+	hls = {
+		languageServerHaskell = {
+			formattingProvider = "stylish-haskell",
+		},
+	},
+	pyls = {},
+	clangd = {},
+	vimls = {},
+	gopls = {},
+}
+
+for ls, settings in pairs(servers) do
+	lsp_config[ls].setup {
+		on_attach = on_attach,
+		settings = settings,
+		-- capabilities = lsp_status.capabilities,
+	}
+end
 
 -- Setup lua language server
 local sumneko_root = vim.fn.expand("$HOME/Projects/lua-language-server")
 local sumneko_bin  = sumneko_root .. "/bin/Linux/lua-language-server"
-lspc.sumneko_lua.setup {
+lsp_config.sumneko_lua.setup {
 	cmd = { sumneko_bin, "-E", sumneko_root .. "/main.lua"};
 	settings = {
 		Lua = {
@@ -362,22 +419,16 @@ let g:completion_chain_complete_list    = {
 augroup neovim_lsp
 	autocmd!
 
-	autocmd BufEnter * lua require'completion'.on_attach()
-
-	autocmd FileType rust,go,c,cpp,python,haskell,cabal,lua,vim
-		\ setlocal omnifunc=v:lua.vim.lsp.omnifunc
-
-	autocmd BufWritePre *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua
-		\ lua vim.lsp.buf.formatting_sync(nil, 1000)
-
 	" Enable type inlay hints (Only for rust)
 	autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
 		\ lua require'lsp_extensions'.inlay_hints{ prefix = '» ', highlight = "Comment" }
-
-	" Show a lightbulb in the gutter if a codeaction is available
-	autocmd CursorHold,CursorHoldI *.rs,*.go,*.c,*.cpp,*.py,*.hs,*.cabal,*.lua
-		\ lua require'nvim-lightbulb'.update_lightbulb()
 augroup END
+
+" Create a status line part from lsp status
+function! LspStatus() abort
+	let status = luaeval('require("lsp-status").status()')
+	return trim(status)
+endfunction
 
 " }}}
 
@@ -470,12 +521,20 @@ let g:startify_bookmarks = [ '~/.config/nvim/init.vim', '~/.zshrc' ]
 " ------------------------------------------------------------------------------------------------------------
 let g:airline_theme = 'minimalist'
 
-let g:airline_skip_empty_sections = 1
-let g:airline_powerline_fonts     = 1
-let g:airline_highlighting_cache  = 1
+" General
+let g:airline_skip_empty_sections = v:true
+let g:airline_powerline_fonts     = v:true
+let g:airline_highlighting_cache  = v:true
 
-let g:airline#extensions#whitespace#enabled = 0
-let g:airline#extensions#tabline#enabled    = 1
+" Extensions
+let g:airline#extensions#whitespace#enabled = v:false
+let g:airline#extensions#tabline#enabled    = v:true
 let g:airline#extensions#tabline#formatter  = 'unique_tail'
+let g:airline#extensions#nvimlsp#enabled    = v:true
+
+" Define lsp status part
+call airline#parts#define_function('lsp_status', 'LspStatus')
+call airline#parts#define_condition('lsp_status', 'luaeval("#vim.lsp.buf_get_clients() > 0")')
+let g:airline_section_warning = airline#section#create_right(['lsp_status'])
 
 " }}}

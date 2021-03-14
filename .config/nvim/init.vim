@@ -265,14 +265,29 @@ EOF
 
 " }}}
 
+" Hightlights and colorschemes {{{
+" ------------------------------------------------------------------------------------------------------------
+
 " Clear annoying colors
-highlight clear SignColumn
-highlight clear Folded
-highlight clear FoldColumn
+augroup ColorSchemeOverrides
+	autocmd!
+	autocmd ColorScheme *       highlight SignColumn        guibg=none
+	autocmd ColorScheme *       highlight Folded            guibg=none
+	autocmd ColorScheme *       highlight FoldColumn        guibg=none
+	autocmd ColorScheme gruvbox highlight GruvboxAquaSign   guibg=none
+	autocmd ColorScheme gruvbox highlight GruvboxBlueSign   guibg=none
+	autocmd ColorScheme gruvbox highlight GruvboxGreenSign  guibg=none
+	autocmd ColorScheme gruvbox highlight GruvboxOrangeSign guibg=none
+	autocmd ColorScheme gruvbox highlight GruvboxPurpleSign guibg=none
+	autocmd ColorScheme gruvbox highlight GruvboxRedSign    guibg=none
+	autocmd ColorScheme gruvbox highlight GruvboxYellowSign guibg=none
+augroup END
 
 " Set theme
 set background=dark
 lua vim.cmd([[colorscheme gruvbox]])
+
+" }}}
 
 " LSP settings {{{
 " ------------------------------------------------------------------------------------------------------------

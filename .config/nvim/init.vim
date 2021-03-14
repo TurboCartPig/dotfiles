@@ -382,7 +382,39 @@ lsp_config.sumneko_lua.setup {
 			},
 		},
 	},
-}
+};
+
+lsp_config.diagnosticls.setup {
+	cmd = { "diagnostic-languageserver.cmd", "--stdio" },
+	filetypes = { "markdown", "text" },
+	init_options = {
+		linters = {
+			languagetool = {
+				command = "languagetool-commandline.cmd",
+				debounce = 200,
+				args = { "-" },
+				offsetLine = 0,
+				offsetColumn = 0,
+				sourceName = "languagetool",
+				formatLines = 2,
+				formatPattern = {
+					"^\\d+?\\.\\)\\s+Line\\s+(\\d+),\\s+column\\s+(\\d+),\\s+([^\\n]+)\nMessage:\\s+(.*)(\\r|\\n)*$",
+					{
+						line = 1,
+						column = 2,
+						message = { 4, 3 },
+					},
+				},
+			},
+		},
+		filetypes = {
+			markdown = "languagetool",
+			text = "languagetool",
+		},
+		-- formatters = {},
+		-- formatFiletypes = {},
+	},
+};
 EOF
 
 nnoremap <silent>gd      <cmd>lua require'telescope.builtin'.lsp_references()<CR>

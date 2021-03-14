@@ -482,8 +482,8 @@ vnoremap <silent>K                 <cmd>call comfortable_motion#flick(-50)<CR>
 let g:neoformat_basic_format_align = 0
 let g:neoformat_basic_format_retab = 1
 let g:neoformat_basic_format_trim  = 1
-let g:neoformat_enabled_python     = ['black']
-let g:neoformat_enabled_haskell    = ['ormolu']
+let g:neoformat_enabled_python     = ['black', 'autopip8']
+let g:neoformat_enabled_haskell    = ['stylishhaskell', 'ormolu']
 
 nnoremap <silent><C-M-L> <cmd>Neoformat<CR>
 

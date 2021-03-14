@@ -248,24 +248,6 @@ nnoremap <c-l> <c-w>l
 
 " }}}
 
-" Treesitter settings {{{
-" ------------------------------------------------------------------------------------------------------------
-lua <<EOF
-local configs = require'nvim-treesitter.configs'
-
-configs.setup {
-	ensure_installed = { "bash", "c", "cpp", "css", "go", "haskell", "html", "javascript", "json", "lua", "python", "rust", "toml", "yaml" },
-	highlight = {
-		enable = true,
-	},
-	indent = {
-		enable = true,
-	},
-}
-EOF
-
-" }}}
-
 " Hightlights and colorschemes {{{
 " ------------------------------------------------------------------------------------------------------------
 
@@ -292,130 +274,6 @@ lua vim.cmd([[colorscheme gruvbox]])
 
 " LSP settings {{{
 " ------------------------------------------------------------------------------------------------------------
-lua <<EOF
-local lsp_config = require('lspconfig');
-local lsp_status = require("lsp-status")
-
--- use LSP SymbolKinds themselves as the kind labels
-local kind_labels_mt = {__index = function(_, k) return k end}
-local kind_labels = {}
-setmetatable(kind_labels, kind_labels_mt)
-
--- setup lsp_status line
-lsp_status.register_progress()
-lsp_status.config({
-  kind_labels = kind_labels,
-  indicator_errors = "×",
-  indicator_warnings = "!",
-  indicator_info = "i",
-  indicator_hint = "›",
-  -- the default is a wide codepoint which breaks absolute and relative
-  -- line counts if placed before airline's Z section
-  status_symbol = "",
-})
-
--- Run this every time a language server attaches to a buffer
-local on_attach = function(client, bufnr)
-	require("completion").on_attach(client, bufnr)
-	lsp_status.on_attach(client, bufnr)
-
-	-- Only setup format on save for servers that support it
-	if client.resolved_capabilities.document_formatting then
-		vim.api.nvim_command("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
-	end
-
-	-- Setup completion
-	vim.api.nvim_buf_set_option(0, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	-- Setup lightbulb on code_action
-	vim.api.nvim_command("autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()")
-
-	-- Setup line diagnostic on hover
-	vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
-end
-
--- List all the servers and any custom configuration
-local servers = {
-	rust_analyzer = {
-		["rust-analyzer"] = {
-			checkOnSave = {
-				command = "clippy",
-			},
-		},
-	},
-	hls = {
-		languageServerHaskell = {
-			formattingProvider = "stylish-haskell",
-		},
-	},
-	pyls = {},
-	clangd = {},
-	vimls = {},
-	gopls = {},
-}
-
-for ls, settings in pairs(servers) do
-	lsp_config[ls].setup {
-		on_attach = on_attach,
-		settings = settings,
-		-- capabilities = lsp_status.capabilities,
-	}
-end
-
--- Setup lua language server
-local sumneko_root = vim.fn.expand("$HOME/Projects/lua-language-server")
-local sumneko_bin  = sumneko_root .. "/bin/Linux/lua-language-server"
-lsp_config.sumneko_lua.setup {
-	cmd = { sumneko_bin, "-E", sumneko_root .. "/main.lua"};
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-				path = vim.split(package.path, ";"),
-			},
-		},
-		diagnostics = { globals = { 'vim' }, },
-		workspace = {
-			library = {
-				[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-				[vim.fn.expand("VIMRUNTIME/lua/vim/lsp")] = true,
-			},
-		},
-	},
-};
-
-lsp_config.diagnosticls.setup {
-	cmd = { "diagnostic-languageserver.cmd", "--stdio" },
-	filetypes = { "markdown", "text" },
-	init_options = {
-		linters = {
-			languagetool = {
-				command = "languagetool-commandline.cmd",
-				debounce = 200,
-				args = { "-" },
-				offsetLine = 0,
-				offsetColumn = 0,
-				sourceName = "languagetool",
-				formatLines = 2,
-				formatPattern = {
-					"^\\d+?\\.\\)\\s+Line\\s+(\\d+),\\s+column\\s+(\\d+),\\s+([^\\n]+)\nMessage:\\s+(.*)(\\r|\\n)*$",
-					{
-						line = 1,
-						column = 2,
-						message = { 4, 3 },
-					},
-				},
-			},
-		},
-		filetypes = {
-			markdown = "languagetool",
-			text = "languagetool",
-		},
-		-- formatters = {},
-		-- formatFiletypes = {},
-	},
-};
-EOF
 
 nnoremap <silent>gd      <cmd>lua require'telescope.builtin'.lsp_references()<CR>
 nnoremap <silent>gs      <cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>
@@ -573,5 +431,12 @@ let g:airline#extensions#nvimlsp#enabled    = v:true
 call airline#parts#define_function('lsp_status', 'LspStatus')
 call airline#parts#define_condition('lsp_status', 'luaeval("#vim.lsp.buf_get_clients() > 0")')
 let g:airline_section_warning = airline#section#create_right(['lsp_status'])
+
+" }}}
+
+" Source the lua init file {{{
+" ------------------------------------------------------------------------------------------------------------
+" This both sources the init.lua file, and imports the module
+lua init = require("init")
 
 " }}}

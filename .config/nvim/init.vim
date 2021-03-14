@@ -89,7 +89,7 @@ if dein#load_state(dein_install_path)
 
 	" Themes
 	" call dein#add('morhetz/gruvbox')
-	" call dein#add('mhinz/vim-signify')
+	call dein#add('mhinz/vim-signify')
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('vim-airline/vim-airline-themes')
 	call dein#add('ryanoasis/vim-devicons')

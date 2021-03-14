@@ -314,6 +314,7 @@ lsp_status.config({
   status_symbol = "",
 })
 
+-- Run this every time a language server attaches to a buffer
 local on_attach = function(client, bufnr)
 	require("completion").on_attach(client, bufnr)
 	lsp_status.on_attach(client, bufnr)
@@ -328,6 +329,9 @@ local on_attach = function(client, bufnr)
 
 	-- Setup lightbulb on code_action
 	vim.api.nvim_command("autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()")
+
+	-- Setup line diagnostic on hover
+	vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
 end
 
 -- List all the servers and any custom configuration

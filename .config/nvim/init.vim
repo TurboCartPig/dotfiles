@@ -103,7 +103,7 @@ endif
 
 " }}}
 
-" My own settings {{{
+" Set options {{{
 " ------------------------------------------------------------------------------------------------------------
 set hidden
 filetype plugin indent on
@@ -139,7 +139,7 @@ set termguicolors
 set splitright
 set splitbelow
 
-" Menu's
+" Menus
 set wildmenu
 set completeopt=menu,noselect,noinsert
 set shortmess=filoOTcF
@@ -147,7 +147,7 @@ set shortmess=filoOTcF
 " Misc
 set mouse=a
 set clipboard+=unnamedplus
-set updatetime=1000
+set updatetime=200
 
 " Leader
 let mapleader = ' '
@@ -155,7 +155,7 @@ let mapleader = ' '
 " }}}
 
 " Abbreviations {{{
-
+" ------------------------------------------------------------------------------------------------------------
 " Command abbreviations
 cnoreabbrev Q q
 cnoreabbrev Q! q!
@@ -177,6 +177,7 @@ noreabbrev nigthly nightly
 " }}}
 
 " Per language options {{{
+" ------------------------------------------------------------------------------------------------------------
 " Formatting overrides
 augroup FormattingOverrides
 	autocmd!
@@ -194,6 +195,7 @@ augroup SpellChecking
 	autocmd!
 	autocmd FileType markdown,text,rst, setlocal spell spelllang=en_us
 augroup END
+
 " }}}
 
 " Neovide (GUI) settings {{{
@@ -422,7 +424,7 @@ let g:airline_powerline_fonts     = v:true
 let g:airline_highlighting_cache  = v:true
 
 " Extensions
-let g:airline_extensions                   = [ 'branch', 'default', 'hunks', 'quickfix', 'tabline', 'term', 'wordcount' ]
+let g:airline_extensions                   = [ 'branch', 'hunks', 'quickfix', 'tabline', 'term', 'wordcount' ]
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 let g:airline#extensions#default#layout    = [
 			\ [ 'a', 'b', 'c' ],

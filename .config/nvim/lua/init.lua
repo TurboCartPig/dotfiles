@@ -49,10 +49,10 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
 
 	-- Setup hover? on hover
-	vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
+	-- vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
 
 	-- Setup signature help on hover
-	vim.api.nvim_command("autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.signature_help()")
+	vim.api.nvim_command("autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()")
 end
 
 -- List all the servers and any custom configuration
@@ -97,7 +97,7 @@ end
 
 -- Setup lua language server
 lsp_config.sumneko_lua.setup {
-	cmd = { sumneko_bin, "-E", sumneko_root .. "/main.lua"};
+	cmd = { sumneko_bin, "-E", sumneko_root .. "/main.lua" },
 	on_attach = on_attach,
 	settings = {
 		Lua = {
@@ -152,7 +152,7 @@ lsp_config.diagnosticls.setup {
 }
 
 -- Treesitter config ---------------------------------------------------------------- {{{1
-local ts = require'nvim-treesitter.configs'
+local ts = require("nvim-treesitter.configs")
 
 ts.setup {
 	ensure_installed = "all",
@@ -161,6 +161,31 @@ ts.setup {
 	},
 	indent = {
 		enable = true,
+	},
+	refactor = {
+		highlight_definitions = {
+			enable = true,
+		},
+		highlight_current_scope = {
+			enable = false,
+		},
+		smart_rename = {
+			enable = true,
+			keymaps = {
+				smart_rename = "RR",
+			},
+		},
+		navigation = {
+			enable = true,
+			keymaps = {
+				goto_definition = nil,
+				goto_definition_lsp_fallback = "gd",
+				goto_next_usage = "%%",
+				goto_previous_usage = "&&",
+				list_definitions = nil,
+				list_definitions_toc = "g0",
+			},
+		},
 	},
 }
 

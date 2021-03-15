@@ -51,6 +51,7 @@ if dein#load_state(dein_install_path)
 	call dein#add('mhinz/vim-startify')
 	call dein#add('sbdchd/neoformat')
 	call dein#add('editorconfig/editorconfig-vim')
+	call dein#add('f-person/git-blame.nvim')
 
 	" This isn't default?
 	call dein#add('tpope/vim-sensible')
@@ -69,7 +70,7 @@ if dein#load_state(dein_install_path)
 
 	" Lang support
 	call dein#add('sheerun/vim-polyglot')
-	call dein#add('fatih/vim-go', { 'lazy': v:true, 'merged': v:false })
+	call dein#add('fatih/vim-go', { 'merged': v:false })
 	call dein#add('rust-lang/rust.vim', { 'merged': v:false })
 
 	" LSP and completions
@@ -77,16 +78,14 @@ if dein#load_state(dein_install_path)
 	call dein#add('nvim-lua/popup.nvim')
 	call dein#add('nvim-lua/plenary.nvim')
 	call dein#add('nvim-telescope/telescope.nvim')
-	call dein#add('kosayoda/nvim-lightbulb')
-	call dein#add('f-person/git-blame.nvim')
 	call dein#add('nvim-lua/lsp_extensions.nvim')
 	call dein#add('nvim-lua/lsp-status.nvim')
 	call dein#add('nvim-lua/completion-nvim')
+	call dein#add('kosayoda/nvim-lightbulb')
+	call dein#add('nvim-treesitter/nvim-treesitter', { 'hook_post_update': ':TSUpdate' })
+	call dein#add('nvim-treesitter/nvim-treesitter-refactor')
 	call dein#add('nvim-treesitter/completion-treesitter')
 	call dein#add('romgrk/nvim-treesitter-context')
-	call dein#add('nvim-treesitter/nvim-treesitter', {
-		\ 'hook_post_update': ':TSUpdate'
-		\ })
 
 	" Themes
 	" call dein#add('morhetz/gruvbox')
@@ -293,13 +292,12 @@ lua vim.cmd([[colorscheme gruvbox]])
 " LSP settings {{{
 " ------------------------------------------------------------------------------------------------------------
 
-nnoremap <silent>gD      <cmd>lua require'telescope.builtin'.lsp_references()<CR>
+nnoremap <silent>gr      <cmd>lua require'telescope.builtin'.lsp_references()<CR>
 nnoremap <silent>gs      <cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>
 nnoremap <silent><M-CR>  <cmd>lua require'telescope.builtin'.lsp_code_actions()<CR>
 nnoremap <silent><C-p>   <cmd>lua require'telescope.builtin'.git_files()<CR>
 nnoremap <silent><C-t>   <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent>R       <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent>gd      <cmd>lua vim.lsp.buf.definition()<CR>
 nnoremap <silent>gll     <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 
 let g:completion_confirm_key            = "\<C-y>"

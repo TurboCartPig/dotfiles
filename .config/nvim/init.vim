@@ -422,10 +422,12 @@ let g:airline_powerline_fonts     = v:true
 let g:airline_highlighting_cache  = v:true
 
 " Extensions
-let g:airline#extensions#whitespace#enabled = v:false
-let g:airline#extensions#tabline#enabled    = v:true
-let g:airline#extensions#tabline#formatter  = 'unique_tail'
-let g:airline#extensions#nvimlsp#enabled    = v:true
+let g:airline_extensions                   = [ 'branch', 'default', 'hunks', 'quickfix', 'tabline', 'term', 'wordcount' ]
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#default#layout    = [
+			\ [ 'a', 'b', 'c' ],
+			\ [ 'warning', 'error', 'z' ]
+			\ ]
 
 " Define lsp status part
 call airline#parts#define_function('lsp_status', 'LspStatus')

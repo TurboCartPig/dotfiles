@@ -40,13 +40,19 @@ local on_attach = function(client, bufnr)
 	end
 
 	-- Setup completion
-	vim.api.nvim_buf_set_option(0, "omnifunc", "v:lua.vim.lsp.omnifunc")
+	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- Setup lightbulb on code_action
 	vim.api.nvim_command("autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()")
 
 	-- Setup line diagnostic on hover
 	vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
+
+	-- Setup hover? on hover
+	vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
+
+	-- Setup signature help on hover
+	vim.api.nvim_command("autocmd CursorHold,CursorHoldI <buffer> lua vim.lsp.buf.signature_help()")
 end
 
 -- List all the servers and any custom configuration

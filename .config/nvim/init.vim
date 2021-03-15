@@ -135,6 +135,9 @@ set cmdheight=2
 set scrolloff=5
 set termguicolors
 
+" Folds
+set foldlevelstart=99
+
 " Sane splits
 set splitright
 set splitbelow
@@ -181,19 +184,32 @@ noreabbrev nigthly nightly
 " Formatting overrides
 augroup FormattingOverrides
 	autocmd!
-	autocmd FileType haskell,cabal setlocal expandtab shiftwidth=2
+	autocmd FileType haskell,cabal setlocal
+		\ expandtab
+		\ shiftwidth=2
 augroup END
 
+" Override fold methods per language
 augroup FoldingSettings
 	autocmd!
-	autocmd FileType c,cpp setlocal foldmethod=syntax
-	autocmd FileType vim setlocal foldmethod=marker
+
+	" Use treesitter to automatically create folds
+	autocmd FileType c,cpp,go,rust setlocal
+		\ foldmethod=expr
+		\ foldexpr=nvim_treesitter#foldexpr()
+
+	" Use manually placed markers in all vimscript files
+	autocmd FileType vi,vim setlocal
+		\ foldlevel=0
+		\ foldmethod=marker
 augroup END
 
 " Spell checking
 augroup SpellChecking
 	autocmd!
-	autocmd FileType markdown,text,rst, setlocal spell spelllang=en_us
+	autocmd FileType markdown,text,rst setlocal
+		\ spell
+		\ spelllang=en_us
 augroup END
 
 " }}}

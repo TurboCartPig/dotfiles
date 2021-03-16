@@ -243,8 +243,6 @@ let g:termdebug_wide  = 163
 " ------------------------------------------------------------------------------------------------------------
 nnoremap <silent><Leader><Leader> :b#<CR>
 
-" nnoremap <silent><Tab> :NERDTreeTabsToggle<CR>
-
 " Move around easier in insert mode
 inoremap <c-h> <left>
 inoremap <c-j> <down>
@@ -391,10 +389,10 @@ vnoremap <silent>K                 <cmd>call comfortable_motion#flick(-50)<CR>
 
 " Neoformat settings {{{
 " ------------------------------------------------------------------------------------------------------------
-let g:neoformat_basic_format_align = 0
-let g:neoformat_basic_format_retab = 1
-let g:neoformat_basic_format_trim  = 1
-let g:neoformat_enabled_python     = ['black', 'autopip8']
+let g:neoformat_basic_format_align = v:false
+let g:neoformat_basic_format_retab = v:true
+let g:neoformat_basic_format_trim  = v:true
+let g:neoformat_enabled_python     = ['black', 'autopep8']
 let g:neoformat_enabled_haskell    = ['stylishhaskell', 'ormolu']
 
 nnoremap <silent><C-M-L> <cmd>Neoformat<CR>
@@ -423,10 +421,9 @@ let g:startify_custom_header = map(s:neovim_asci, '"   ".v:val')
 let g:startify_lists = [
 			\ { 'type': 'bookmarks', 'header': ['   Bookmarks'] },
 			\ { 'type': 'files', 'header': ['   Files'] },
-			\ { 'type': 'sessions', 'header': ['   Sessions'] },
 			\ ]
 
-let g:startify_bookmarks = [ '~/.config/nvim/init.vim', '~/.zshrc' ]
+let g:startify_bookmarks = [ '~/.config/nvim/init.vim',  '~/.config/nvim/lua/init.lua', '~/.config/zsh/.zshrc' ]
 
 " }}}
 

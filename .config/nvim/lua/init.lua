@@ -36,23 +36,23 @@ local on_attach = function(client, bufnr)
 
 	-- Only setup format on save for servers that support it
 	if client.resolved_capabilities.document_formatting then
-		vim.api.nvim_command("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
+		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
 	end
 
 	-- Setup completion
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- Setup lightbulb on code_action
-	vim.api.nvim_command("autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()")
+	vim.cmd("autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()")
 
 	-- Setup line diagnostic on hover
-	vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
+	vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
 
 	-- Setup hover? on hover
 	-- vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
 
 	-- Setup signature help on hover
-	vim.api.nvim_command("autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()")
+	vim.cmd("autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()")
 end
 
 -- List all the servers and any custom configuration

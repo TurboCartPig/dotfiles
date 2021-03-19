@@ -290,13 +290,21 @@ lua vim.cmd([[colorscheme gruvbox]])
 " LSP settings {{{
 " ------------------------------------------------------------------------------------------------------------
 
+" NOTE: Some mappings come from plugins or lua.
+" - gd is mapped to goto definition with ts or fallback to ls
+
+" TODO: Use "themes" for telescope, probably easier if it's done all in lua
+
 nnoremap <silent>gr      <cmd>lua require'telescope.builtin'.lsp_references()<CR>
 nnoremap <silent>gs      <cmd>lua require'telescope.builtin'.lsp_document_symbols()<CR>
+nnoremap <silent>gll     <cmd>lua require'telescope.builtin'.lsp_document_diagnostics()<CR>
 nnoremap <silent><M-CR>  <cmd>lua require'telescope.builtin'.lsp_code_actions()<CR>
+nnoremap <silent><C-CR>  <cmd>lua require'telescope.builtin'.spell_suggest()<CR>
 nnoremap <silent><C-p>   <cmd>lua require'telescope.builtin'.git_files()<CR>
 nnoremap <silent><C-t>   <cmd>lua vim.lsp.buf.hover()<CR>
 nnoremap <silent>R       <cmd>lua vim.lsp.buf.rename()<CR>
-nnoremap <silent>gll     <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
+nnoremap <silent><C-q>   <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+" nnoremap <silent>gll     <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 
 let g:completion_confirm_key            = "\<C-y>"
 let g:completion_enable_auto_paren      = v:true

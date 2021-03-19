@@ -46,7 +46,7 @@ local on_attach = function(client, bufnr)
 	vim.cmd("autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()")
 
 	-- Setup line diagnostic on hover
-	vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
+	-- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
 
 	-- Setup hover? on hover
 	-- vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
@@ -174,7 +174,7 @@ ts.setup {
 		smart_rename = {
 			enable = true,
 			keymaps = {
-				smart_rename = "RR",
+				smart_rename = "<leader+R>",
 			},
 		},
 		navigation = {

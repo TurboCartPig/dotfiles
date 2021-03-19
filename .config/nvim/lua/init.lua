@@ -122,7 +122,13 @@ lsp_config.sumneko_lua.setup {
 local ts = require("nvim-treesitter.configs")
 
 ts.setup {
-	ensure_installed = "all",
+	ensure_installed = {
+		"c", "cpp", "go", "rust", "haskell",
+		"javascript", "typescript", "html", "css",
+		"python", "lua",
+		"bash", "comment",
+		"yaml", "toml", "json",
+	},
 	highlight = {
 		enable = true,
 	},

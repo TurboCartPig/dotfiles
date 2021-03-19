@@ -193,7 +193,7 @@ augroup FoldingSettings
 	autocmd!
 
 	" Use treesitter to automatically create folds
-	autocmd FileType c,cpp,go,rust setlocal
+	autocmd FileType c,cpp,go,rust,lua setlocal
 		\ foldmethod=expr
 		\ foldexpr=nvim_treesitter#foldexpr()
 

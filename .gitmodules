@@ -16,3 +16,6 @@
 [submodule ".config/oh-my-zsh-custom/plugins/zsh-autosuggestions"]
 	path = .config/oh-my-zsh-custom/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions.git
+[submodule "Projects/lua-language-server"]
+	path = Projects/lua-language-server
+	url = git@github.com:sumneko/lua-language-server.git

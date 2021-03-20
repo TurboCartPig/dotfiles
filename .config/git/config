@@ -4,11 +4,15 @@
 	email = denniskristiansen@protonmail.com
 	username = TurboCartPig
 
+[init]
+	defaultBranch = main
+
 [color]
 	ui = auto
 
 [core]
 	editor = nvim
+	pager = bat
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
@@ -19,3 +23,11 @@
 [pull]
 	rebase = true
 	ff = only
+
+[alias]
+	s = status
+	a = add
+	c = commit
+	sw = switch
+	d = diff
+	ds = diff --staged

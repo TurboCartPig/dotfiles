@@ -1,3 +1,6 @@
+# Setup zsh completions from brew
+FPATH=/home/linuxbrew/.linuxbrew/share/zsh/site-functions:$FPATH
+
 # Path to your oh-my-zsh installation.
 export ZSH=/home/dennis/.config/oh-my-zsh/
 
@@ -124,6 +127,9 @@ export CMAKE_CXX_COMPILER_LAUNCHER="sccache"
 # Vcpkg path
 export VCPKG_ROOT="$HOME/Projects/vcpkg"
 
+# Node
+export PATH="$PATH:$HOME/.config/node-global/bin"
+
 # Fzf configuration
 export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 export FZF_DEFAULT_OPTS="--layout=reverse --tabstop=4"
@@ -151,3 +157,5 @@ alias vcpkg="/home/dennis/Projects/vcpkg/vcpkg"
 # Evals
 eval $(starship init zsh)
 
+# Source brew env
+eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)

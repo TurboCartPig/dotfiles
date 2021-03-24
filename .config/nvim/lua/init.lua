@@ -146,7 +146,7 @@ ts.setup {
 		smart_rename = {
 			enable = true,
 			keymaps = {
-				smart_rename = "<leader+R>",
+				smart_rename = "<leader>r",
 			},
 		},
 		navigation = {

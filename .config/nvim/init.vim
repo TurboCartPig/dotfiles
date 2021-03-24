@@ -76,16 +76,16 @@ if dein#load_state(dein_install_path)
 
 	" LSP and completions
 	call dein#add('neovim/nvim-lspconfig')
+	call dein#add('hrsh7th/nvim-compe')
+	" call dein#add('tzachar/compe-tabnine', { 'hook_post_update': '!./install.sh' })
 	call dein#add('nvim-lua/popup.nvim')
 	call dein#add('nvim-lua/plenary.nvim')
 	call dein#add('nvim-telescope/telescope.nvim')
 	call dein#add('nvim-lua/lsp_extensions.nvim')
 	call dein#add('nvim-lua/lsp-status.nvim')
-	call dein#add('nvim-lua/completion-nvim')
 	call dein#add('kosayoda/nvim-lightbulb')
 	call dein#add('nvim-treesitter/nvim-treesitter', { 'hook_post_update': ':TSUpdate' })
 	call dein#add('nvim-treesitter/nvim-treesitter-refactor')
-	call dein#add('nvim-treesitter/completion-treesitter')
 	call dein#add('romgrk/nvim-treesitter-context')
 
 	" Themes
@@ -142,7 +142,7 @@ set splitbelow
 
 " Menus
 set wildmenu
-set completeopt=menu,noselect,noinsert
+set completeopt=menuone,noselect,noinsert
 set shortmess=filoOTcF
 
 " Misc
@@ -305,32 +305,10 @@ nnoremap <silent>R       <cmd>lua vim.lsp.buf.rename()<CR>
 nnoremap <silent><C-q>   <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 " nnoremap <silent>gll     <cmd>lua vim.lsp.diagnostic.set_loclist()<CR>
 
-let g:completion_confirm_key            = "\<C-y>"
-let g:completion_enable_auto_paren      = v:true
-let g:completion_auto_change_source     = v:true
-let g:completion_enable_auto_signature  = v:true
-let g:completion_enable_auto_hover      = v:true
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-let g:completion_chain_complete_list    = {
-	\ 'default': {
-	\     'default': [
-	\         { 'complete_items': ['lsp', 'tabnine', 'ts'] },
-	\         { 'complete_items': ['path'], 'trigger_only': ['/'] },
-	\         { 'mode': '<c-p>' },
-	\         { 'mode': '<c-n>' }
-	\     ],
-	\     'comment': [
-	\         { 'complete_items': ['tabnine', 'ts'] },
-	\         { 'mode': '<c-p>' },
-	\         { 'mode': '<c-n>' }
-	\     ],
-	\     'string': [
-	\         { 'complete_items': ['tabnine', 'ts'] },
-	\         { 'mode': '<c-p>' },
-	\         { 'mode': '<c-n>' }
-	\     ]
-	\ }
-\ }
+" Compe autocompleteions mappings
+" inoremap <silent><expr><C-Space> compe#complete()
+inoremap <silent><expr><C-y>     compe#confirm("<CR>")
+inoremap <silent><expr><C-e>     compe#close("<C-e>")
 
 " Enable completions for supported languages
 augroup neovim_lsp

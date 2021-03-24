@@ -2,6 +2,32 @@ local vim = vim
 
 local M = {}
 
+-- nvim-compe config ------------------------------------------------------------------ {{{1
+
+local compe = require("compe")
+
+-- Setup compe auto completions
+compe.setup {
+	enable = true,
+	autocomplete = true,
+	debug = false,
+	min_length = 2,
+	preselect = "disable",
+	documentation = true,
+	source = {
+		calc = false,
+		buffer = true,
+		nvim_lsp = true,
+		nvim_lua = true,
+		omni = false,
+		-- tabnine = true,
+		tags = false,
+		spell = true,
+		path = true,
+		vsnip = false,
+	},
+}
+
 -- Neovim lsp status line config ------------------------------------------------------ {{{1
 
 local lsp_status = require("lsp-status")
@@ -31,7 +57,7 @@ local lsp_configs = require("lspconfig/configs")
 
 -- Run this every time a language server attaches to a buffer
 local on_attach = function(client, bufnr)
-	require("completion").on_attach(client, bufnr)
+	-- require("completion").on_attach(client, bufnr)
 	lsp_status.on_attach(client, bufnr)
 
 	-- Only setup format on save for servers that support it

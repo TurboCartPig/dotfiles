@@ -361,12 +361,13 @@ let g:gitblame_message_template = '<author> • <summary> • <date>'
 " ------------------------------------------------------------------------------------------------------------
 " Disable functionality included by neovim itself
 let g:go_code_completion_enabled = v:false
-let g:go_gopls_enabled           = v:true
+let g:go_gopls_enabled           = v:false
 
-" Autoformatting
+" Auto-stuff
 let g:go_fmt_autosave            = v:true
 let g:go_imports_autosave        = v:false
 let g:go_mod_fmt_autosave        = v:true
+let g:go_metalinter_autosave     = v:false
 
 " Misc
 let g:go_doc_keywordprg_enabled  = v:false
@@ -375,6 +376,7 @@ let g:go_auto_type_info			 = v:false
 let g:go_auto_sameids			 = v:false
 let g:go_jump_to_error			 = v:true
 let g:go_metalinter_command      = 'golangci-lint'
+let g:go_metalinter_deadline     = "2s"
 
 " }}}
 

@@ -52,6 +52,7 @@ if dein#load_state(dein_install_path)
 	call dein#add('sbdchd/neoformat')
 	call dein#add('editorconfig/editorconfig-vim')
 	call dein#add('f-person/git-blame.nvim')
+	call dein#add('lewis6991/gitsigns.nvim')
 
 	" This isn't default?
 	call dein#add('tpope/vim-sensible')
@@ -88,8 +89,6 @@ if dein#load_state(dein_install_path)
 	call dein#add('romgrk/nvim-treesitter-context')
 
 	" Themes
-	" call dein#add('morhetz/gruvbox')
-	call dein#add('mhinz/vim-signify')
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('vim-airline/vim-airline-themes')
 	call dein#add('ryanoasis/vim-devicons')

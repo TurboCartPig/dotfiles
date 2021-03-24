@@ -98,10 +98,29 @@ else
 	print("Please provide instructions for finding lua-language-server in init.lua")
 end
 
+-- Ripped from tjdevries/nlua
+-- Maybe I should just use that plugin?
+local get_lua_runtime = function()
+	local res = {}
+
+	res[vim.fn.expand("$VIMRUNTIME/lua")] = true
+	res[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+
+	for _, path in pairs(vim.api.nvim_list_runtime_paths()) do
+		local lua_path = path .. "/lua/"
+		if vim.fn.isdirectory(lua_path) then
+			res[lua_path] = true
+		end
+	end
+
+	return res
+end
+
 -- Setup lua language server
 lsp_config.sumneko_lua.setup {
 	cmd = { sumneko_bin, "-E", sumneko_root .. "/main.lua" },
 	on_attach = on_attach,
+	capabilities = lsp_status.capabilities,
 	settings = {
 		Lua = {
 			runtime = {
@@ -109,12 +128,17 @@ lsp_config.sumneko_lua.setup {
 				path = vim.split(package.path, ";"),
 			},
 		},
-		diagnostics = { globals = { "vim" }, },
+		completion = {
+			keywordSnippet = "Disable",
+		},
+		diagnostics = {
+			enable = true,
+			globals = { "vim" },
+		},
 		workspace = {
-			library = {
-				[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-				[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-			},
+			library = get_lua_runtime(),
+			maxPreload = 1000,
+			preloadFileSize = 1000,
 		},
 	},
 }

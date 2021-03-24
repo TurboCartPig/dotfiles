@@ -70,6 +70,7 @@ local servers = {
 		},
 	},
 	pyls = {},
+	pyright = {},
 	clangd = {},
 	vimls = {},
 	gopls = {},

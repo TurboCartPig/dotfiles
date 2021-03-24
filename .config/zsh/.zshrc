@@ -25,7 +25,7 @@ ZSH_DISABLE_COMPFIX=true
 
 # Uncomment the following line to use hyphen-insensitive completion.
 # Case-sensitive completion must be off. _ and - will be interchangeable.
-# HYPHEN_INSENSITIVE="true"
+HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 DISABLE_AUTO_UPDATE="true"
@@ -46,7 +46,7 @@ DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
 # COMPLETION_WAITING_DOTS="true"
@@ -98,10 +98,6 @@ source $ZSH/oh-my-zsh.sh
 export DEFAULT_USER=dennis
 export EDITOR=nvim
 export VISUAL=nvim
-export PAGER=bat
-
-export PATH="$PATH:$HOME/.local/bin/"
-export PATH="$PATH:$HOME/.npm-modules/bin/"
 
 # Cargo rust
 export PATH="$PATH:$HOME/.cargo/bin/"
@@ -109,11 +105,15 @@ export PATH="$PATH:$HOME/.cargo/bin/"
 # Go
 export PATH="$PATH:$HOME/go/bin/"
 
-# Volta nodejs
+# Volta node.js
 export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
+# Node.js
+export PATH="$PATH:$HOME/.config/node-global/bin"
+
 # Haskell
+export PATH="$PATH:$HOME/.local/bin/"
 export CABAL_DIR="$HOME/.config/cabal"
 export GHCUP_USE_XDG_DIRS="ON"
 
@@ -127,12 +127,13 @@ export CMAKE_CXX_COMPILER_LAUNCHER="sccache"
 # Vcpkg path
 export VCPKG_ROOT="$HOME/Projects/vcpkg"
 
-# Node
-export PATH="$PATH:$HOME/.config/node-global/bin"
-
 # Fzf configuration
 export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 export FZF_DEFAULT_OPTS="--layout=reverse --tabstop=4"
+
+# Setup search path for libraries in cuda sdk
+export LD_LIBRARY_PATH="/usr/local/cuda-11/lib64":$LD_LIBRARY_PATH
+export PATH=$PATH:"/usr/local/cuda-11/bin"
 
 export GPG_TTY=$(tty)
 

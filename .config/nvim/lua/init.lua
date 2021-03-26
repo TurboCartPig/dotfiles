@@ -95,11 +95,15 @@ local servers = {
 			formattingProvider = "stylish-haskell",
 		},
 	},
+	clangd = {},
+	gopls = {},
 	pyls = {},
 	pyright = {},
-	clangd = {},
 	vimls = {},
-	gopls = {},
+	dockerls = {},
+	jsonls = {},
+	yamlls = {},
+	-- html = {},
 }
 
 -- Setup all the servers with their respective settings

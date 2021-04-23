@@ -17,3 +17,9 @@ linux
 systemd's
 admins
 url
+websocket
+os
+syscall
+SIGINT
+SIGTERM
+https

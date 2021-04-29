@@ -55,6 +55,16 @@ lsp_status.config {
 local lsp_config = require("lspconfig")
 local lsp_configs = require("lspconfig/configs")
 
+-- NOTE: This is broken now?
+-- Fixes missing .cmd extensions for language servers
+-- vim.loop.spawn = (function ()
+--   local spawn = vim.loop.spawn
+--   return function(path, options, on_exit)
+--     local full_path = vim.fn.exepath(path)
+--     return spawn(full_path, options, on_exit)
+--   end
+-- end)()
+
 -- Run this every time a language server attaches to a buffer
 local on_attach = function(client, bufnr)
 	-- require("completion").on_attach(client, bufnr)

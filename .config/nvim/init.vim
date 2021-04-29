@@ -342,9 +342,9 @@ let g:go_code_completion_enabled = v:false
 let g:go_gopls_enabled           = v:false
 
 " Auto-stuff
-let g:go_fmt_autosave            = v:true
+let g:go_fmt_autosave            = v:false
 let g:go_imports_autosave        = v:false
-let g:go_mod_fmt_autosave        = v:true
+let g:go_mod_fmt_autosave        = v:false
 let g:go_metalinter_autosave     = v:false
 
 " Misc

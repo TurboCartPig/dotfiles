@@ -23,3 +23,9 @@ syscall
 SIGINT
 SIGTERM
 https
+Kubernetes
+GCP
+Heroku
+OpenStack
+IaaS
+heroku

@@ -178,7 +178,7 @@ local ts = require("nvim-treesitter.configs")
 
 ts.setup {
 	ensure_installed = {
-		"c", "cpp", "go", "rust", "haskell",
+		"c", "cpp", "go", "rust",
 		"javascript", "typescript", "html", "css",
 		"python", "lua",
 		"bash", "comment",

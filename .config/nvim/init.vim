@@ -86,7 +86,8 @@ if dein#load_state(dein_install_path)
 	call dein#add('kosayoda/nvim-lightbulb')
 	call dein#add('nvim-treesitter/nvim-treesitter', { 'hook_post_update': ':TSUpdate' })
 	call dein#add('nvim-treesitter/nvim-treesitter-refactor')
-	call dein#add('romgrk/nvim-treesitter-context')
+	" NOTE: This is buggy for some reason
+	" call dein#add('romgrk/nvim-treesitter-context')
 
 	" Themes
 	call dein#add('vim-airline/vim-airline')

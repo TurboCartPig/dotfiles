@@ -247,20 +247,25 @@ gitsigns.setup {
 -- Setup neoscroll ------------------------------------------------------------------ {{{1
 
 local neoscroll = require("neoscroll")
+local neoscroll_config = require("neoscroll.config")
 
 neoscroll.setup {
     mappings = {
 		'<C-u>', '<C-d>',
 		'<C-b>', '<C-f>',
-        -- '<C-y>', '<C-e>',
 		'zt', 'zz', 'zb',
 		'J', 'K',
 	},
     hide_cursor = true,          -- Hide cursor while scrolling
     stop_eof = true,             -- Stop at <EOF> when scrolling downwards
     respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-    cursor_scrolls_alone = true,  -- The cursor will keep on scrolling even if the window cannot scroll further
+    cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
 }
+
+-- Setup custom mappings
+neoscroll_config.key_to_function["J"] = { "scroll", {  "0.20", "false", "10" } }
+neoscroll_config.key_to_function["K"] = { "scroll", { "-0.20", "false", "10" } }
+neoscroll_config.set_mappings()
 
 -- Setup colorizer ---------------------------------------------------------------- {{{1
 
@@ -277,10 +282,6 @@ local autopairs = require("nvim-autopairs")
 
 autopairs.setup {
 	disable_filetype = { "TelescopePrompt" },
-	-- check_ts = true,
-	-- ts_config = {
-	-- 	lua = { "string" },
-	-- },
 }
 
 -- Return module ------------------------------------------------------------------ {{{1

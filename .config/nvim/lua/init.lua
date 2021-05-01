@@ -225,6 +225,9 @@ ts.setup {
 			},
 		},
 	},
+	context_commentstring = {
+		enable = true,
+	},
 }
 
 -- Setup gitsigns ------------------------------------------------------------------- {{{1
@@ -241,7 +244,46 @@ gitsigns.setup {
 	},
 }
 
--- Return module -------------------------------------------------------------------- {{{1
+-- Setup neoscroll ------------------------------------------------------------------ {{{1
+
+local neoscroll = require("neoscroll")
+
+neoscroll.setup {
+    mappings = {
+		'<C-u>', '<C-d>',
+		'<C-b>', '<C-f>',
+        -- '<C-y>', '<C-e>',
+		'zt', 'zz', 'zb',
+		'J', 'K',
+	},
+    hide_cursor = true,          -- Hide cursor while scrolling
+    stop_eof = true,             -- Stop at <EOF> when scrolling downwards
+    respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+    cursor_scrolls_alone = true,  -- The cursor will keep on scrolling even if the window cannot scroll further
+}
+
+-- Setup colorizer ---------------------------------------------------------------- {{{1
+
+local colorizer = require("colorizer")
+
+colorizer.setup {
+	"css",
+	"html",
+}
+
+-- Setup nvim-autopairs ----------------------------------------------------------- {{{1
+
+local autopairs = require("nvim-autopairs")
+
+autopairs.setup {
+	disable_filetype = { "TelescopePrompt" },
+	-- check_ts = true,
+	-- ts_config = {
+	-- 	lua = { "string" },
+	-- },
+}
+
+-- Return module ------------------------------------------------------------------ {{{1
 
 return M
 

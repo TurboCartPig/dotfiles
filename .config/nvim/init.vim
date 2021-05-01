@@ -45,10 +45,11 @@ if dein#load_state(dein_install_path)
 	call dein#begin(dein_install_path)
 	call dein#add(dein_plugin_path)
 
+	" Dependecies and utility libraries
+	call dein#add('nvim-lua/popup.nvim')
+	call dein#add('nvim-lua/plenary.nvim')
+
 	" Utils
-	call dein#add('scrooloose/nerdtree')
-	call dein#add('jistr/vim-nerdtree-tabs')
-	call dein#add('mhinz/vim-startify')
 	call dein#add('sbdchd/neoformat')
 	call dein#add('editorconfig/editorconfig-vim')
 	call dein#add('f-person/git-blame.nvim')
@@ -63,10 +64,11 @@ if dein#load_state(dein_install_path)
 	call dein#add('tpope/vim-repeat')
 	call dein#add('kana/vim-operator-user')
 	call dein#add('airblade/vim-rooter')
+	call dein#add('windwp/nvim-autopairs')
 
 	" Motion
 	call dein#add('wellle/targets.vim')
-	call dein#add('yuttie/comfortable-motion.vim')
+	call dein#add('karb94/neoscroll.nvim')
 	call dein#add('christoomey/vim-tmux-navigator')
 
 	" Lang support
@@ -77,15 +79,14 @@ if dein#load_state(dein_install_path)
 	" LSP and completions
 	call dein#add('neovim/nvim-lspconfig')
 	call dein#add('hrsh7th/nvim-compe')
+	" NOTE: Does not work on windows
 	" call dein#add('tzachar/compe-tabnine', { 'hook_post_update': '!./install.sh' })
-	call dein#add('nvim-lua/popup.nvim')
-	call dein#add('nvim-lua/plenary.nvim')
-	call dein#add('nvim-telescope/telescope.nvim')
 	call dein#add('nvim-lua/lsp_extensions.nvim')
 	call dein#add('nvim-lua/lsp-status.nvim')
 	call dein#add('kosayoda/nvim-lightbulb')
 	call dein#add('nvim-treesitter/nvim-treesitter', { 'hook_post_update': ':TSUpdate' })
 	call dein#add('nvim-treesitter/nvim-treesitter-refactor')
+	call dein#add('JoosepAlviste/nvim-ts-context-commentstring')
 	" NOTE: This is buggy for some reason
 	" call dein#add('romgrk/nvim-treesitter-context')
 
@@ -93,8 +94,16 @@ if dein#load_state(dein_install_path)
 	call dein#add('vim-airline/vim-airline')
 	call dein#add('vim-airline/vim-airline-themes')
 	call dein#add('ryanoasis/vim-devicons')
+	call dein#add('kyazdani42/nvim-web-devicons')
 	call dein#add('rktjmp/lush.nvim')
 	call dein#add('npxbr/gruvbox.nvim')
+
+	" Interfaces
+	call dein#add('mhinz/vim-startify')
+	call dein#add('kyazdani42/nvim-tree.lua')
+	call dein#add('wfxr/minimap.vim', { 'hook_post_update': '!cargo install code-minimap' })
+	call dein#add('norcalli/nvim-colorizer.lua')
+	call dein#add('nvim-telescope/telescope.nvim')
 
 	call dein#end()
 	call dein#save_state()
@@ -358,23 +367,6 @@ let g:go_metalinter_deadline     = "2s"
 
 " }}}
 
-" Comfortable-motion {{{
-" ------------------------------------------------------------------------------------------------------------
-let g:comfortable_motion_no_default_mappings = 1
-let g:comfortable_motion_interval            = 1000.0 / 60.0
-let g:comfortable_motion_friction            = 110.0
-let g:comfortable_motion_air_drag            = 5.0
-
-noremap  <silent><ScrollWheelUp>   <cmd>call comfortable_motion#flick(-50)<CR>
-noremap  <silent><ScrollWheelDown> <cmd>call comfortable_motion#flick(50)<CR>
-
-nnoremap <silent>J                 <cmd>call comfortable_motion#flick(50)<CR>
-nnoremap <silent>K                 <cmd>call comfortable_motion#flick(-50)<CR>
-vnoremap <silent>J                 <cmd>call comfortable_motion#flick(50)<CR>
-vnoremap <silent>K                 <cmd>call comfortable_motion#flick(-50)<CR>
-
-" }}}
-
 " Neoformat settings {{{
 " ------------------------------------------------------------------------------------------------------------
 let g:neoformat_basic_format_align = v:false
@@ -384,6 +376,20 @@ let g:neoformat_enabled_python     = ['black', 'autopep8']
 let g:neoformat_enabled_haskell    = ['stylishhaskell', 'ormolu']
 
 nnoremap <silent><C-M-L> <cmd>Neoformat<CR>
+
+" }}}
+
+" nvim-tree settings {{{
+" ------------------------------------------------------------------------------------------------------------
+let g:nvim_tree_ignore     = ['.git', 'node_modules', '.cache', '.idea']
+let g:nvim_tree_auto_close = v:true
+let g:nvim_tree_gitignore  = v:false
+let g:nvim_tree_tab_open   = v:false
+let g:nvim_tree_show_icons = {
+	\ 'git': v:true,
+	\ 'folders': v:true,
+	\ 'files': v:true,
+	\ }
 
 " }}}
 

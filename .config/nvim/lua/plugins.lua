@@ -13,9 +13,10 @@ local packer = require("packer")
 
 packer.startup(function(use)
 	-- Let packer manage itself
-	use "wbthomason/packer.nvim"
+	use { "wbthomason/packer.nvim", opt = true }
 
 	-- Dependecies and utility libraries
+	-- TODO: Add these as `requires` for plugins that require them
 	use "nvim-lua/popup.nvim"
 	use "nvim-lua/plenary.nvim"
 
@@ -45,8 +46,15 @@ packer.startup(function(use)
 
 	-- Language support
 	use "sheerun/vim-polyglot"
-	use { "fatih/vim-go", opt = true, ft = { "go", "gomod", "gosum", "godoc" } }
-	use { "rust-lang/rust.vim", opt = true, ft = { "rust" } }
+	use {
+		"fatih/vim-go",
+		ft = { "go", "gomod", "gosum", "godoc" },
+	}
+	use {
+		"rust-lang/rust.vim",
+		cmd = { "Cargo" },
+		ft = { "rust" },
+	}
 
 	-- LSP and autocompletions
 	use "neovim/nvim-lspconfig"
@@ -66,21 +74,31 @@ packer.startup(function(use)
 	use "vim-airline/vim-airline"
 	use "vim-airline/vim-airline-themes"
 	use "ryanoasis/vim-devicons"
-	use "kyazdani42/nvim-web-devicons"
-	use "rktjmp/lush.nvim"
-	use "npxbr/gruvbox.nvim"
+	use {
+		"npxbr/gruvbox.nvim",
+		requires = "rktjmp/lush.nvim",
+	}
 
 	-- Interfaces
 	use "mhinz/vim-startify"
-	use "kyazdani42/nvim-tree.lua"
-	use "nvim-telescope/telescope.nvim"
-	use { "wfxr/minimap.vim", run = "!cargo install code-minimap" }
+	use {
+		"kyazdani42/nvim-tree.lua",
+		requires = "kyazdani42/nvim-web-devicons",
+	}
+	use {
+		"nvim-telescope/telescope.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+	}
+	use {
+		"wfxr/minimap.vim",
+		run = "!cargo install code-minimap",
+	}
 	use {
 		"norcalli/nvim-colorizer.lua",
 		opt = true,
 		ft = { "css", "html" },
 		config = function ()
 			require("colorizer").setup { "css", "html" }
-		end
+		end,
 	}
 end)

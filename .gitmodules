@@ -4,9 +4,6 @@
 [submodule ".config/tmux/plugins/tpm"]
 	path = .config/tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
-[submodule ".cache/dein/repos/github.com/Shougo/dein.vim"]
-	path = .cache/dein/repos/github.com/Shougo/dein.vim
-	url = https://github.com/Shougo/dein.vim.git
 [submodule ".config/oh-my-zsh-custom/plugins/zsh-completions"]
 	path = .config/oh-my-zsh-custom/plugins/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions.git

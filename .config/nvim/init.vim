@@ -3,24 +3,15 @@
 " TODO: List all the programs that the config depends on, like rls or ripgrep
 " TODO: Define checkhealth stuff to check that everything works
 
-" Custom functions and commands {{{
-" ------------------------------------------------------------------------------------------------------------
-" Hardcopy to pdf
-set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
-command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
-
- " }}}
-
-" Polyglot settings {{{
+" Polyglot settings {{{1
 " ------------------------------------------------------------------------------------------------------------
 let g:polyglot_disabled = ['go', 'rust']
 
-" }}}
-
-" Define and load plugins in lua/plugins.lua
+" Define and manage plugins in lua/plugins.lua {{{1
+" ------------------------------------------------------------------------------------------------------------
 lua require("plugins")
 
-" Set options {{{
+" Set options {{{1
 " ------------------------------------------------------------------------------------------------------------
 set hidden
 filetype plugin indent on
@@ -72,9 +63,7 @@ set updatetime=200
 " Leader
 let mapleader = ' '
 
-" }}}
-
-" Abbreviations {{{
+" Abbreviations {{{1
 " ------------------------------------------------------------------------------------------------------------
 " Command abbreviations
 cnoreabbrev Q q
@@ -94,9 +83,7 @@ noreabbrev widht width
 noreabbrev higth height
 noreabbrev nigthly nightly
 
-" }}}
-
-" Per language options {{{
+" Per language options {{{1
 " ------------------------------------------------------------------------------------------------------------
 " Formatting overrides
 augroup FormattingOverrides
@@ -129,9 +116,7 @@ augroup SpellChecking
 		\ spelllang=en_us
 augroup END
 
-" }}}
-
-" Neovide (GUI) settings {{{
+" Neovide (GUI) settings {{{1
 " See: https://github.com/Kethku/neovide/wiki/Configuration
 " ------------------------------------------------------------------------------------------------------------
 " Fixes broken AltGr keybinds
@@ -148,16 +133,12 @@ set guifont=FiraCode\ NF:h15
 
 let g:neovide_refresh_rate = 165
 
-" }}}
-
-" Termdebug settings {{{
+" Termdebug settings {{{1
 " ------------------------------------------------------------------------------------------------------------
 let g:termdebug_popup = 0
 let g:termdebug_wide  = 163
 
-" }}}
-
-" My own keybinds {{{
+" My own keybinds {{{1
 " ------------------------------------------------------------------------------------------------------------
 nnoremap <silent><Leader><Leader> :b#<CR>
 
@@ -181,7 +162,7 @@ nnoremap <c-l> <c-w>l
 
 " }}}
 
-" Hightlights and colorschemes {{{
+" Hightlights and colorschemes {{{1
 " ------------------------------------------------------------------------------------------------------------
 
 " Clear annoying colors
@@ -203,9 +184,7 @@ augroup END
 set background=dark
 lua vim.cmd([[colorscheme gruvbox]])
 
-" }}}
-
-" LSP settings {{{
+" LSP settings {{{1
 " ------------------------------------------------------------------------------------------------------------
 
 " NOTE: Some mappings come from plugins or lua.
@@ -244,17 +223,14 @@ function! LspStatus() abort
 	return trim(status)
 endfunction
 
-" }}}
-
-" git-blame.nvim settings {{{
+" git-blame.nvim settings {{{1
 " ------------------------------------------------------------------------------------------------------------
 let g:gitblame_enabled          = v:false
 let g:gitblame_message_template = '<author> • <summary> • <date>'
 
-" }}}
-
-" vim-go {{{
+" vim-go settings {{{1
 " ------------------------------------------------------------------------------------------------------------
+
 " Disable functionality included by neovim itself
 let g:go_code_completion_enabled = v:false
 let g:go_gopls_enabled           = v:false
@@ -274,9 +250,7 @@ let g:go_jump_to_error			 = v:true
 let g:go_metalinter_command      = 'golangci-lint'
 let g:go_metalinter_deadline     = "2s"
 
-" }}}
-
-" Neoformat settings {{{
+" Neoformat settings {{{1
 " ------------------------------------------------------------------------------------------------------------
 let g:neoformat_basic_format_align = v:false
 let g:neoformat_basic_format_retab = v:true
@@ -286,9 +260,7 @@ let g:neoformat_enabled_haskell    = ['stylishhaskell', 'ormolu']
 
 nnoremap <silent><C-M-L> <cmd>Neoformat<CR>
 
-" }}}
-
-" nvim-tree settings {{{
+" nvim-tree settings {{{1
 " ------------------------------------------------------------------------------------------------------------
 let g:nvim_tree_ignore     = ['.git', 'node_modules', '.cache', '.idea']
 let g:nvim_tree_auto_close = v:true
@@ -300,9 +272,7 @@ let g:nvim_tree_show_icons = {
 	\ 'files': v:true,
 	\ }
 
-" }}}
-
-" Startify {{{
+" Startify settings {{{1
 " ------------------------------------------------------------------------------------------------------------
 let s:neovim_asci = [
 			\ '         _             _            _      _          _        _         _   _       ',
@@ -328,9 +298,7 @@ let g:startify_lists = [
 
 let g:startify_bookmarks = [ '~/.config/nvim/init.vim',  '~/.config/nvim/lua/init.lua', '~/.config/zsh/.zshrc' ]
 
-" }}}
-
-" Airline settings {{{
+" Airline settings {{{1
 " ------------------------------------------------------------------------------------------------------------
 let g:airline_theme = 'minimalist'
 
@@ -352,9 +320,13 @@ call airline#parts#define_function('lsp_status', 'LspStatus')
 call airline#parts#define_condition('lsp_status', 'luaeval("#vim.lsp.buf_get_clients() > 0")')
 let g:airline_section_warning = airline#section#create_right(['lsp_status'])
 
-" }}}
+" Custom functions and commands {{{1
+" ------------------------------------------------------------------------------------------------------------
+" Hardcopy to pdf
+set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
+command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
 
-" Source the lua init file {{{
+" Source the lua init file {{{1
 " ------------------------------------------------------------------------------------------------------------
 lua require("init")
 

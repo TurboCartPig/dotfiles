@@ -4,15 +4,7 @@
 " TODO: Define checkhealth stuff to check that everything works
 
 " Custom functions and commands {{{
-
-" Delete and uninstall plugins not installed below
-function CleanPluggins()
-	call dein#recache_runtimepath()
-	call map(dein#check_clean(), "delete(v:val, 'rf')")
-endfunction
-
-command! DeinClean call CleanPluggins()
-
+" ------------------------------------------------------------------------------------------------------------
 " Hardcopy to pdf
 set printoptions=syntax:y,number:y,left:0,right:2,top:2,bottom:2
 command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
@@ -25,91 +17,8 @@ let g:polyglot_disabled = ['go', 'rust']
 
 " }}}
 
-" Handle platform specifics for plugins {{{
-if has('win32')
-	let dein_install_path = 'C:\Users\dennis\Appdata\Local\dein'
-	let dein_plugin_path = 'C:\Users\dennis\Appdata\Local\dein\repos\github.com\Shougo\dein.vim'
-
-	set runtimepath+=C:\Users\dennis\Appdata\Local\dein\repos\github.com\Shougo\dein.vim
-elseif has('unix')
-	let dein_install_path = '~/.cache/dein'
-	let dein_plugin_path = '~/.cache/dein/repos/github.com/Shougo/dein.vim'
-
-	set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-endif
-
-" }}}
-
-" Define plugins {{{
-if dein#load_state(dein_install_path)
-	call dein#begin(dein_install_path)
-	call dein#add(dein_plugin_path)
-
-	" Dependecies and utility libraries
-	call dein#add('nvim-lua/popup.nvim')
-	call dein#add('nvim-lua/plenary.nvim')
-
-	" Utils
-	call dein#add('sbdchd/neoformat')
-	call dein#add('editorconfig/editorconfig-vim')
-	call dein#add('f-person/git-blame.nvim')
-	call dein#add('lewis6991/gitsigns.nvim')
-
-	" This isn't default?
-	call dein#add('tpope/vim-sensible')
-	call dein#add('tpope/vim-fugitive')
-	call dein#add('tpope/vim-surround')
-	call dein#add('tpope/vim-commentary')
-	call dein#add('tpope/vim-endwise')
-	call dein#add('tpope/vim-repeat')
-	call dein#add('kana/vim-operator-user')
-	call dein#add('airblade/vim-rooter')
-	call dein#add('windwp/nvim-autopairs')
-
-	" Motion
-	call dein#add('wellle/targets.vim')
-	call dein#add('karb94/neoscroll.nvim')
-	call dein#add('christoomey/vim-tmux-navigator')
-
-	" Lang support
-	call dein#add('sheerun/vim-polyglot')
-	call dein#add('fatih/vim-go', { 'merged': v:false })
-	call dein#add('rust-lang/rust.vim', { 'merged': v:false })
-
-	" LSP and completions
-	call dein#add('neovim/nvim-lspconfig')
-	call dein#add('hrsh7th/nvim-compe')
-	" NOTE: Does not work on windows
-	" call dein#add('tzachar/compe-tabnine', { 'hook_post_update': '!./install.sh' })
-	call dein#add('nvim-lua/lsp_extensions.nvim')
-	call dein#add('nvim-lua/lsp-status.nvim')
-	call dein#add('kosayoda/nvim-lightbulb')
-	call dein#add('nvim-treesitter/nvim-treesitter', { 'hook_post_update': ':TSUpdate' })
-	call dein#add('nvim-treesitter/nvim-treesitter-refactor')
-	call dein#add('JoosepAlviste/nvim-ts-context-commentstring')
-	" NOTE: This is buggy for some reason
-	" call dein#add('romgrk/nvim-treesitter-context')
-
-	" Themes
-	call dein#add('vim-airline/vim-airline')
-	call dein#add('vim-airline/vim-airline-themes')
-	call dein#add('ryanoasis/vim-devicons')
-	call dein#add('kyazdani42/nvim-web-devicons')
-	call dein#add('rktjmp/lush.nvim')
-	call dein#add('npxbr/gruvbox.nvim')
-
-	" Interfaces
-	call dein#add('mhinz/vim-startify')
-	call dein#add('kyazdani42/nvim-tree.lua')
-	call dein#add('wfxr/minimap.vim', { 'hook_post_update': '!cargo install code-minimap' })
-	call dein#add('norcalli/nvim-colorizer.lua')
-	call dein#add('nvim-telescope/telescope.nvim')
-
-	call dein#end()
-	call dein#save_state()
-endif
-
-" }}}
+" Define and load plugins in lua/plugins.lua
+lua require("plugins")
 
 " Set options {{{
 " ------------------------------------------------------------------------------------------------------------
@@ -447,7 +356,6 @@ let g:airline_section_warning = airline#section#create_right(['lsp_status'])
 
 " Source the lua init file {{{
 " ------------------------------------------------------------------------------------------------------------
-" This both sources the init.lua file, and imports the module
-lua init = require("init")
+lua require("init")
 
 " }}}

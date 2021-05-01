@@ -264,12 +264,12 @@ neoscroll.setup {
 
 -- Setup colorizer ---------------------------------------------------------------- {{{1
 
-local colorizer = require("colorizer")
+-- local colorizer = require("colorizer")
 
-colorizer.setup {
-	"css",
-	"html",
-}
+-- colorizer.setup {
+-- 	"css",
+-- 	"html",
+-- }
 
 -- Setup nvim-autopairs ----------------------------------------------------------- {{{1
 

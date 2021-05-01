@@ -140,13 +140,13 @@ let g:termdebug_wide  = 163
 
 " My own keybinds {{{1
 " ------------------------------------------------------------------------------------------------------------
-nnoremap <silent><Leader><Leader> :b#<CR>
+nnoremap <silent><leader><leader> <cmd>b#<CR>
 
 " Move around easier in insert mode
-inoremap <c-h> <left>
-inoremap <c-j> <down>
-inoremap <c-k> <up>
-inoremap <c-l> <right>
+inoremap <C-h> <left>
+inoremap <C-j> <down>
+inoremap <C-k> <up>
+inoremap <C-l> <right>
 
 " Strong H/L
 nnoremap H 0
@@ -155,12 +155,10 @@ vnoremap H 0
 vnoremap L $
 
 " Move between windows in normal mode
-nnoremap <c-h> <c-w>h
-nnoremap <c-j> <c-w>j
-nnoremap <c-k> <c-w>k
-nnoremap <c-l> <c-w>l
-
-" }}}
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
 
 " Hightlights and colorschemes {{{1
 " ------------------------------------------------------------------------------------------------------------
@@ -330,4 +328,3 @@ command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"
 " ------------------------------------------------------------------------------------------------------------
 lua require("init")
 
-" }}}

@@ -91,13 +91,13 @@ packer.startup(function(use)
 	}
 	use {
 		"wfxr/minimap.vim",
-		run = "!cargo install code-minimap",
+		run = "cargo install code-minimap",
 	}
 	use {
 		"norcalli/nvim-colorizer.lua",
 		opt = true,
 		ft = { "css", "html" },
-		config = function ()
+		config = function()
 			require("colorizer").setup { "css", "html" }
 		end,
 	}

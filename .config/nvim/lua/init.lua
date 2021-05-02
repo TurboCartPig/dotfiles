@@ -70,11 +70,6 @@ local on_attach = function(client, bufnr)
 	-- require("completion").on_attach(client, bufnr)
 	lsp_status.on_attach(client, bufnr)
 
-	-- Only setup format on save for servers that support it
-	if client.resolved_capabilities.document_formatting then
-		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
-	end
-
 	-- Setup completion
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -82,13 +77,23 @@ local on_attach = function(client, bufnr)
 	vim.cmd("autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()")
 
 	-- Setup line diagnostic on hover
-	-- vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
+	vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
 
 	-- Setup hover? on hover
-	-- vim.api.nvim_command("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
+	-- if client.resolved_capabilities.hover then
+	-- 	vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
+	-- end
 
 	-- Setup signature help on hover
-	vim.cmd("autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()")
+	-- FIXME: STFU when there are no signature help available
+	-- if client.resolved_capabilities.signature_help then
+	-- 	vim.cmd("autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()")
+	-- end
+
+	-- Only setup format on save for servers that support it
+	if client.resolved_capabilities.document_formatting then
+		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
+	end
 end
 
 -- List all the servers and any custom configuration

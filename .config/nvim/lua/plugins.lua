@@ -9,6 +9,16 @@ end
 -- Load the packer pack
 vim.cmd [[packadd packer.nvim]]
 
+-- Compile pluins on change
+vim.cmd [[
+	augroup Packer
+		autocmd!
+		autocmd BufWritePost plugins.lua PackerCompile
+		autocmd BufWritePost plugins.lua PackerClean
+		autocmd BufWritePost plugins.lua PackerInstall
+	augroup end
+]]
+
 local packer = require("packer")
 
 packer.startup(function(use)
@@ -62,6 +72,12 @@ packer.startup(function(use)
 	use "nvim-lua/lsp_extensions.nvim"
 	use "nvim-lua/lsp-status.nvim"
 	use "kosayoda/nvim-lightbulb"
+	use {
+		"onsails/lspkind-nvim",
+		config = function ()
+			require("lspkind").init {}
+		end
+	}
 
 	-- Treesitter
 	use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
@@ -102,3 +118,5 @@ packer.startup(function(use)
 		end,
 	}
 end)
+
+-- vi: foldmethod=marker

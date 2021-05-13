@@ -94,6 +94,11 @@ local on_attach = function(client, bufnr)
 	if client.resolved_capabilities.document_formatting then
 		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
 	end
+
+	-- TODO: Only do this for rust
+	vim.cmd [[
+		autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs lua require('lsp_extensions').inlay_hints { prefix = '» ', highlight = 'Comment' }
+	]]
 end
 
 -- List all the servers and any custom configuration
@@ -188,6 +193,34 @@ lsp_config.sumneko_lua.setup {
 	},
 }
 
+-- nvim-compe config ---------------------------------------------------------------- {{{1
+
+local vimmap = vim.api.nvim_set_keymap
+
+vimmap("i", "<c-y>", [[compe#confirm("<cr>")]], { expr = true, noremap = true, silent = true })
+vimmap("i", "<c-e>", [[compe#close("<c-e>")]],  { expr = true, noremap = true, silent = true })
+
+-- Telescope config ----------------------------------------------------------------- {{{1
+
+vimmap("n", "gr",     [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]],
+	{ noremap = true, silent = true })
+vimmap("n", "gs",     [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]],
+	{ noremap = true, silent = true })
+vimmap("n", "gll",    [[<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>]],
+	{ noremap = true, silent = true })
+vimmap("n", "<m-cr>", [[<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>]],
+	{ noremap = true, silent = true })
+vimmap("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]],
+	{ noremap = true, silent = true })
+vimmap("n", "<c-p>",  [[<cmd>lua require("telescope.builtin").git_files()<cr>]],
+	{ noremap = true, silent = true })
+vimmap("n", "<c-t>",  [[<cmd>lua vim.lsp.buf.hover()<cr>]],
+	{ noremap = true, silent = true })
+vimmap("n", "R",      [[<cmd>lua vim.lsp.buf.rename()<cr>]],
+	{ noremap = true, silent = true })
+vimmap("n", "<c-q>",  [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]],
+	{ noremap = true, silent = true })
+
 -- Treesitter config ---------------------------------------------------------------- {{{1
 local ts = require("nvim-treesitter.configs")
 
@@ -268,9 +301,10 @@ neoscroll.setup {
 }
 
 -- Setup custom mappings
-neoscroll_config.key_to_function["J"] = { "scroll", {  "0.20", "false", "10" } }
-neoscroll_config.key_to_function["K"] = { "scroll", { "-0.20", "false", "10" } }
-neoscroll_config.set_mappings()
+local mappings = {}
+mappings["J"] = { "scroll", {  "0.20", "false", "10" } }
+mappings["K"] = { "scroll", { "-0.20", "false", "10" } }
+neoscroll_config.set_mappings(mappings)
 
 -- Setup colorizer ---------------------------------------------------------------- {{{1
 
@@ -288,6 +322,28 @@ local autopairs = require("nvim-autopairs")
 autopairs.setup {
 	disable_filetype = { "TelescopePrompt" },
 }
+
+-- highlights and colorscheme ----------------------------------------------------- {{{1
+
+-- Clear annoying colors
+vim.cmd [[
+	augroup ColorSchemeOverrides
+		autocmd!
+		autocmd ColorScheme *       highlight SignColumn        guibg=none
+		autocmd ColorScheme *       highlight Folded            guibg=none
+		autocmd ColorScheme *       highlight FoldColumn        guibg=none
+		autocmd ColorScheme gruvbox highlight GruvboxAquaSign   guibg=none
+		autocmd ColorScheme gruvbox highlight GruvboxBlueSign   guibg=none
+		autocmd ColorScheme gruvbox highlight GruvboxGreenSign  guibg=none
+		autocmd ColorScheme gruvbox highlight GruvboxOrangeSign guibg=none
+		autocmd ColorScheme gruvbox highlight GruvboxPurpleSign guibg=none
+		autocmd ColorScheme gruvbox highlight GruvboxRedSign    guibg=none
+		autocmd ColorScheme gruvbox highlight GruvboxYellowSign guibg=none
+	augroup end
+]]
+
+vim.o.background = "dark"
+vim.cmd [[colorscheme gruvbox]]
 
 -- Return module ------------------------------------------------------------------ {{{1
 

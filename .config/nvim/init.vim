@@ -21,6 +21,9 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+" Keep undo file
+set undofile
+
 " Search
 set incsearch
 set showmatch

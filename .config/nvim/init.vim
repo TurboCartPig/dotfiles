@@ -250,14 +250,9 @@ nnoremap <silent><C-M-L> <cmd>Neoformat<CR>
 " nvim-tree settings {{{1
 " ------------------------------------------------------------------------------------------------------------
 let g:nvim_tree_ignore     = ['.git', 'node_modules', '.cache', '.idea']
-let g:nvim_tree_auto_close = v:true
+let g:nvim_tree_auto_close = v:false
 let g:nvim_tree_gitignore  = v:false
 let g:nvim_tree_tab_open   = v:false
-let g:nvim_tree_show_icons = {
-	\ 'git': v:true,
-	\ 'folders': v:true,
-	\ 'files': v:true,
-	\ }
 
 " Startify settings {{{1
 " ------------------------------------------------------------------------------------------------------------

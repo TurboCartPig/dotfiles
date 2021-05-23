@@ -238,6 +238,37 @@ ts.setup {
 	indent = {
 		enable = true,
 	},
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "gnn",
+			node_incremental = "grn",
+			node_decremental = "grm",
+		},
+	},
+	textobjects = {
+		swap = {
+			enable = true,
+			swap_next = {
+				["<leader><C-l>"] = "@parameter.inner",
+				["<leader><C-j>"] = "@function.outer"
+			},
+			swap_previous = {
+				["<leader><C-h>"] = "@parameter.inner",
+				["<leader><C-k>"] = "@function.outer"
+			},
+		},
+		move = {
+			enable = true,
+			set_jumps = true,
+			goto_next_start = {
+				["<leader>J"] = "@function.outer",
+			},
+			goto_previous_start = {
+				["<leader>K"] = "@function.outer",
+			},
+		},
+	},
 	refactor = {
 		highlight_definitions = {
 			enable = true,

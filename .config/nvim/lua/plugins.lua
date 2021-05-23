@@ -81,6 +81,7 @@ packer.startup(function(use)
 	-- Treesitter
 	use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
 	use "nvim-treesitter/nvim-treesitter-refactor"
+	use "nvim-treesitter/nvim-treesitter-textobjects"
 	use "JoosepAlviste/nvim-ts-context-commentstring"
 	-- NOTE: This is buggy for some reason
 	-- use "romgrk/nvim-treesitter-context"

@@ -149,6 +149,9 @@ augroup FoldingSettings
 	autocmd FileType vi,vim setlocal
 		\ foldlevel=0
 		\ foldmethod=marker
+
+	autocmd FileType json setlocal
+		\ foldmethod=syntax
 augroup END
 
 " Spell checking

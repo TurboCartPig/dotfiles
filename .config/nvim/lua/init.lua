@@ -385,8 +385,4 @@ vim.cmd [[
 vim.o.background = "dark"
 vim.cmd [[colorscheme gruvbox]]
 
--- Return module ------------------------------------------------------------------ {{{1
-
-return M
-
 -- vi: foldmethod=marker

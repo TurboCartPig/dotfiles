@@ -5,7 +5,24 @@
 
 " Polyglot settings {{{1
 " ------------------------------------------------------------------------------------------------------------
-let g:polyglot_disabled = ['go', 'rust']
+let g:polyglot_disabled = ['go', 'rust', 'json', 'autoindent', 'sensible']
+
+" Settings for elzr/vim-json
+let g:vim_json_syntax_conceal = 1
+
+" Settings for plasticboy/vim-markdown
+let g:vim_markdown_toc_autofit         = 1
+let g:vim_markdown_conceal_code_blocks = 0
+let g:vim_markdown_follow_anchor       = 1
+let g:vim_markdown_strikethrough       = 1
+
+" Create alias for fenced languages with the format: alias=actual
+let g:vim_markdown_fenced_languages = [
+	\ 'c++=cpp',
+	\ 'viml=vim',
+	\ 'bash=sh',
+	\ 'ini=dosini'
+	\ ]
 
 " Define and manage plugins in lua/plugins.lua {{{1
 " ------------------------------------------------------------------------------------------------------------
@@ -46,8 +63,16 @@ set cmdheight=2
 set scrolloff=5
 set termguicolors
 
+" TODO: Find a way to cycle through predefined listchars
+" eol:¬
+set listchars=tab:→\ ,lead:·,trail:·,precedes:«,extends:»
+
 " Folds
 set foldlevelstart=99
+
+" Conceals
+set concealcursor=nc
+set conceallevel=2
 
 " Sane splits
 set splitright

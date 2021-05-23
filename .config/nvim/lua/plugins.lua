@@ -39,8 +39,6 @@ packer.startup(function(use)
 	use "lewis6991/gitsigns.nvim"
 
 	-- This isn't default?
-	use "tpope/vim-sensible"
-	use "tpope/vim-fugitive"
 	use "tpope/vim-surround"
 	use "tpope/vim-commentary"
 	use "tpope/vim-endwise"
@@ -56,6 +54,7 @@ packer.startup(function(use)
 
 	-- Language support
 	use "sheerun/vim-polyglot"
+	use "elzr/vim-json"
 	use {
 		"fatih/vim-go",
 		ft = { "go", "gomod", "gosum", "godoc" },

@@ -30,8 +30,19 @@ lua require("plugins")
 
 " Set options {{{1
 " ------------------------------------------------------------------------------------------------------------
-set hidden
+
+" Set shell to powershell core on windows
+if has("win32") && exists("pwsh.exe")
+	set shell=pwsh.exe
+elseif has("unix") && exists("/usr/bin/zsh")
+	set shell=/usr/bin/zsh
+endif
+
 filetype plugin indent on
+syntax on
+
+" Needed for some plugins to work properly
+set hidden
 
 " Disable backups and swapfiles. Thats what a VCS' are for.
 set nobackup
@@ -40,6 +51,8 @@ set noswapfile
 
 " Keep undo file
 set undofile
+
+set viewoptions-=options
 
 " Search
 set incsearch
@@ -61,6 +74,7 @@ set signcolumn=yes
 set cursorline
 set cmdheight=2
 set scrolloff=5
+set sidescrolloff=5
 set termguicolors
 
 " TODO: Find a way to cycle through predefined listchars
@@ -68,6 +82,7 @@ set termguicolors
 set listchars=tab:→\ ,lead:·,trail:·,precedes:«,extends:»
 
 " Folds
+" 'foldmethod' and 'foldlevel' are set by autocmds for various filetypes
 set foldlevelstart=99
 
 " Conceals

@@ -153,8 +153,6 @@ if vim.fn.has("win32") == 1 then
 elseif vim.fn.has("unix") == 1 then
 	sumneko_root = vim.fn.expand("$HOME/Projects/lua-language-server")
 	sumneko_bin  = sumneko_root .. "/bin/Linux/lua-language-server"
-else
-	print("Please provide instructions for finding lua-language-server in init.lua")
 end
 
 -- Ripped from tjdevries/nlua
@@ -294,11 +292,9 @@ ts.setup {
 		navigation = {
 			enable = true,
 			keymaps = {
-				goto_definition = nil,
 				goto_definition_lsp_fallback = "gd",
 				goto_next_usage = "%%",
 				goto_previous_usage = "&&",
-				list_definitions = nil,
 				list_definitions_toc = "g0",
 			},
 		},

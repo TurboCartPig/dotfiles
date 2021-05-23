@@ -1,6 +1,15 @@
 local vim = vim
 
-local M = {}
+-- Bufferline settings ------------------------------------------------------------- {{{1
+
+local bufferline = require("bufferline")
+
+bufferline.setup {
+	options = {
+		diagnostics = "nvim_lsp",
+		sort_by = "directory",
+	},
+}
 
 -- nvim-compe config ------------------------------------------------------------------ {{{1
 

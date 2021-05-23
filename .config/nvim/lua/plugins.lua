@@ -87,9 +87,13 @@ packer.startup(function(use)
 	-- use "romgrk/nvim-treesitter-context"
 
 	-- Themes
+	use "ryanoasis/vim-devicons"
 	use "vim-airline/vim-airline"
 	use "vim-airline/vim-airline-themes"
-	use "ryanoasis/vim-devicons"
+	use {
+		"akinsho/nvim-bufferline.lua",
+		requires = "kyazdani42/nvim-web-devicons",
+	}
 	use {
 		"npxbr/gruvbox.nvim",
 		requires = "rktjmp/lush.nvim",

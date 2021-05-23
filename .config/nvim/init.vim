@@ -161,6 +161,11 @@ augroup SpellChecking
 		\ spelllang=en_us
 augroup END
 
+augroup Term
+	autocmd!
+	autocmd TermOpen * startinsert
+augroup END
+
 " Neovide (GUI) settings {{{1
 " See: https://github.com/Kethku/neovide/wiki/Configuration
 " ------------------------------------------------------------------------------------------------------------

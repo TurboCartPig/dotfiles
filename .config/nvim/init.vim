@@ -295,8 +295,7 @@ let g:airline_powerline_fonts     = v:true
 let g:airline_highlighting_cache  = v:true
 
 " Extensions
-let g:airline_extensions                   = [ 'branch', 'quickfix', 'tabline', 'term', 'wordcount' ]
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline_extensions                   = [ 'branch', 'quickfix', 'term', 'wordcount' ]
 let g:airline#extensions#default#layout    = [
 			\ [ 'a', 'b', 'c' ],
 			\ [ 'warning', 'error', 'z' ]

@@ -1,6 +1,265 @@
 local vim = vim
+local keymap = vim.api.nvim_set_keymap
 
--- Bufferline settings ------------------------------------------------------------- {{{1
+require("plugins")
+
+-- Neovim set abbreviations -------------------------------------------------------------- {{{1
+
+-- Command abbreviations
+vim.cmd [[
+	cnoreabbrev Q q
+	cnoreabbrev Q! q!
+	cnoreabbrev Qa qa
+	cnoreabbrev W w
+	cnoreabbrev W! w!
+	cnoreabbrev Wa wa
+	cnoreabbrev WA wa
+	cnoreabbrev Wq wq
+	cnoreabbrev WQ wq
+	cnoreabbrev WQ! wq!
+]]
+
+-- Abbreviations
+vim.cmd [[
+	noreabbrev lenght length
+	noreabbrev widht width
+	noreabbrev higth height
+	noreabbrev nigthly nightly
+]]
+
+-- Neovim autocmds ----------------------------------------------------------------------- {{{1
+
+vim.cmd [[
+	" Formatting overrides
+	augroup FormattingOverrides
+		autocmd!
+		autocmd FileType haskell,cabal setlocal expandtab shiftwidth=2
+	augroup END
+
+	" Override fold methods per language
+	augroup FoldingSettings
+		autocmd!
+
+		" Use treesitter to automatically create folds
+		autocmd FileType c,cpp,go,rust,lua setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()
+
+		" Use manually placed markers in all vimscript files
+		autocmd FileType vi,vim setlocal foldlevel=0 foldmethod=marker
+
+		autocmd FileType json setlocal foldmethod=syntax
+	augroup END
+
+	" Spell checking
+	augroup SpellChecking
+		autocmd!
+		autocmd FileType markdown,text,rst setlocal spell spelllang=en_us
+	augroup END
+
+	augroup Term
+		autocmd!
+		autocmd TermOpen * startinsert
+	augroup END
+]]
+
+-- Neovim set custom commands ------------------------------------------------------------ {{{1
+
+vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"]]
+
+-- Neovim set custom keybinds ------------------------------------------------------------ {{{1
+
+-- Switch between two buffers easily
+keymap("n", "<leader><leader>", "<cmd>b#<cr>", { noremap = true, silent = true })
+
+-- Move around easier in insert mode
+keymap("i", "<c-h>", "<left>",  { noremap = true })
+keymap("i", "<c-j>", "<down>",  { noremap = true })
+keymap("i", "<c-k>", "<up>",    { noremap = true })
+keymap("i", "<c-l>", "<right>", { noremap = true })
+
+-- String left/right
+keymap("n", "H", "0", { noremap = true })
+keymap("n", "L", "$", { noremap = true })
+keymap("v", "H", "0", { noremap = true })
+keymap("v", "L", "$", { noremap = true })
+
+-- Move between windows easier in normal mode
+keymap("n", "<c-h>", "<c-w>h", { noremap = true })
+keymap("n", "<c-j>", "<c-w>j", { noremap = true })
+keymap("n", "<c-k>", "<c-w>k", { noremap = true })
+keymap("n", "<c-l>", "<c-w>l", { noremap = true })
+
+-- Fix broken AlrGr keys with neovide
+-- NOTE: This is just a hack and should be fixed properly in
+-- neovide by figuring out the whole windows backend issue they have.
+keymap("i", "<C-M-[>", "[", { noremap = true })
+keymap("i", "<C-M-]>", "]", { noremap = true })
+keymap("i", "<C-M-{>", "{", { noremap = true })
+keymap("i", "<C-M-}>", "}", { noremap = true })
+keymap("i", "<C-M-@>", "@", { noremap = true })
+keymap("i", "<C-M-`>", "`", { noremap = true })
+keymap("i", "<C-M-´>", "´", { noremap = true })
+
+-- Neovim set options -------------------------------------------------------------------- {{{1
+-- Set shell to powershell core on windows
+if vim.fn.has("win32") == 1 and vim.fn.exists("pwsh.exe") == 1 then
+	vim.o.shell = "pwsh.exe"
+elseif vim.fn.has("unix") == 1 and vim.fn.exists("/usr/bin/zsh") == 1 then
+	vim.o.shell = "/usr/bin/zsh"
+end
+
+vim.cmd [[filetype plugin indent on]]
+
+-- Needed for some plugins to work properly
+vim.o.hidden = true
+vim.o.swapfile = false
+
+-- Keep undo file
+vim.o.undofile = true
+
+-- Search
+vim.o.incsearch = true
+vim.o.showmatch = true
+
+-- Formatting
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.expandtab = false
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 0
+
+-- Visual stuff
+vim.o.number = true
+vim.o.numberwidth = 3
+vim.o.signcolumn = "yes"
+vim.o.cursorline = true
+vim.o.cmdheight = 2
+vim.o.scrolloff = 5
+vim.o.sidescrolloff = 5
+vim.o.termguicolors = true
+vim.o.guifont = "FiraCode NF:h15"
+
+-- TODO: Find a way to cycle through predefined listchars
+vim.o.list = true
+vim.o.listchars = [[tab:→ ,nbsp:␣,lead:·,trail:·,precedes:«,extends:»]]
+-- Alternative: eol:¬
+
+-- Folds
+-- 'foldmethod' and 'foldlevel' are set by autocmds for various filetypes
+vim.o.foldlevelstart=99
+
+-- Conceals
+vim.o.concealcursor = "nc"
+vim.o.conceallevel = 2
+
+-- Sane splits
+vim.o.splitright = true
+vim.o.splitbelow = true
+
+-- Menus
+vim.o.wildmenu = true
+vim.o.completeopt = "menuone,noselect,noinsert"
+vim.o.shortmess = "filoOTcF"
+
+-- Misc
+vim.o.mouse = "a"
+vim.o.clipboard = "unnamed,unnamedplus"
+vim.o.updatetime = 200
+vim.o.viewoptions = "folds,cursor,curdir"
+vim.o.printoptions = "syntax:y,number:y,left:0,right:2,top:2,bottom:2"
+
+-- Leader
+vim.g.mapleader = " "
+
+-- vim-polyglot settings ------------------------------------------------------------ {{{1
+vim.g.polyglot_disabled = { "go", "rust", "json", "autoindent", "sensible" }
+
+-- Settings for elzr/vim-json
+vim.g.vim_json_syntax_conceal = true
+
+-- Settings for plasticboy/vim-markdown
+vim.g.vim_markdown_toc_autofit         = true
+vim.g.vim_markdown_conceal_code_blocks = false
+vim.g.vim_markdown_follow_anchor       = true
+vim.g.vim_markdown_strikethrough       = true
+
+-- Create alias for fenced languages with the format: alias=actual
+vim.g.vim_markdown_fenced_languages = {
+	"c++=cpp",
+	"viml=vim",
+	"bash=sh",
+	"ini=dosini",
+}
+
+-- Explicitly load plugin after setting polyglot_disabled
+vim.cmd [[packadd vim-polyglot]]
+
+-- vim-go settings ------------------------------------------------------------------ {{{1
+-- Disable functionality included by neovim itself
+vim.g.go_code_completion_enabled = false
+vim.g.go_gopls_enabled           = false
+
+-- Disable auto-stuff, neoformat and gopls handles this perfectly well
+vim.g.go_fmt_autosave            = false
+vim.g.go_imports_autosave        = false
+vim.g.go_mod_fmt_autosave        = false
+vim.g.go_metalinter_autosave     = false
+
+-- Disable misc
+vim.g.go_doc_keywordprg_enabled  = false
+vim.g.go_def_mapping_enabled	 = false
+vim.g.go_auto_type_info			 = false
+vim.g.go_auto_sameids			 = false
+vim.g.go_jump_to_error			 = true
+
+-- Set golangci-lint as metalinter
+vim.g.go_metalinter_command      = "golangci-lint"
+vim.g.go_metalinter_deadline     = "2s"
+
+-- Termdebug settings --------------------------------------------------------------- {{{1
+vim.g.termdebug_popup = 0
+vim.g.termdebug_wide  = 163
+
+-- git-blame.nvim settings ---------------------------------------------------------- {{{1
+vim.g.gitblame_enabled          = false
+vim.g.gitblame_message_template = "<author> • <summary> • <date>"
+
+-- Neoformat settings --------------------------------------------------------------- {{{1
+vim.g.neoformat_basic_format_align = false
+vim.g.neoformat_basic_format_retab = true
+vim.g.neoformat_basic_format_trim  = true
+vim.g.neoformat_enabled_haskell    = { "stylish-haskell", "ormolu" }
+vim.g.neoformat_enabled_python     = { "black"}
+
+keymap("n", "<c-m-L>", [[<cmd>Neoformat<cr>]], { noremap = true, silent = true })
+
+-- Airline settings ----------------------------------------------------------------- {{{1
+
+vim.g.airline_theme = "minimalist"
+vim.g.airline_skip_empty_sections = true
+vim.g.airline_powerline_fonts = true
+vim.g.airline_highlighting_cache = true
+vim.g.airline_extensions = { "branch", "quickfix", "term", "wordcount" }
+vim.g["airline#extensions#default#layout"] = {
+	{ "a", "b", "c" },
+	{ "warning", "error", "z" },
+}
+
+-- Add the lsp status line component to the airline
+vim.cmd [[
+	" Create a status line part from lsp status
+	function! LspStatus() abort
+		let status = luaeval('require("lsp-status").status()')
+		return trim(status)
+	endfunction
+
+	" Define lsp status part
+	call airline#parts#define_function('lsp_status', 'LspStatus')
+	call airline#parts#define_condition('lsp_status', 'luaeval("#vim.lsp.buf_get_clients() > 0")')
+	let g:airline_section_warning = airline#section#create_right(['lsp_status'])
+]]
+
+-- Bufferline settings -------------------------------------------------------------- {{{1
 
 local bufferline = require("bufferline")
 
@@ -11,7 +270,13 @@ bufferline.setup {
 	},
 }
 
--- nvim-compe config ------------------------------------------------------------------ {{{1
+-- nvim-tree settings --------------------------------------------------------------- {{{1
+vim.g.nvim_tree_ignore = {
+	".git", "node_modules", ".cache", ".idea", ".pycache"
+}
+vim.g.nvim_tree_gitignore = false
+
+-- nvim-compe config ---------------------------------------------------------------- {{{1
 
 local compe = require("compe")
 
@@ -36,6 +301,9 @@ compe.setup {
 		vsnip = false,
 	},
 }
+
+keymap("i", "<c-y>", [[compe#confirm("<cr>")]], { expr = true, noremap = true, silent = true })
+keymap("i", "<c-e>", [[compe#close("<c-e>")]],  { expr = true, noremap = true, silent = true })
 
 -- Neovim lsp status line config ------------------------------------------------------ {{{1
 
@@ -200,32 +468,24 @@ lsp_config.sumneko_lua.setup {
 	},
 }
 
--- nvim-compe config ---------------------------------------------------------------- {{{1
-
-local vimmap = vim.api.nvim_set_keymap
-
-vimmap("i", "<c-y>", [[compe#confirm("<cr>")]], { expr = true, noremap = true, silent = true })
-vimmap("i", "<c-e>", [[compe#close("<c-e>")]],  { expr = true, noremap = true, silent = true })
-
 -- Telescope config ----------------------------------------------------------------- {{{1
-
-vimmap("n", "gr",     [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]],
+keymap("n", "gr",     [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]],
 	{ noremap = true, silent = true })
-vimmap("n", "gs",     [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]],
+keymap("n", "gs",     [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]],
 	{ noremap = true, silent = true })
-vimmap("n", "gll",    [[<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>]],
+keymap("n", "gll",    [[<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>]],
 	{ noremap = true, silent = true })
-vimmap("n", "<m-cr>", [[<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>]],
+keymap("n", "<m-cr>", [[<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>]],
 	{ noremap = true, silent = true })
-vimmap("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]],
+keymap("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]],
 	{ noremap = true, silent = true })
-vimmap("n", "<c-p>",  [[<cmd>lua require("telescope.builtin").git_files()<cr>]],
+keymap("n", "<c-p>",  [[<cmd>lua require("telescope.builtin").git_files()<cr>]],
 	{ noremap = true, silent = true })
-vimmap("n", "<c-t>",  [[<cmd>lua vim.lsp.buf.hover()<cr>]],
+keymap("n", "<c-t>",  [[<cmd>lua vim.lsp.buf.hover()<cr>]],
 	{ noremap = true, silent = true })
-vimmap("n", "R",      [[<cmd>lua vim.lsp.buf.rename()<cr>]],
+keymap("n", "R",      [[<cmd>lua vim.lsp.buf.rename()<cr>]],
 	{ noremap = true, silent = true })
-vimmap("n", "<c-q>",  [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]],
+keymap("n", "<c-q>",  [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]],
 	{ noremap = true, silent = true })
 
 -- Treesitter config ---------------------------------------------------------------- {{{1
@@ -381,4 +641,4 @@ vim.cmd [[
 vim.o.background = "dark"
 vim.cmd [[colorscheme gruvbox]]
 
--- vi: foldmethod=marker
+-- vi: foldmethod=marker foldlevel=0

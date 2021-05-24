@@ -52,7 +52,10 @@ packer.startup(function(use)
 	use "christoomey/vim-tmux-navigator"
 
 	-- Language support
-	use "sheerun/vim-polyglot"
+	use {
+		"sheerun/vim-polyglot",
+		opt = true, -- Explicitly loaded later
+	}
 	use "elzr/vim-json"
 	use {
 		"fatih/vim-go",

@@ -272,10 +272,15 @@ bufferline.setup {
 }
 
 -- nvim-tree settings --------------------------------------------------------------- {{{1
-vim.g.nvim_tree_ignore = {
-	".git", "node_modules", ".cache", ".idea", ".pycache"
-}
+
+-- Setup ignores
 vim.g.nvim_tree_gitignore = false
+vim.g.nvim_tree_ignore = {
+	".git", "node_modules", ".idea", "__pycache__"
+}
+
+-- Toggle file tree
+keymap("n", "<m-1>", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
 
 -- nvim-compe config ---------------------------------------------------------------- {{{1
 

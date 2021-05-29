@@ -9,9 +9,13 @@ set incsearch
 " IdeaVim stuff
 set ideajoin
 
-" Keymappings
-nmap gs :action GotoSymbol<CR>
-nmap gi :action GotoImplementation<CR>
+" Map leader
+let mapleader = ' '
+
+" IdeaVim keymappings
+nmap gs <Action>(GotoSymbol)
+nmap gi <Action>(GotoImplementation)
+nmap R  <Action>(RenameElement)
 
 " Use Up/Down to scroll
 nmap J <C-d>

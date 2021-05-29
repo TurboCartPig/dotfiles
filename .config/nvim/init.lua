@@ -3,6 +3,79 @@ local keymap = vim.api.nvim_set_keymap
 
 require("plugins")
 
+-- Neovim set options -------------------------------------------------------------------- {{{1
+
+-- Leader
+vim.g.mapleader = " "
+
+-- Set shell to powershell core on windows
+if vim.fn.has("win32") == 1 and vim.fn.exists("pwsh.exe") == 1 then
+	vim.o.shell = "pwsh.exe"
+elseif vim.fn.has("unix") == 1 and vim.fn.exists("/usr/bin/zsh") == 1 then
+	vim.o.shell = "/usr/bin/zsh"
+end
+
+vim.cmd [[filetype plugin indent on]]
+
+-- Needed for some plugins to work properly
+vim.o.hidden = true
+vim.o.swapfile = false
+
+-- Keep undo file
+vim.o.undofile = true
+
+-- Search
+vim.o.incsearch = true
+vim.o.showmatch = true
+
+-- Formatting
+vim.o.ignorecase = true
+vim.o.smartcase = true
+vim.o.expandtab = false
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 0
+
+-- Visual stuff
+vim.wo.numberwidth = 3
+vim.wo.number = true
+vim.wo.signcolumn = "yes"
+vim.wo.cursorline = true
+vim.o.cmdheight = 2
+vim.o.scrolloff = 5
+vim.o.sidescrolloff = 5
+vim.o.termguicolors = true
+vim.o.guifont = "FiraCode NF:h15"
+
+-- TODO: Find a way to cycle through predefined listchars
+vim.o.list = true
+vim.o.listchars = [[tab:→ ,nbsp:␣,lead:·,trail:·,precedes:«,extends:»]]
+-- Alternative: eol:¬
+
+-- Folds
+-- 'foldmethod' and 'foldlevel' are set by autocmds for various filetypes
+vim.o.foldlevelstart=99
+
+-- Conceals
+vim.wo.concealcursor = "nc"
+vim.wo.conceallevel = 2
+
+-- Sane splits
+vim.o.splitright = true
+vim.o.splitbelow = true
+
+-- Menus
+vim.o.wildmenu = true
+vim.o.completeopt = "menuone,noselect,noinsert"
+vim.o.shortmess = "filoOTcF"
+
+-- Misc
+vim.o.mouse = "a"
+vim.o.clipboard = "unnamed,unnamedplus"
+vim.o.updatetime = 200
+vim.o.viewoptions = "folds,cursor,curdir"
+vim.o.printoptions = "syntax:y,number:y,left:0,right:2,top:2,bottom:2"
+
 -- Neovim set abbreviations -------------------------------------------------------------- {{{1
 
 -- Command abbreviations
@@ -98,78 +171,6 @@ keymap("i", "<C-M-}>", "}", { noremap = true })
 keymap("i", "<C-M-@>", "@", { noremap = true })
 keymap("i", "<C-M-`>", "`", { noremap = true })
 keymap("i", "<C-M-´>", "´", { noremap = true })
-
--- Neovim set options -------------------------------------------------------------------- {{{1
--- Set shell to powershell core on windows
-if vim.fn.has("win32") == 1 and vim.fn.exists("pwsh.exe") == 1 then
-	vim.o.shell = "pwsh.exe"
-elseif vim.fn.has("unix") == 1 and vim.fn.exists("/usr/bin/zsh") == 1 then
-	vim.o.shell = "/usr/bin/zsh"
-end
-
-vim.cmd [[filetype plugin indent on]]
-
--- Needed for some plugins to work properly
-vim.o.hidden = true
-vim.o.swapfile = false
-
--- Keep undo file
-vim.o.undofile = true
-
--- Search
-vim.o.incsearch = true
-vim.o.showmatch = true
-
--- Formatting
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.expandtab = false
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.softtabstop = 0
-
--- Visual stuff
-vim.o.number = true
-vim.o.numberwidth = 3
-vim.o.signcolumn = "yes"
-vim.o.cursorline = true
-vim.o.cmdheight = 2
-vim.o.scrolloff = 5
-vim.o.sidescrolloff = 5
-vim.o.termguicolors = true
-vim.o.guifont = "FiraCode NF:h15"
-
--- TODO: Find a way to cycle through predefined listchars
-vim.o.list = true
-vim.o.listchars = [[tab:→ ,nbsp:␣,lead:·,trail:·,precedes:«,extends:»]]
--- Alternative: eol:¬
-
--- Folds
--- 'foldmethod' and 'foldlevel' are set by autocmds for various filetypes
-vim.o.foldlevelstart=99
-
--- Conceals
-vim.o.concealcursor = "nc"
-vim.o.conceallevel = 2
-
--- Sane splits
-vim.o.splitright = true
-vim.o.splitbelow = true
-
--- Menus
-vim.o.wildmenu = true
-vim.o.completeopt = "menuone,noselect,noinsert"
-vim.o.shortmess = "filoOTcF"
-
--- Misc
-vim.o.mouse = "a"
-vim.o.clipboard = "unnamed,unnamedplus"
-vim.o.updatetime = 200
-vim.o.viewoptions = "folds,cursor,curdir"
-vim.o.printoptions = "syntax:y,number:y,left:0,right:2,top:2,bottom:2"
-
--- Leader
-vim.g.mapleader = " "
 
 -- vim-polyglot settings ------------------------------------------------------------ {{{1
 vim.g.polyglot_disabled = { "go", "rust", "json", "autoindent", "sensible" }

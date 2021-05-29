@@ -70,9 +70,9 @@ packer.startup(function(use)
 	-- LSP and autocompletions
 	use "neovim/nvim-lspconfig"
 	use "hrsh7th/nvim-compe"
-	use "nvim-lua/lsp_extensions.nvim"
 	use "nvim-lua/lsp-status.nvim"
 	use "kosayoda/nvim-lightbulb"
+	use "simrat39/rust-tools.nvim"
 	use {
 		"onsails/lspkind-nvim",
 		config = function ()

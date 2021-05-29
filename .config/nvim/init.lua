@@ -377,22 +377,10 @@ local on_attach = function(client, bufnr)
 	if client.resolved_capabilities.document_formatting then
 		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
 	end
-
-	-- TODO: Only do this for rust
-	vim.cmd [[
-		autocmd InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs lua require('lsp_extensions').inlay_hints { prefix = '» ', highlight = 'Comment' }
-	]]
 end
 
 -- List all the servers and any custom configuration
 local servers = {
-	rust_analyzer = {
-		["rust-analyzer"] = {
-			checkOnSave = {
-				command = "clippy",
-			},
-		},
-	},
 	hls = {
 		languageServerHaskell = {
 			formattingProvider = "stylish-haskell",
@@ -470,6 +458,32 @@ lsp_config.sumneko_lua.setup {
 			library = get_lua_runtime(),
 			maxPreload = 1000,
 			preloadFileSize = 1000,
+		},
+	},
+}
+
+-- Rust tools config ---------------------------------------------------------------- {{{1
+
+local rust_tools = require("rust-tools")
+
+rust_tools.setup {
+	tools = {
+		autoSetHints = true,
+		hover_with_actions = false,
+		inlay_hints = {
+			show_parameter_hints = true,
+			parameter_hints_prefix = "« ",
+			other_hints_prefix = "» ",
+		},
+	},
+	server = {
+		on_attach = on_attach,
+		settings = {
+			["rust-analyzer"] = {
+				checkOnSave = {
+					command = "clippy",
+				},
+			},
 		},
 	},
 }

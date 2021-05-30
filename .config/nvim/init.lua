@@ -10,71 +10,71 @@ vim.g.mapleader = " "
 
 -- Set shell to powershell core on windows
 if vim.fn.has("win32") == 1 and vim.fn.exists("pwsh.exe") == 1 then
-	vim.o.shell = "pwsh.exe"
+	vim.opt.shell = "pwsh.exe"
 elseif vim.fn.has("unix") == 1 and vim.fn.exists("/usr/bin/zsh") == 1 then
-	vim.o.shell = "/usr/bin/zsh"
+	vim.opt.shell = "/usr/bin/zsh"
 end
 
 vim.cmd [[filetype plugin indent on]]
 
 -- Needed for some plugins to work properly
-vim.o.hidden = true
-vim.o.swapfile = false
+vim.opt.hidden = true
+vim.opt.swapfile = false
 
 -- Keep undo file
-vim.o.undofile = true
+vim.opt.undofile = true
 
 -- Search
-vim.o.incsearch = true
-vim.o.showmatch = true
+vim.opt.incsearch = true
+vim.opt.showmatch = true
 
 -- Formatting
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.expandtab = false
-vim.o.tabstop = 4
-vim.o.shiftwidth = 4
-vim.o.softtabstop = 0
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.expandtab = false
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
+vim.opt.softtabstop = 0
 
 -- Visual stuff
-vim.wo.numberwidth = 3
-vim.wo.number = true
-vim.wo.signcolumn = "yes"
-vim.wo.cursorline = true
-vim.o.cmdheight = 2
-vim.o.scrolloff = 5
-vim.o.sidescrolloff = 5
-vim.o.termguicolors = true
-vim.o.guifont = "FiraCode NF:h15"
+vim.opt.numberwidth = 3
+vim.opt.number = true
+vim.opt.signcolumn = "yes"
+vim.opt.cursorline = true
+vim.opt.cmdheight = 2
+vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 5
+vim.opt.termguicolors = true
+vim.opt.guifont = "FiraCode NF:h15"
 
 -- TODO: Find a way to cycle through predefined listchars
-vim.o.list = true
-vim.o.listchars = [[tab:→ ,nbsp:␣,lead:·,trail:·,precedes:«,extends:»]]
+vim.opt.list = true
+vim.opt.listchars = { tab = "→ ", nbsp = "␣", lead = "·", trail = "·", precedes = "«", extends = "»" }
 -- Alternative: eol:¬
 
 -- Folds
 -- 'foldmethod' and 'foldlevel' are set by autocmds for various filetypes
-vim.o.foldlevelstart=99
+vim.opt.foldlevelstart=99
 
 -- Conceals
-vim.wo.concealcursor = "nc"
-vim.wo.conceallevel = 2
+vim.opt.concealcursor = "nc"
+vim.opt.conceallevel = 2
 
 -- Sane splits
-vim.o.splitright = true
-vim.o.splitbelow = true
+vim.opt.splitright = true
+vim.opt.splitbelow = true
 
 -- Menus
-vim.o.wildmenu = true
-vim.o.completeopt = "menuone,noselect,noinsert"
-vim.o.shortmess = "filoOTcF"
+vim.opt.wildmenu = true
+vim.opt.completeopt = "menuone,noselect,noinsert"
+vim.opt.shortmess = "filoOTcF"
 
 -- Misc
-vim.o.mouse = "a"
-vim.o.clipboard = "unnamed,unnamedplus"
-vim.o.updatetime = 200
-vim.o.viewoptions = "folds,cursor,curdir"
-vim.o.printoptions = "syntax:y,number:y,left:0,right:2,top:2,bottom:2"
+vim.opt.mouse = "a"
+vim.opt.clipboard = "unnamed,unnamedplus"
+vim.opt.updatetime = 200
+vim.opt.viewoptions = "folds,cursor,curdir"
+vim.opt.printoptions = { syntax = "y", number = "y", left = 0, right = 2, top = 2, bottom = 2 }
 
 -- Neovim set abbreviations -------------------------------------------------------------- {{{1
 
@@ -658,7 +658,7 @@ vim.cmd [[
 	augroup end
 ]]
 
-vim.o.background = "dark"
+vim.opt.background = "dark"
 vim.cmd [[colorscheme gruvbox]]
 
 -- vi: foldmethod=marker foldlevel=0

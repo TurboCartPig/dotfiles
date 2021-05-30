@@ -1,5 +1,5 @@
 local vim = vim
-local keymap = vim.api.nvim_set_keymap
+local map = vim.api.nvim_set_keymap
 
 require("plugins")
 
@@ -141,36 +141,36 @@ vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printi
 -- Neovim set custom keybinds ------------------------------------------------------------ {{{1
 
 -- Switch between two buffers easily
-keymap("n", "<leader><leader>", "<cmd>b#<cr>", { noremap = true, silent = true })
+map("n", "<leader><leader>", "<cmd>b#<cr>", { noremap = true, silent = true })
 
 -- Move around easier in insert mode
-keymap("i", "<c-h>", "<left>",  { noremap = true })
-keymap("i", "<c-j>", "<down>",  { noremap = true })
-keymap("i", "<c-k>", "<up>",    { noremap = true })
-keymap("i", "<c-l>", "<right>", { noremap = true })
+map("i", "<c-h>", "<left>",  { noremap = true })
+map("i", "<c-j>", "<down>",  { noremap = true })
+map("i", "<c-k>", "<up>",    { noremap = true })
+map("i", "<c-l>", "<right>", { noremap = true })
 
 -- String left/right
-keymap("n", "H", "0", { noremap = true })
-keymap("n", "L", "$", { noremap = true })
-keymap("v", "H", "0", { noremap = true })
-keymap("v", "L", "$", { noremap = true })
+map("n", "H", "0", { noremap = true })
+map("n", "L", "$", { noremap = true })
+map("v", "H", "0", { noremap = true })
+map("v", "L", "$", { noremap = true })
 
 -- Move between windows easier in normal mode
-keymap("n", "<c-h>", "<c-w>h", { noremap = true })
-keymap("n", "<c-j>", "<c-w>j", { noremap = true })
-keymap("n", "<c-k>", "<c-w>k", { noremap = true })
-keymap("n", "<c-l>", "<c-w>l", { noremap = true })
+map("n", "<c-h>", "<c-w>h", { noremap = true })
+map("n", "<c-j>", "<c-w>j", { noremap = true })
+map("n", "<c-k>", "<c-w>k", { noremap = true })
+map("n", "<c-l>", "<c-w>l", { noremap = true })
 
 -- Fix broken AlrGr keys with neovide
 -- NOTE: This is just a hack and should be fixed properly in
 -- neovide by figuring out the whole windows backend issue they have.
-keymap("i", "<C-M-[>", "[", { noremap = true })
-keymap("i", "<C-M-]>", "]", { noremap = true })
-keymap("i", "<C-M-{>", "{", { noremap = true })
-keymap("i", "<C-M-}>", "}", { noremap = true })
-keymap("i", "<C-M-@>", "@", { noremap = true })
-keymap("i", "<C-M-`>", "`", { noremap = true })
-keymap("i", "<C-M-´>", "´", { noremap = true })
+map("i", "<C-M-[>", "[", { noremap = true })
+map("i", "<C-M-]>", "]", { noremap = true })
+map("i", "<C-M-{>", "{", { noremap = true })
+map("i", "<C-M-}>", "}", { noremap = true })
+map("i", "<C-M-@>", "@", { noremap = true })
+map("i", "<C-M-`>", "`", { noremap = true })
+map("i", "<C-M-´>", "´", { noremap = true })
 
 -- vim-polyglot settings ------------------------------------------------------------ {{{1
 vim.g.polyglot_disabled = { "go", "rust", "json", "autoindent", "sensible" }
@@ -232,7 +232,7 @@ vim.g.neoformat_basic_format_trim  = true
 vim.g.neoformat_enabled_haskell    = { "stylish-haskell", "ormolu" }
 vim.g.neoformat_enabled_python     = { "black"}
 
-keymap("n", "<c-m-L>", [[<cmd>Neoformat<cr>]], { noremap = true, silent = true })
+map("n", "<c-m-L>", [[<cmd>Neoformat<cr>]], { noremap = true, silent = true })
 
 -- Airline settings ----------------------------------------------------------------- {{{1
 
@@ -280,7 +280,7 @@ vim.g.nvim_tree_ignore = {
 }
 
 -- Toggle file tree
-keymap("n", "<m-1>", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
+map("n", "<m-1>", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
 
 -- nvim-compe config ---------------------------------------------------------------- {{{1
 
@@ -308,8 +308,8 @@ compe.setup {
 	},
 }
 
-keymap("i", "<c-y>", [[compe#confirm("<cr>")]], { expr = true, noremap = true, silent = true })
-keymap("i", "<c-e>", [[compe#close("<c-e>")]],  { expr = true, noremap = true, silent = true })
+map("i", "<c-y>", [[compe#confirm("<cr>")]], { expr = true, noremap = true, silent = true })
+map("i", "<c-e>", [[compe#close("<c-e>")]],  { expr = true, noremap = true, silent = true })
 
 -- Neovim lsp status line config ------------------------------------------------------ {{{1
 
@@ -489,23 +489,23 @@ rust_tools.setup {
 }
 
 -- Telescope config ----------------------------------------------------------------- {{{1
-keymap("n", "gr",     [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]],
+map("n", "gr",     [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]],
 	{ noremap = true, silent = true })
-keymap("n", "gs",     [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]],
+map("n", "gs",     [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]],
 	{ noremap = true, silent = true })
-keymap("n", "gll",    [[<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>]],
+map("n", "gll",    [[<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>]],
 	{ noremap = true, silent = true })
-keymap("n", "<m-cr>", [[<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>]],
+map("n", "<m-cr>", [[<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>]],
 	{ noremap = true, silent = true })
-keymap("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]],
+map("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]],
 	{ noremap = true, silent = true })
-keymap("n", "<c-p>",  [[<cmd>lua require("telescope.builtin").git_files()<cr>]],
+map("n", "<c-p>",  [[<cmd>lua require("telescope.builtin").git_files()<cr>]],
 	{ noremap = true, silent = true })
-keymap("n", "<c-t>",  [[<cmd>lua vim.lsp.buf.hover()<cr>]],
+map("n", "<c-t>",  [[<cmd>lua vim.lsp.buf.hover()<cr>]],
 	{ noremap = true, silent = true })
-keymap("n", "R",      [[<cmd>lua vim.lsp.buf.rename()<cr>]],
+map("n", "R",      [[<cmd>lua vim.lsp.buf.rename()<cr>]],
 	{ noremap = true, silent = true })
-keymap("n", "<c-q>",  [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]],
+map("n", "<c-q>",  [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]],
 	{ noremap = true, silent = true })
 
 -- Treesitter config ---------------------------------------------------------------- {{{1

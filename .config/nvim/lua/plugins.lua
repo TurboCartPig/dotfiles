@@ -28,11 +28,6 @@ packer.startup(function(use)
 	-- Let packer manage itself
 	use { "wbthomason/packer.nvim", opt = true }
 
-	-- Dependecies and utility libraries
-	-- TODO: Add these as `requires` for plugins that require them
-	use "nvim-lua/popup.nvim"
-	use "nvim-lua/plenary.nvim"
-
 	-- Auto do stuff thingies
 	use "sbdchd/neoformat"
 	use "editorconfig/editorconfig-vim"
@@ -60,7 +55,7 @@ packer.startup(function(use)
 		"sheerun/vim-polyglot",
 		opt = true, -- Explicitly loaded later
 	}
-	use "elzr/vim-json"
+	use "elzr/vim-json" -- Bundeled version is broken
 	use {
 		"fatih/vim-go",
 		ft = { "go", "gomod", "gosum", "godoc" },
@@ -113,7 +108,11 @@ packer.startup(function(use)
 	}
 	use {
 		"nvim-telescope/telescope.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
+		requires = {
+			"kyazdani42/nvim-web-devicons",
+			"nvim-lua/popup.nvim",
+			"nvim-lua/plenary.nvim"
+		},
 	}
 	use {
 		"wfxr/minimap.vim",

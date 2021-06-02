@@ -37,6 +37,7 @@ gl.section.left = {
 
 			-- NOTE: Kind of hacky, but oh well
 			vim.cmd('hi StatusLine guifg=#292929 guibg=#292929')
+			vim.cmd('hi StatusLineNC guifg=#292929 guibg=#292929')
 
 			return '    '
 		end,

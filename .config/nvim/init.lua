@@ -241,32 +241,6 @@ vim.g.neoformat_enabled_python     = { "black"}
 
 map("n", "<c-m-L>", [[<cmd>Neoformat<cr>]], { noremap = true, silent = true })
 
--- Airline settings ----------------------------------------------------------------- {{{1
-
-vim.g.airline_theme = "minimalist"
-vim.g.airline_skip_empty_sections = true
-vim.g.airline_powerline_fonts = true
-vim.g.airline_highlighting_cache = true
-vim.g.airline_extensions = { "branch", "quickfix", "term", "wordcount" }
-vim.g["airline#extensions#default#layout"] = {
-	{ "a", "b", "c" },
-	{ "warning", "error", "z" },
-}
-
--- Add the lsp status line component to the airline
-vim.cmd [[
-	" Create a status line part from lsp status
-	function! LspStatus() abort
-		let status = luaeval('require("lsp-status").status()')
-		return trim(status)
-	endfunction
-
-	" Define lsp status part
-	call airline#parts#define_function('lsp_status', 'LspStatus')
-	call airline#parts#define_condition('lsp_status', 'luaeval("#vim.lsp.buf_get_clients() > 0")')
-	let g:airline_section_warning = airline#section#create_right(['lsp_status'])
-]]
-
 -- Bufferline settings -------------------------------------------------------------- {{{1
 
 local bufferline = require("bufferline")
@@ -318,32 +292,9 @@ compe.setup {
 map("i", "<c-y>", [[compe#confirm("<cr>")]], { expr = true, noremap = true, silent = true })
 map("i", "<c-e>", [[compe#close("<c-e>")]],  { expr = true, noremap = true, silent = true })
 
--- Neovim lsp status line config ---------------------------------------------------- {{{1
-
-local lsp_status = require("lsp-status")
-
--- use LSP SymbolKinds themselves as the kind labels
-local kind_labels_mt = { __index = function(_, k) return k end }
-local kind_labels = {}
-setmetatable(kind_labels, kind_labels_mt)
-
--- setup lsp_status line
-lsp_status.register_progress()
-lsp_status.config {
-	kind_labels = kind_labels,
-	indicator_errors = "×",
-	indicator_warnings = "!",
-	indicator_info = "i",
-	indicator_hint = "›",
-	-- the default is a wide codepoint which breaks absolute and relative
-	-- line counts if placed before airline's Z section
-	status_symbol = "",
-}
-
 -- Neovim lsp config ---------------------------------------------------------------- {{{1
 
 local lsp_config = require("lspconfig")
-local lsp_configs = require("lspconfig/configs")
 
 -- NOTE: This is broken now?
 -- Fixes missing .cmd extensions for language servers
@@ -357,9 +308,6 @@ local lsp_configs = require("lspconfig/configs")
 
 -- Run this every time a language server attaches to a buffer
 local on_attach = function(client, bufnr)
-	-- require("completion").on_attach(client, bufnr)
-	lsp_status.on_attach(client, bufnr)
-
 	-- Setup completion
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
@@ -409,7 +357,6 @@ for ls, settings in pairs(servers) do
 	lsp_config[ls].setup {
 		on_attach = on_attach,
 		settings = settings,
-		capabilities = vim.tbl_extend("keep", lsp_configs[ls].capabilities or {}, lsp_status.capabilities),
 	}
 end
 
@@ -446,7 +393,6 @@ end
 lsp_config.sumneko_lua.setup {
 	cmd = { sumneko_bin, "-E", sumneko_root .. "/main.lua" },
 	on_attach = on_attach,
-	capabilities = lsp_status.capabilities,
 	settings = {
 		Lua = {
 			runtime = {

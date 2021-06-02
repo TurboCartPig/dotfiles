@@ -69,7 +69,6 @@ packer.startup(function(use)
 	-- LSP and autocompletions
 	use "neovim/nvim-lspconfig"
 	use "hrsh7th/nvim-compe"
-	use "nvim-lua/lsp-status.nvim"
 	use "kosayoda/nvim-lightbulb"
 	use "simrat39/rust-tools.nvim"
 	use {
@@ -89,8 +88,12 @@ packer.startup(function(use)
 
 	-- Themes
 	use "ryanoasis/vim-devicons"
-	use "vim-airline/vim-airline"
-	use "vim-airline/vim-airline-themes"
+	use {
+		"glepnir/galaxyline.nvim",
+		branch = "main",
+		config = function() require("statusline") end,
+		requires = "kyazdani42/nvim-web-devicons",
+	}
 	use {
 		"akinsho/nvim-bufferline.lua",
 		requires = "kyazdani42/nvim-web-devicons",

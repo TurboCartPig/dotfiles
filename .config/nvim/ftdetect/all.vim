@@ -1,10 +1,10 @@
 " All in one filetype detection for a bunch of stuff
 augroup DetectFileTypes
-	autocmd!
+    autocmd!
 
     autocmd BufRead,BufNewFile *config/git/config setfiletype gitconfig
 
-	autocmd BufRead,BufNewFile *.graphqlrc setfiletype yaml
+    autocmd BufRead,BufNewFile *.graphqlrc setfiletype yaml
 
     autocmd BufRead,BufNewFile zprofile setfiletype zsh
 

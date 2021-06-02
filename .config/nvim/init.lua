@@ -150,6 +150,11 @@ vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printi
 -- Switch between two buffers easily
 map("n", "<leader><leader>", "<cmd>b#<cr>", { noremap = true, silent = true })
 
+-- Change multiple of the same word, use dot to replace next word
+-- Use this instead of multiple cursors
+-- TODO: How to not mess with jump history
+map("n", "<c-d>", "*<c-o>cgn", { noremap = true })
+
 -- Move around easier in insert mode
 map("i", "<c-h>", "<left>",  { noremap = true })
 map("i", "<c-j>", "<down>",  { noremap = true })
@@ -456,6 +461,8 @@ map("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]]
 	{ noremap = true, silent = true })
 map("n", "<c-p>",  [[<cmd>lua require("telescope.builtin").git_files()<cr>]],
 	{ noremap = true, silent = true })
+map("n", "<c-P>",  [[<cmd>Telescope<cr>]],
+	{ noremap = true, silent = true })
 map("n", "<c-t>",  [[<cmd>lua vim.lsp.buf.hover()<cr>]],
 	{ noremap = true, silent = true })
 map("n", "R",      [[<cmd>lua vim.lsp.buf.rename()<cr>]],
@@ -560,8 +567,6 @@ local neoscroll_config = require("neoscroll.config")
 
 neoscroll.setup {
     mappings = {
-		'<C-u>', '<C-d>',
-		'<C-b>', '<C-f>',
 		'zt', 'zz', 'zb',
 		'J', 'K',
 	},
@@ -616,4 +621,4 @@ vim.cmd [[
 vim.opt.background = "dark"
 vim.cmd [[colorscheme gruvbox]]
 
--- vi: foldmethod=marker foldlevel=0
+-- vi: foldmethod=marker

@@ -1,5 +1,7 @@
 local vim = vim
 
+-- Setup packer {{{1
+
 -- Install packer if not already installed
 local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
@@ -17,6 +19,8 @@ vim.cmd [[
 		autocmd BufWritePost plugins.lua PackerInstall
 	augroup end
 ]]
+
+-- Define plugins {{{1
 
 local packer = require("packer")
 

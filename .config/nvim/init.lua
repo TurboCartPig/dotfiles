@@ -3,7 +3,9 @@ local map = vim.api.nvim_set_keymap
 
 require("plugins")
 
--- Neovim set options -------------------------------------------------------------------- {{{1
+vim.g.neovide_refresh_rate = 120
+
+-- Neovim set options --------------------------------------------------------------- {{{1
 
 -- Leader
 vim.g.mapleader = " "
@@ -76,7 +78,7 @@ vim.opt.updatetime = 200
 vim.opt.viewoptions = "folds,cursor,curdir"
 vim.opt.printoptions = { syntax = "y", number = "y", left = 0, right = 2, top = 2, bottom = 2 }
 
--- Neovim set abbreviations -------------------------------------------------------------- {{{1
+-- Neovim set abbreviations --------------------------------------------------------- {{{1
 
 -- Command abbreviations
 vim.cmd [[
@@ -100,7 +102,7 @@ vim.cmd [[
 	noreabbrev nigthly nightly
 ]]
 
--- Neovim autocmds ----------------------------------------------------------------------- {{{1
+-- Neovim autocmds ------------------------------------------------------------------ {{{1
 
 vim.cmd [[
 	" Formatting overrides
@@ -134,11 +136,11 @@ vim.cmd [[
 	augroup END
 ]]
 
--- Neovim set custom commands ------------------------------------------------------------ {{{1
+-- Neovim set custom commands ------------------------------------------------------- {{{1
 
 vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"]]
 
--- Neovim set custom keybinds ------------------------------------------------------------ {{{1
+-- Neovim set custom keybinds ------------------------------------------------------- {{{1
 
 -- Switch between two buffers easily
 map("n", "<leader><leader>", "<cmd>b#<cr>", { noremap = true, silent = true })
@@ -311,7 +313,7 @@ compe.setup {
 map("i", "<c-y>", [[compe#confirm("<cr>")]], { expr = true, noremap = true, silent = true })
 map("i", "<c-e>", [[compe#close("<c-e>")]],  { expr = true, noremap = true, silent = true })
 
--- Neovim lsp status line config ------------------------------------------------------ {{{1
+-- Neovim lsp status line config ---------------------------------------------------- {{{1
 
 local lsp_status = require("lsp-status")
 
@@ -333,7 +335,7 @@ lsp_status.config {
 	status_symbol = "",
 }
 
--- Neovim lsp config ----------------------------------------------------------------- {{{1
+-- Neovim lsp config ---------------------------------------------------------------- {{{1
 
 local lsp_config = require("lspconfig")
 local lsp_configs = require("lspconfig/configs")
@@ -488,7 +490,9 @@ rust_tools.setup {
 	},
 }
 
+
 -- Telescope config ----------------------------------------------------------------- {{{1
+
 map("n", "gr",     [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]],
 	{ noremap = true, silent = true })
 map("n", "gs",     [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]],
@@ -622,7 +626,7 @@ mappings["J"] = { "scroll", {  "0.20", "false", "10" } }
 mappings["K"] = { "scroll", { "-0.20", "false", "10" } }
 neoscroll_config.set_mappings(mappings)
 
--- Setup colorizer ---------------------------------------------------------------- {{{1
+-- Setup colorizer ------------------------------------------------------------------ {{{1
 
 -- local colorizer = require("colorizer")
 
@@ -631,7 +635,7 @@ neoscroll_config.set_mappings(mappings)
 -- 	"html",
 -- }
 
--- Setup nvim-autopairs ----------------------------------------------------------- {{{1
+-- Setup nvim-autopairs ------------------------------------------------------------- {{{1
 
 local autopairs = require("nvim-autopairs")
 
@@ -639,7 +643,7 @@ autopairs.setup {
 	disable_filetype = { "TelescopePrompt" },
 }
 
--- highlights and colorscheme ----------------------------------------------------- {{{1
+-- highlights and colorscheme ------------------------------------------------------- {{{1
 
 -- Clear annoying colors
 vim.cmd [[

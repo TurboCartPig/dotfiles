@@ -21,6 +21,8 @@ vim.cmd [[filetype plugin indent on]]
 
 -- Needed for some plugins to work properly
 vim.opt.hidden = true
+
+vim.opt.autowrite = true
 vim.opt.swapfile = false
 
 -- Keep undo file
@@ -38,6 +40,11 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 0
 
+-- Wrapping and line limits
+vim.opt.wrap = false
+vim.opt.textwidth = 120
+vim.opt.wrapmargin = 5
+
 -- Visual stuff
 vim.opt.numberwidth = 3
 vim.opt.number = true
@@ -47,7 +54,7 @@ vim.opt.cmdheight = 2
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.termguicolors = true
-vim.opt.guifont = "FiraCode NF:h15"
+vim.opt.guifont = "FiraCode NF:h17"
 
 -- TODO: Find a way to cycle through predefined listchars
 vim.opt.list = true
@@ -76,6 +83,7 @@ vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamed,unnamedplus"
 vim.opt.updatetime = 200
 vim.opt.viewoptions = "folds,cursor,curdir"
+vim.opt.sessionoptions = "curdir,folds,help,resize,tabpages,winsize"
 vim.opt.printoptions = { syntax = "y", number = "y", left = 0, right = 2, top = 2, bottom = 2 }
 
 -- Neovim set abbreviations --------------------------------------------------------- {{{1
@@ -118,16 +126,13 @@ vim.cmd [[
 		" Use treesitter to automatically create folds
 		autocmd FileType c,cpp,go,rust,lua setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()
 
-		" Use manually placed markers in all vimscript files
-		autocmd FileType vi,vim setlocal foldlevel=0 foldmethod=marker
-
 		autocmd FileType json setlocal foldmethod=syntax
 	augroup END
 
-	" Spell checking
-	augroup SpellChecking
+	" Plaintext editing
+	augroup Plaintext
 		autocmd!
-		autocmd FileType markdown,text,rst setlocal spell spelllang=en_us
+		autocmd FileType markdown,text,rst setl spell spelllang=en_us textwidth=70 wrapmargin=5
 	augroup END
 
 	augroup Term

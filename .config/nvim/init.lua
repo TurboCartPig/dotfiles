@@ -31,10 +31,10 @@ vim.opt.undofile = true
 -- Search
 vim.opt.incsearch = true
 vim.opt.showmatch = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = false
 
 -- Formatting
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
 vim.opt.expandtab = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4

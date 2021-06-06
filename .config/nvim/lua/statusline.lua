@@ -79,22 +79,10 @@ gl.section.mid = {
 }
 
 gl.section.right = {
-	{GitIcon = {
-		provider = function() return '  ' end,
-		condition = condition.check_git_workspace,
-		separator = ' ',
-		separator_highlight = {'NONE',colors.bg},
-		highlight = {colors.white,colors.bg,'bold'},
-	}},
-	{GitBranch = {
-		provider = 'GitBranch',
-		condition = condition.check_git_workspace,
-		highlight = {colors.white,colors.bg,'bold'},
-	}},
 	{DiffAdd = {
 		provider = 'DiffAdd',
 		condition = condition.hide_in_width,
-		icon = '   ',
+		icon = '  ',
 		highlight = {colors.green,colors.bg},
 	}},
 	{DiffModified = {
@@ -108,5 +96,15 @@ gl.section.right = {
 		condition = condition.hide_in_width,
 		icon = '  ',
 		highlight = {colors.red,colors.bg},
+	}},
+	{GitIcon = {
+		provider = function() return '  ' end,
+		condition = condition.check_git_workspace,
+		highlight = {colors.white,colors.bg,'bold'},
+	}},
+	{GitBranch = {
+		provider = 'GitBranch',
+		condition = condition.check_git_workspace,
+		highlight = {colors.white,colors.bg,'bold'},
 	}},
 }

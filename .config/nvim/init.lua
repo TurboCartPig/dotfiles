@@ -608,26 +608,23 @@ autopairs.setup {
 
 -- highlights and colorscheme ------------------------------------------------------- {{{1
 
--- Clear annoying colors
-vim.cmd [[
-	augroup ColorSchemeOverrides
-		autocmd!
-		autocmd ColorScheme *       highlight SignColumn        guibg=none
-		autocmd ColorScheme *       highlight Folded            guibg=none
-		autocmd ColorScheme *       highlight FoldColumn        guibg=none
-		autocmd ColorScheme gruvbox highlight StatusLine        guibg=none guifg=#292929
-		autocmd ColorScheme gruvbox highlight StatusLineNC      guibg=none guifg=#292929
-		autocmd ColorScheme gruvbox highlight GruvboxAquaSign   guibg=none
-		autocmd ColorScheme gruvbox highlight GruvboxBlueSign   guibg=none
-		autocmd ColorScheme gruvbox highlight GruvboxGreenSign  guibg=none
-		autocmd ColorScheme gruvbox highlight GruvboxOrangeSign guibg=none
-		autocmd ColorScheme gruvbox highlight GruvboxPurpleSign guibg=none
-		autocmd ColorScheme gruvbox highlight GruvboxRedSign    guibg=none
-		autocmd ColorScheme gruvbox highlight GruvboxYellowSign guibg=none
-	augroup end
-]]
-
 vim.opt.background = "dark"
 vim.cmd [[colorscheme gruvbox]]
+
+-- Clear annoying colors
+vim.cmd [[
+	highlight SignColumn        guibg=none
+	highlight Folded            guibg=none
+	highlight FoldColumn        guibg=none
+	highlight StatusLine        guibg=none guifg=#292929
+	highlight StatusLineNC      guibg=none guifg=#292929
+	highlight GruvboxAquaSign   guibg=none
+	highlight GruvboxBlueSign   guibg=none
+	highlight GruvboxGreenSign  guibg=none
+	highlight GruvboxOrangeSign guibg=none
+	highlight GruvboxPurpleSign guibg=none
+	highlight GruvboxRedSign    guibg=none
+	highlight GruvboxYellowSign guibg=none
+]]
 
 -- vi: foldmethod=marker

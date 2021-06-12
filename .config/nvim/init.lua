@@ -333,7 +333,7 @@ local on_attach = function(client, bufnr)
 	vim.cmd("autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()")
 
 	-- Setup line diagnostic on hover
-	vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics()")
+	vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false })")
 
 	-- Setup hover? on hover
 	-- if client.resolved_capabilities.hover then

@@ -474,7 +474,7 @@ map("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]]
 	{ noremap = true, silent = true })
 map("n", "<c-p>",  [[<cmd>lua require("telescope.builtin").git_files()<cr>]],
 	{ noremap = true, silent = true })
-map("n", "<c-P>",  [[<cmd>Telescope<cr>]],
+map("n", "<c-s-p>",  [[<cmd>Telescope<cr>]],
 	{ noremap = true, silent = true })
 map("n", "<c-t>",  [[<cmd>lua vim.lsp.buf.hover()<cr>]],
 	{ noremap = true, silent = true })

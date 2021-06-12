@@ -35,10 +35,6 @@ gl.section.left = {
 			}
 			vim.cmd('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()])
 
-			-- NOTE: Kind of hacky, but oh well
-			vim.cmd('hi StatusLine guifg=#292929 guibg=#292929')
-			vim.cmd('hi StatusLineNC guifg=#292929 guibg=#292929')
-
 			return '    '
 		end,
 		highlight = {colors.red,colors.bg,'bold'},

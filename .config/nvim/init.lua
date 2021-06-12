@@ -608,6 +608,8 @@ vim.cmd [[
 		autocmd ColorScheme *       highlight SignColumn        guibg=none
 		autocmd ColorScheme *       highlight Folded            guibg=none
 		autocmd ColorScheme *       highlight FoldColumn        guibg=none
+		autocmd ColorScheme gruvbox highlight StatusLine        guibg=none guifg=#292929
+		autocmd ColorScheme gruvbox highlight StatusLineNC      guibg=none guifg=#292929
 		autocmd ColorScheme gruvbox highlight GruvboxAquaSign   guibg=none
 		autocmd ColorScheme gruvbox highlight GruvboxBlueSign   guibg=none
 		autocmd ColorScheme gruvbox highlight GruvboxGreenSign  guibg=none

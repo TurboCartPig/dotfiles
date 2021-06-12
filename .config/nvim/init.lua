@@ -185,7 +185,20 @@ map("i", "<C-M-`>", "`", { noremap = true })
 map("i", "<C-M-´>", "´", { noremap = true })
 
 -- vim-polyglot settings ------------------------------------------------------------ {{{1
-vim.g.polyglot_disabled = { "go", "rust", "json", "autoindent", "sensible" }
+
+-- Disable broken plugins or those covered by treesitter
+vim.g.polyglot_disabled = {
+	"c", "cpp", "c_sharp", "css", "dockerfile",
+	"go", "html", "java", "javascript", "json", "kotlin",
+	"lua", "nix", "ocaml", "php", "python",
+	"rust", "autoindent", "sensible", "typescript",
+	"toml", "yaml", "zig",
+}
+
+-- Settings for pangloss/vim-javascript
+vim.g.javascript_plugin_jsdoc = true
+vim.g.javascript_plugin_ngdoc = false
+vim.g.javascript_plugin_flow = false
 
 -- Settings for elzr/vim-json
 vim.g.vim_json_syntax_conceal = true
@@ -474,13 +487,7 @@ map("n", "<c-q>",  [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]],
 local ts = require("nvim-treesitter.configs")
 
 ts.setup {
-	ensure_installed = {
-		"c", "cpp", "go", "rust",
-		"javascript", "typescript", "html", "css",
-		"python", "lua",
-		"bash", "comment",
-		"yaml", "toml", "json",
-	},
+	ensure_installed = "maintained",
 	highlight = {
 		enable = true,
 	},

@@ -1,11 +1,21 @@
-local vim = vim
 local gl = require("galaxyline")
-local colors = require("galaxyline.theme").default
 local condition = require("galaxyline.condition")
 
-gl.short_line_list = { "NvimTree", "packer", "minimap" }
+local colors = {
+	bg = '#292929',
+	fg = '#fbf0c6',
+	yellow = '#fabd2e',
+	cyan = '#008080',
+	darkblue = '#458588',
+	green = '#b8ba26',
+	orange = '#FF8800',
+	violet = '#a9a1e1',
+	magenta = '#c678dd',
+	blue = '#83a598';
+	red = '#fb4632';
+}
 
-colors.bg = "#292929"
+gl.short_line_list = { "NvimTree", "packer", "minimap" }
 
 gl.section.left = {
 	{ViMode = {

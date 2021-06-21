@@ -1,9 +1,20 @@
-local vim = vim
 local map = vim.api.nvim_set_keymap
 
 require("plugins")
+require("dap_config")
 
 vim.g.neovide_refresh_rate = 120
+
+vim.g.dashboard_default_executive = "telescope"
+
+vim.g.dashboard_custom_header = {
+	' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+	' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+	' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+	' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+	' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+	' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+}
 
 -- Neovim set options --------------------------------------------------------------- {{{1
 
@@ -29,6 +40,7 @@ vim.opt.swapfile = false
 vim.opt.undofile = true
 
 -- Search
+vim.opt.inccommand = "nosplit"
 vim.opt.incsearch = true
 vim.opt.showmatch = true
 vim.opt.ignorecase = true
@@ -45,7 +57,7 @@ vim.opt.wrap = false
 vim.opt.textwidth = 120
 vim.opt.wrapmargin = 5
 
--- Visual stuff
+-- Gutters/Scrolloffs and stuff
 vim.opt.numberwidth = 3
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
@@ -53,7 +65,11 @@ vim.opt.cursorline = true
 vim.opt.cmdheight = 2
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
+
+-- Visual stuff
 vim.opt.termguicolors = true
+vim.opt.background = "dark"
+vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:Cursor"
 vim.opt.guifont = "FiraCode NF:h17"
 
 -- TODO: Find a way to cycle through predefined listchars
@@ -139,6 +155,11 @@ vim.cmd [[
 		autocmd!
 		autocmd TermOpen * startinsert
 	augroup END
+
+	augroup DashboardTabline
+		autocmd!
+		autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
+	augroup END
 ]]
 
 -- Neovim set custom commands ------------------------------------------------------- {{{1
@@ -150,10 +171,13 @@ vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printi
 -- Switch between two buffers easily
 map("n", "<leader><leader>", "<cmd>b#<cr>", { noremap = true, silent = true })
 
+-- Close view
+map("n", "<s-esc>", "<cmd>close<cr>", { noremap = true, silent = true })
+
 -- Change multiple of the same word, use dot to replace next word
 -- Use this instead of multiple cursors
 -- TODO: How to not mess with jump history
-map("n", "<c-d>", "*<c-o>cgn", { noremap = true })
+map("n", "<c-d>", "*<c-o>cgn", { noremap = true, silent = true })
 
 -- Move around easier in insert mode
 map("i", "<c-h>", "<left>",  { noremap = true })
@@ -314,16 +338,6 @@ map("i", "<c-e>", [[compe#close("<c-e>")]],  { expr = true, noremap = true, sile
 
 local lsp_config = require("lspconfig")
 
--- NOTE: This is broken now?
--- Fixes missing .cmd extensions for language servers
--- vim.loop.spawn = (function ()
---   local spawn = vim.loop.spawn
---   return function(path, options, on_exit)
---     local full_path = vim.fn.exepath(path)
---     return spawn(full_path, options, on_exit)
---   end
--- end)()
-
 -- Run this every time a language server attaches to a buffer
 local on_attach = function(client, bufnr)
 	-- Setup completion
@@ -362,12 +376,12 @@ local servers = {
 	clangd = {},
 	gopls = {},
 	pyls = {},
-	pyright = {},
+	-- pyright = {},
 	vimls = {},
-	dockerls = {},
-	jsonls = {},
-	yamlls = {},
-	-- html = {},
+	-- NOTE: Does not work on windows, due to .cmd not being handled properly
+	-- dockerls = {},
+	-- jsonls = {},
+	-- yamlls = {},
 }
 
 -- Setup all the servers with their respective settings
@@ -417,18 +431,18 @@ lsp_config.sumneko_lua.setup {
 				version = "LuaJIT",
 				path = vim.split(package.path, ";"),
 			},
-		},
-		completion = {
-			keywordSnippet = "Disable",
-		},
-		diagnostics = {
-			enable = true,
-			globals = { "vim" },
-		},
-		workspace = {
-			library = get_lua_runtime(),
-			maxPreload = 1000,
-			preloadFileSize = 1000,
+			completion = {
+				keywordSnippet = "Disable",
+			},
+			diagnostics = {
+				enable = true,
+				globals = { "vim" },
+			},
+			workspace = {
+				library = get_lua_runtime(),
+				maxPreload = 1000,
+				preloadFileSize = 1000,
+			},
 		},
 	},
 }
@@ -474,7 +488,7 @@ map("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]]
 	{ noremap = true, silent = true })
 map("n", "<c-p>",  [[<cmd>lua require("telescope.builtin").git_files()<cr>]],
 	{ noremap = true, silent = true })
-map("n", "<c-s-p>",  [[<cmd>Telescope<cr>]],
+map("n", "<c-s-p>",[[<cmd>Telescope<cr>]],
 	{ noremap = true, silent = true })
 map("n", "<c-t>",  [[<cmd>lua vim.lsp.buf.hover()<cr>]],
 	{ noremap = true, silent = true })
@@ -527,7 +541,7 @@ ts.setup {
 	},
 	refactor = {
 		highlight_definitions = {
-			enable = true,
+			enable = false,
 		},
 		highlight_current_scope = {
 			enable = false,
@@ -608,11 +622,13 @@ autopairs.setup {
 
 -- highlights and colorscheme ------------------------------------------------------- {{{1
 
-vim.opt.background = "dark"
 vim.cmd [[colorscheme gruvbox]]
 
 -- Clear annoying colors
 vim.cmd [[
+	highlight link Operator     GruvboxRed
+
+	highlight Cursor            gui=NONE   guibg=#FB4632 guifg=NONE
 	highlight SignColumn        guibg=none
 	highlight Folded            guibg=none
 	highlight FoldColumn        guibg=none

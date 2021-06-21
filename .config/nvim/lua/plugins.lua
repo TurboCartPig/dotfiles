@@ -1,5 +1,3 @@
-local vim = vim
-
 -- Setup packer {{{1
 
 -- Install packer if not already installed
@@ -86,6 +84,10 @@ packer.startup(function(use)
 	-- NOTE: This is buggy for some reason
 	-- use "romgrk/nvim-treesitter-context"
 
+	-- Dap (Debugging)
+	use "mfussenegger/nvim-dap"
+	use "theHamsta/nvim-dap-virtual-text"
+
 	-- Themes
 	use "ryanoasis/vim-devicons"
 	use {
@@ -104,7 +106,7 @@ packer.startup(function(use)
 	}
 
 	-- Interfaces
-	use "mhinz/vim-startify"
+	use "glepnir/dashboard-nvim"
 	use {
 		"kyazdani42/nvim-tree.lua",
 		requires = "kyazdani42/nvim-web-devicons",

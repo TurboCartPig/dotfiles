@@ -262,7 +262,14 @@ vim.g.vim_markdown_fenced_languages = {
 -- Explicitly load plugin after setting polyglot_disabled
 vim.cmd [[packadd vim-polyglot]]
 
+-- Rust.vim settings ---------------------------------------------------------------- {{{1
+
+-- Disable functionality included by other plugins
+vim.g.rustfmt_autosave = false
+vim.g.rustfmt_fail_silently = true
+
 -- vim-go settings ------------------------------------------------------------------ {{{1
+
 -- Disable functionality included by neovim itself
 vim.g.go_code_completion_enabled = false
 vim.g.go_gopls_enabled = false
@@ -301,6 +308,13 @@ vim.g.neoformat_enabled_python = { "black" }
 vim.g.neoformat_enabled_lua = { "stylua" }
 
 map("n", "<c-m-L>", [[<cmd>Neoformat<cr>]], { noremap = true, silent = true })
+
+vim.cmd [[
+	augroup AutoFormat
+		autocmd!
+		autocmd BufWritePre * Neoformat
+	augroup END
+]]
 
 -- Bufferline settings -------------------------------------------------------------- {{{1
 
@@ -384,7 +398,12 @@ local on_attach = function(client, bufnr)
 
 	-- Only setup format on save for servers that support it
 	if client.resolved_capabilities.document_formatting then
-		vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)"
+		vim.cmd [[
+			augroup AutoFormat
+				autocmd!
+				autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)
+			augroup END
+		]]
 	end
 end
 

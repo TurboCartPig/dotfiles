@@ -1,9 +1,9 @@
 -- Setup packer {{{1
 
 -- Install packer if not already installed
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
+local install_path = vim.fn.stdpath "data" .. "/site/pack/packer/opt/packer.nvim"
 if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-	vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
+	vim.fn.system { "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path }
 end
 
 -- Load the packer pack
@@ -20,7 +20,7 @@ vim.cmd [[
 
 -- Define plugins {{{1
 
-local packer = require("packer")
+local packer = require "packer"
 
 packer.startup(function(use)
 	-- Let packer manage itself
@@ -71,9 +71,9 @@ packer.startup(function(use)
 	use "simrat39/rust-tools.nvim"
 	use {
 		"onsails/lspkind-nvim",
-		config = function ()
+		config = function()
 			require("lspkind").init {}
-		end
+		end,
 	}
 
 	-- Treesitter
@@ -93,7 +93,9 @@ packer.startup(function(use)
 	use {
 		"glepnir/galaxyline.nvim",
 		branch = "main",
-		config = function() require("statusline") end,
+		config = function()
+			require "statusline"
+		end,
 		requires = "kyazdani42/nvim-web-devicons",
 	}
 	use {
@@ -116,12 +118,12 @@ packer.startup(function(use)
 		requires = {
 			"kyazdani42/nvim-web-devicons",
 			"nvim-lua/popup.nvim",
-			"nvim-lua/plenary.nvim"
+			"nvim-lua/plenary.nvim",
 		},
 	}
 	use {
 		"nvim-telescope/telescope-fzf-native.nvim",
-		run = "make"
+		run = "make",
 	}
 	use {
 		"wfxr/minimap.vim",

@@ -1,19 +1,19 @@
 local map = vim.api.nvim_set_keymap
 
-require("plugins")
-require("dap_config")
+require "plugins"
+require "dap_config"
 
 vim.g.neovide_refresh_rate = 120
 
 vim.g.dashboard_default_executive = "telescope"
 
 vim.g.dashboard_custom_header = {
-	' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-	' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-	' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-	' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-	' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-	' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+	" ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
+	" ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
+	" ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
+	" ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
+	" ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
+	" ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
 }
 
 -- Neovim set options --------------------------------------------------------------- {{{1
@@ -22,9 +22,9 @@ vim.g.dashboard_custom_header = {
 vim.g.mapleader = " "
 
 -- Set shell to powershell core on windows
-if vim.fn.has("win32") == 1 and vim.fn.exists("pwsh.exe") == 1 then
+if vim.fn.has "win32" == 1 and vim.fn.exists "pwsh.exe" == 1 then
 	vim.opt.shell = "pwsh.exe"
-elseif vim.fn.has("unix") == 1 and vim.fn.exists("/usr/bin/zsh") == 1 then
+elseif vim.fn.has "unix" == 1 and vim.fn.exists "/usr/bin/zsh" == 1 then
 	vim.opt.shell = "/usr/bin/zsh"
 end
 
@@ -79,7 +79,7 @@ vim.opt.listchars = { tab = "→ ", nbsp = "␣", lead = "·", trail = "·", pre
 
 -- Folds
 -- 'foldmethod' and 'foldlevel' are set by autocmds for various filetypes
-vim.opt.foldlevelstart=99
+vim.opt.foldlevelstart = 99
 
 -- Conceals
 vim.opt.concealcursor = "nc"
@@ -180,9 +180,9 @@ map("n", "<s-esc>", "<cmd>close<cr>", { noremap = true, silent = true })
 map("n", "<c-d>", "*<c-o>cgn", { noremap = true, silent = true })
 
 -- Move around easier in insert mode
-map("i", "<c-h>", "<left>",  { noremap = true })
-map("i", "<c-j>", "<down>",  { noremap = true })
-map("i", "<c-k>", "<up>",    { noremap = true })
+map("i", "<c-h>", "<left>", { noremap = true })
+map("i", "<c-j>", "<down>", { noremap = true })
+map("i", "<c-k>", "<up>", { noremap = true })
 map("i", "<c-l>", "<right>", { noremap = true })
 
 -- String left/right
@@ -212,11 +212,29 @@ map("i", "<C-M-´>", "´", { noremap = true })
 
 -- Disable broken plugins or those covered by treesitter
 vim.g.polyglot_disabled = {
-	"c", "cpp", "c_sharp", "css", "dockerfile",
-	"go", "html", "java", "javascript", "json", "kotlin",
-	"lua", "nix", "ocaml", "php", "python",
-	"rust", "autoindent", "sensible", "typescript",
-	"toml", "yaml", "zig",
+	"c",
+	"cpp",
+	"c_sharp",
+	"css",
+	"dockerfile",
+	"go",
+	"html",
+	"java",
+	"javascript",
+	"json",
+	"kotlin",
+	"lua",
+	"nix",
+	"ocaml",
+	"php",
+	"python",
+	"rust",
+	"autoindent",
+	"sensible",
+	"typescript",
+	"toml",
+	"yaml",
+	"zig",
 }
 
 -- Settings for pangloss/vim-javascript
@@ -228,10 +246,10 @@ vim.g.javascript_plugin_flow = false
 vim.g.vim_json_syntax_conceal = true
 
 -- Settings for plasticboy/vim-markdown
-vim.g.vim_markdown_toc_autofit         = true
+vim.g.vim_markdown_toc_autofit = true
 vim.g.vim_markdown_conceal_code_blocks = false
-vim.g.vim_markdown_follow_anchor       = true
-vim.g.vim_markdown_strikethrough       = true
+vim.g.vim_markdown_follow_anchor = true
+vim.g.vim_markdown_strikethrough = true
 
 -- Create alias for fenced languages with the format: alias=actual
 vim.g.vim_markdown_fenced_languages = {
@@ -247,46 +265,46 @@ vim.cmd [[packadd vim-polyglot]]
 -- vim-go settings ------------------------------------------------------------------ {{{1
 -- Disable functionality included by neovim itself
 vim.g.go_code_completion_enabled = false
-vim.g.go_gopls_enabled           = false
+vim.g.go_gopls_enabled = false
 
 -- Disable auto-stuff, neoformat and gopls handles this perfectly well
-vim.g.go_fmt_autosave            = false
-vim.g.go_imports_autosave        = false
-vim.g.go_mod_fmt_autosave        = false
-vim.g.go_metalinter_autosave     = false
+vim.g.go_fmt_autosave = false
+vim.g.go_imports_autosave = false
+vim.g.go_mod_fmt_autosave = false
+vim.g.go_metalinter_autosave = false
 
 -- Disable misc
-vim.g.go_doc_keywordprg_enabled  = false
-vim.g.go_def_mapping_enabled	 = false
-vim.g.go_auto_type_info			 = false
-vim.g.go_auto_sameids			 = false
-vim.g.go_jump_to_error			 = true
+vim.g.go_doc_keywordprg_enabled = false
+vim.g.go_def_mapping_enabled = false
+vim.g.go_auto_type_info = false
+vim.g.go_auto_sameids = false
+vim.g.go_jump_to_error = true
 
 -- Set golangci-lint as metalinter
-vim.g.go_metalinter_command      = "golangci-lint"
-vim.g.go_metalinter_deadline     = "2s"
+vim.g.go_metalinter_command = "golangci-lint"
+vim.g.go_metalinter_deadline = "2s"
 
 -- Termdebug settings --------------------------------------------------------------- {{{1
 vim.g.termdebug_popup = 0
-vim.g.termdebug_wide  = 163
+vim.g.termdebug_wide = 163
 
 -- git-blame.nvim settings ---------------------------------------------------------- {{{1
-vim.g.gitblame_enabled          = false
+vim.g.gitblame_enabled = false
 vim.g.gitblame_message_template = "<author> • <summary> • <date>"
 
 -- Neoformat settings --------------------------------------------------------------- {{{1
 vim.g.neoformat_basic_format_align = false
 vim.g.neoformat_basic_format_retab = true
-vim.g.neoformat_basic_format_trim  = true
-vim.g.neoformat_enabled_haskell    = { "stylish-haskell", "ormolu" }
-vim.g.neoformat_enabled_python     = { "black"}
-vim.g.neoformat_enabled_lua        = { "stylua" }
+vim.g.neoformat_basic_format_trim = true
+vim.g.neoformat_enabled_haskell = { "stylish-haskell", "ormolu" }
+vim.g.neoformat_enabled_python = { "black" }
+vim.g.neoformat_enabled_lua = { "stylua" }
 
 map("n", "<c-m-L>", [[<cmd>Neoformat<cr>]], { noremap = true, silent = true })
 
 -- Bufferline settings -------------------------------------------------------------- {{{1
 
-local bufferline = require("bufferline")
+local bufferline = require "bufferline"
 
 bufferline.setup {
 	options = {
@@ -300,7 +318,10 @@ bufferline.setup {
 -- Setup ignores
 vim.g.nvim_tree_gitignore = false
 vim.g.nvim_tree_ignore = {
-	".git", "node_modules", ".idea", "__pycache__"
+	".git",
+	"node_modules",
+	".idea",
+	"__pycache__",
 }
 
 -- Toggle file tree
@@ -308,7 +329,7 @@ map("n", "<m-1>", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
 
 -- nvim-compe config ---------------------------------------------------------------- {{{1
 
-local compe = require("compe")
+local compe = require "compe"
 
 -- Setup compe auto completions
 compe.setup {
@@ -333,11 +354,11 @@ compe.setup {
 }
 
 map("i", "<c-y>", [[compe#confirm("<cr>")]], { expr = true, noremap = true, silent = true })
-map("i", "<c-e>", [[compe#close("<c-e>")]],  { expr = true, noremap = true, silent = true })
+map("i", "<c-e>", [[compe#close("<c-e>")]], { expr = true, noremap = true, silent = true })
 
 -- Neovim lsp config ---------------------------------------------------------------- {{{1
 
-local lsp_config = require("lspconfig")
+local lsp_config = require "lspconfig"
 
 -- Run this every time a language server attaches to a buffer
 local on_attach = function(client, bufnr)
@@ -345,10 +366,10 @@ local on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
 	-- Setup lightbulb on code_action
-	vim.cmd("autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()")
+	vim.cmd "autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()"
 
 	-- Setup line diagnostic on hover
-	vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false })")
+	vim.cmd "autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false })"
 
 	-- Setup hover? on hover
 	-- if client.resolved_capabilities.hover then
@@ -363,7 +384,7 @@ local on_attach = function(client, bufnr)
 
 	-- Only setup format on save for servers that support it
 	if client.resolved_capabilities.document_formatting then
-		vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)")
+		vim.cmd "autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)"
 	end
 end
 
@@ -396,12 +417,12 @@ end
 -- Find lua language server based on platform
 local sumneko_root
 local sumneko_bin
-if vim.fn.has("win32") == 1 then
+if vim.fn.has "win32" == 1 then
 	sumneko_root = "C:/Projects/lua-language-server"
-	sumneko_bin  = sumneko_root .. "/bin/Windows/lua-language-server.exe"
-elseif vim.fn.has("unix") == 1 then
-	sumneko_root = vim.fn.expand("$HOME/Projects/lua-language-server")
-	sumneko_bin  = sumneko_root .. "/bin/Linux/lua-language-server"
+	sumneko_bin = sumneko_root .. "/bin/Windows/lua-language-server.exe"
+elseif vim.fn.has "unix" == 1 then
+	sumneko_root = vim.fn.expand "$HOME/Projects/lua-language-server"
+	sumneko_bin = sumneko_root .. "/bin/Linux/lua-language-server"
 end
 
 -- Ripped from tjdevries/nlua
@@ -409,8 +430,8 @@ end
 local get_lua_runtime = function()
 	local res = {}
 
-	res[vim.fn.expand("$VIMRUNTIME/lua")] = true
-	res[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+	res[vim.fn.expand "$VIMRUNTIME/lua"] = true
+	res[vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true
 
 	for _, path in pairs(vim.api.nvim_list_runtime_paths()) do
 		local lua_path = path .. "/lua/"
@@ -450,7 +471,7 @@ lsp_config.sumneko_lua.setup {
 
 -- Rust tools config ---------------------------------------------------------------- {{{1
 
-local rust_tools = require("rust-tools")
+local rust_tools = require "rust-tools"
 
 rust_tools.setup {
 	tools = {
@@ -474,10 +495,9 @@ rust_tools.setup {
 	},
 }
 
-
 -- Telescope config ----------------------------------------------------------------- {{{1
 
-local telescope = require("telescope")
+local telescope = require "telescope"
 
 telescope.setup {
 	extensions = {
@@ -486,35 +506,30 @@ telescope.setup {
 			override_generic_sorter = false,
 			override_file_sorter = true,
 			case_mode = "smart_case",
-		}
-	}
+		},
+	},
 }
 
-telescope.load_extension('fzf')
+telescope.load_extension "fzf"
 
-map("n", "gr",     [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]],
-	{ noremap = true, silent = true })
-map("n", "gs",     [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]],
-	{ noremap = true, silent = true })
-map("n", "gll",    [[<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>]],
-	{ noremap = true, silent = true })
-map("n", "<m-cr>", [[<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>]],
-	{ noremap = true, silent = true })
-map("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]],
-	{ noremap = true, silent = true })
-map("n", "<c-p>",  [[<cmd>lua require("telescope.builtin").git_files()<cr>]],
-	{ noremap = true, silent = true })
-map("n", "<c-s-p>",[[<cmd>Telescope<cr>]],
-	{ noremap = true, silent = true })
-map("n", "<c-t>",  [[<cmd>lua vim.lsp.buf.hover()<cr>]],
-	{ noremap = true, silent = true })
-map("n", "R",      [[<cmd>lua vim.lsp.buf.rename()<cr>]],
-	{ noremap = true, silent = true })
-map("n", "<c-q>",  [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]],
-	{ noremap = true, silent = true })
+map("n", "gr", [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]], { noremap = true, silent = true })
+map("n", "gs", [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]], { noremap = true, silent = true })
+map(
+	"n",
+	"gll",
+	[[<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>]],
+	{ noremap = true, silent = true }
+)
+map("n", "<m-cr>", [[<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>]], { noremap = true, silent = true })
+map("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]], { noremap = true, silent = true })
+map("n", "<c-p>", [[<cmd>lua require("telescope.builtin").git_files()<cr>]], { noremap = true, silent = true })
+map("n", "<c-s-p>", [[<cmd>Telescope<cr>]], { noremap = true, silent = true })
+map("n", "<c-t>", [[<cmd>lua vim.lsp.buf.hover()<cr>]], { noremap = true, silent = true })
+map("n", "R", [[<cmd>lua vim.lsp.buf.rename()<cr>]], { noremap = true, silent = true })
+map("n", "<c-q>", [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]], { noremap = true, silent = true })
 
 -- Treesitter config ---------------------------------------------------------------- {{{1
-local ts = require("nvim-treesitter.configs")
+local ts = require "nvim-treesitter.configs"
 
 ts.setup {
 	ensure_installed = "maintained",
@@ -537,11 +552,11 @@ ts.setup {
 			enable = true,
 			swap_next = {
 				["<leader><C-l>"] = "@parameter.inner",
-				["<leader><C-j>"] = "@function.outer"
+				["<leader><C-j>"] = "@function.outer",
 			},
 			swap_previous = {
 				["<leader><C-h>"] = "@parameter.inner",
-				["<leader><C-k>"] = "@function.outer"
+				["<leader><C-k>"] = "@function.outer",
 			},
 		},
 		move = {
@@ -585,37 +600,40 @@ ts.setup {
 
 -- Setup gitsigns ------------------------------------------------------------------- {{{1
 
-local gitsigns = require("gitsigns")
+local gitsigns = require "gitsigns"
 
 gitsigns.setup {
 	signs = {
-		add          = { hl = "GitSignsAdd"   , text = "│", numhl="GitSignsAddNr"   , linehl="GitSignsAddLn" },
-		change       = { hl = "GitSignsChange", text = "│", numhl="GitSignsChangeNr", linehl="GitSignsChangeLn" },
-		delete       = { hl = "GitSignsDelete", text = "_", numhl="GitSignsDeleteNr", linehl="GitSignsDeleteLn" },
-		topdelete    = { hl = "GitSignsDelete", text = "‾", numhl="GitSignsDeleteNr", linehl="GitSignsDeleteLn" },
-		changedelete = { hl = "GitSignsChange", text = "~", numhl="GitSignsChangeNr", linehl="GitSignsChangeLn" },
+		add = { hl = "GitSignsAdd", text = "│", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+		change = { hl = "GitSignsChange", text = "│", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+		delete = { hl = "GitSignsDelete", text = "_", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+		topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+		changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
 	},
 }
 
 -- Setup neoscroll ------------------------------------------------------------------ {{{1
 
-local neoscroll = require("neoscroll")
-local neoscroll_config = require("neoscroll.config")
+local neoscroll = require "neoscroll"
+local neoscroll_config = require "neoscroll.config"
 
 neoscroll.setup {
-    mappings = {
-		'zt', 'zz', 'zb',
-		'J', 'K',
+	mappings = {
+		"zt",
+		"zz",
+		"zb",
+		"J",
+		"K",
 	},
-    hide_cursor = true,          -- Hide cursor while scrolling
-    stop_eof = true,             -- Stop at <EOF> when scrolling downwards
-    respect_scrolloff = false,   -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-    cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+	hide_cursor = true, -- Hide cursor while scrolling
+	stop_eof = true, -- Stop at <EOF> when scrolling downwards
+	respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+	cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
 }
 
 -- Setup custom mappings
 local mappings = {}
-mappings["J"] = { "scroll", {  "0.20", "false", "10" } }
+mappings["J"] = { "scroll", { "0.20", "false", "10" } }
 mappings["K"] = { "scroll", { "-0.20", "false", "10" } }
 neoscroll_config.set_mappings(mappings)
 
@@ -630,7 +648,7 @@ neoscroll_config.set_mappings(mappings)
 
 -- Setup nvim-autopairs ------------------------------------------------------------- {{{1
 
-local autopairs = require("nvim-autopairs")
+local autopairs = require "nvim-autopairs"
 
 autopairs.setup {
 	disable_filetype = { "TelescopePrompt" },

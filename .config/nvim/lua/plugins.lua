@@ -120,6 +120,10 @@ packer.startup(function(use)
 		},
 	}
 	use {
+		"nvim-telescope/telescope-fzf-native.nvim",
+		run = "make"
+	}
+	use {
 		"wfxr/minimap.vim",
 		run = "cargo install code-minimap",
 	}

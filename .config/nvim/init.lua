@@ -476,6 +476,21 @@ rust_tools.setup {
 
 -- Telescope config ----------------------------------------------------------------- {{{1
 
+local telescope = require("telescope")
+
+telescope.setup {
+	extensions = {
+		fzf = {
+			fuzzy = true,
+			override_generic_sorter = false,
+			override_file_sorter = true,
+			case_mode = "smart_case",
+		}
+	}
+}
+
+telescope.load_extension('fzf')
+
 map("n", "gr",     [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]],
 	{ noremap = true, silent = true })
 map("n", "gs",     [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]],

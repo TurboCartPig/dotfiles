@@ -280,6 +280,7 @@ vim.g.neoformat_basic_format_retab = true
 vim.g.neoformat_basic_format_trim  = true
 vim.g.neoformat_enabled_haskell    = { "stylish-haskell", "ormolu" }
 vim.g.neoformat_enabled_python     = { "black"}
+vim.g.neoformat_enabled_lua        = { "stylua" }
 
 map("n", "<c-m-L>", [[<cmd>Neoformat<cr>]], { noremap = true, silent = true })
 

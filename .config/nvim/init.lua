@@ -1,6 +1,7 @@
 local map = vim.api.nvim_set_keymap
 
 require "plugins"
+require "lsp-settings"
 require "dap_config"
 
 vim.g.neovide_refresh_rate = 120

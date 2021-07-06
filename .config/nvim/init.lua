@@ -546,9 +546,6 @@ vim.cmd [[colorscheme gruvbox]]
 -- 1. Clear annoying colors
 -- 2. Override some poor defaults and correct omissions from colorscheme
 vim.cmd [[
-	highlight link Operator     GruvboxRed
-	highlight link NormalFloat  GruvboxFg0
-
 	highlight Cursor            gui=NONE   guibg=#FB4632 guifg=NONE
 	highlight SignColumn        guibg=none
 	highlight Folded            guibg=none
@@ -562,6 +559,12 @@ vim.cmd [[
 	highlight GruvboxPurpleSign guibg=none
 	highlight GruvboxRedSign    guibg=none
 	highlight GruvboxYellowSign guibg=none
+
+	highlight  link Operator     GruvboxRed
+	highlight  link NormalFloat  GruvboxFg0
+	highlight! link DiffAdd      GruvboxGreenSign
+	highlight! link DiffChange   GruvboxPurpleSign
+	highlight! link DiffDelete   GruvboxRedSign
 ]]
 
 -- vi: foldmethod=marker

@@ -126,6 +126,12 @@ packer.startup(function(use)
 		run = "make",
 	}
 	use {
+		"folke/trouble.nvim",
+		run = function()
+			require("trouble").setup {}
+		end,
+	}
+	use {
 		"wfxr/minimap.vim",
 		run = "cargo install code-minimap",
 	}

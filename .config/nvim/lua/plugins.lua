@@ -31,7 +31,6 @@ packer.startup(function(use)
 	use "editorconfig/editorconfig-vim"
 
 	-- Git
-	use "f-person/git-blame.nvim"
 	use "lewis6991/gitsigns.nvim"
 
 	-- This isn't default?

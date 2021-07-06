@@ -275,10 +275,6 @@ vim.cmd [[packadd vim-polyglot]]
 vim.g.termdebug_popup = 0
 vim.g.termdebug_wide = 163
 
--- git-blame.nvim settings ---------------------------------------------------------- {{{1
-vim.g.gitblame_enabled = false
-vim.g.gitblame_message_template = "<author> • <summary> • <date>"
-
 -- Neoformat settings --------------------------------------------------------------- {{{1
 vim.g.neoformat_basic_format_align = false
 vim.g.neoformat_basic_format_retab = true
@@ -467,6 +463,31 @@ gitsigns.setup {
 		topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
 		changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
 	},
+	current_line_blame = false,
+	current_line_blame_delay = 10,
+	current_line_blame_position = "eol",
+	current_line_blame_formatter = function(name, blame_info, opts)
+		if blame_info.author == name then
+			blame_info.author = "You"
+		end
+
+		local text
+		if blame_info.author == "Not Committed Yet" then
+			text = blame_info.author
+		else
+			local date_time
+
+			if opts.relative_time then
+				date_time = require("gitsigns.util").get_relative_time(tonumber(blame_info["author_time"]))
+			else
+				date_time = os.date("%Y-%m-%d", tonumber(blame_info["author_time"]))
+			end
+
+			text = string.format("%s • %s • %s", blame_info.author, date_time, blame_info.summary)
+		end
+
+		return { { " " .. text, "GitSignsCurrentLineBlame" } }
+	end,
 }
 
 -- Setup neoscroll ------------------------------------------------------------------ {{{1

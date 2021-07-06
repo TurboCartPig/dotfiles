@@ -89,6 +89,12 @@ vim.opt.conceallevel = 2
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
+-- Window settings
+vim.opt.winheight = 12
+vim.opt.winwidth = 85
+vim.opt.winminheight = 6
+vim.opt.winminwidth = 12
+
 -- Menus
 vim.opt.wildmenu = true
 vim.opt.completeopt = "menuone,noselect,noinsert"

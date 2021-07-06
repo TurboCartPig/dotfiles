@@ -70,7 +70,7 @@ vim.opt.sidescrolloff = 5
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:Cursor"
-vim.opt.guifont = "FiraCode NF:h17"
+vim.opt.guifont = "Hasklug NF:h17"
 
 -- TODO: Find a way to cycle through predefined listchars
 vim.opt.list = true
@@ -268,35 +268,6 @@ vim.g.vim_markdown_fenced_languages = {
 -- Explicitly load plugin after setting polyglot_disabled
 vim.cmd [[packadd vim-polyglot]]
 
--- Rust.vim settings ---------------------------------------------------------------- {{{1
-
--- Disable functionality included by other plugins
-vim.g.rustfmt_autosave = false
-vim.g.rustfmt_fail_silently = true
-
--- vim-go settings ------------------------------------------------------------------ {{{1
-
--- Disable functionality included by neovim itself
-vim.g.go_code_completion_enabled = false
-vim.g.go_gopls_enabled = false
-
--- Disable auto-stuff, neoformat and gopls handles this perfectly well
-vim.g.go_fmt_autosave = false
-vim.g.go_imports_autosave = false
-vim.g.go_mod_fmt_autosave = false
-vim.g.go_metalinter_autosave = false
-
--- Disable misc
-vim.g.go_doc_keywordprg_enabled = false
-vim.g.go_def_mapping_enabled = false
-vim.g.go_auto_type_info = false
-vim.g.go_auto_sameids = false
-vim.g.go_jump_to_error = true
-
--- Set golangci-lint as metalinter
-vim.g.go_metalinter_command = "golangci-lint"
-vim.g.go_metalinter_deadline = "2s"
-
 -- Termdebug settings --------------------------------------------------------------- {{{1
 vim.g.termdebug_popup = 0
 vim.g.termdebug_wide = 163
@@ -336,6 +307,7 @@ bufferline.setup {
 -- nvim-tree settings --------------------------------------------------------------- {{{1
 
 -- Setup ignores
+vim.g.nvim_tree_width = 20
 vim.g.nvim_tree_gitignore = false
 vim.g.nvim_tree_ignore = {
 	".git",
@@ -376,150 +348,6 @@ compe.setup {
 map("i", "<c-y>", [[compe#confirm("<cr>")]], { expr = true, noremap = true, silent = true })
 map("i", "<c-e>", [[compe#close("<c-e>")]], { expr = true, noremap = true, silent = true })
 
--- Neovim lsp config ---------------------------------------------------------------- {{{1
-
-local lsp_config = require "lspconfig"
-
--- Run this every time a language server attaches to a buffer
-local on_attach = function(client, bufnr)
-	-- Setup completion
-	vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
-
-	-- Setup lightbulb on code_action
-	vim.cmd "autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()"
-
-	-- Setup line diagnostic on hover
-	vim.cmd "autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics({ focusable = false })"
-
-	-- Setup hover? on hover
-	-- if client.resolved_capabilities.hover then
-	-- 	vim.cmd("autocmd CursorHold <buffer> lua vim.lsp.buf.hover()")
-	-- end
-
-	-- Setup signature help on hover
-	-- FIXME: STFU when there are no signature help available
-	-- if client.resolved_capabilities.signature_help then
-	-- 	vim.cmd("autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()")
-	-- end
-
-	-- Only setup format on save for servers that support it
-	if client.resolved_capabilities.document_formatting then
-		vim.cmd [[
-			augroup AutoFormat
-				autocmd!
-				autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)
-			augroup END
-		]]
-	end
-end
-
--- List all the servers and any custom configuration
-local servers = {
-	hls = {
-		languageServerHaskell = {
-			formattingProvider = "stylish-haskell",
-		},
-	},
-	clangd = {},
-	gopls = {},
-	pyls = {},
-	-- pyright = {},
-	vimls = {},
-	-- NOTE: Does not work on windows, due to .cmd not being handled properly
-	-- dockerls = {},
-	-- jsonls = {},
-	-- yamlls = {},
-}
-
--- Setup all the servers with their respective settings
-for ls, settings in pairs(servers) do
-	lsp_config[ls].setup {
-		on_attach = on_attach,
-		settings = settings,
-	}
-end
-
--- Find lua language server based on platform
-local sumneko_root
-local sumneko_bin
-if vim.fn.has "win32" == 1 then
-	sumneko_root = "C:/Projects/lua-language-server"
-	sumneko_bin = sumneko_root .. "/bin/Windows/lua-language-server.exe"
-elseif vim.fn.has "unix" == 1 then
-	sumneko_root = vim.fn.expand "$HOME/Projects/lua-language-server"
-	sumneko_bin = sumneko_root .. "/bin/Linux/lua-language-server"
-end
-
--- Ripped from tjdevries/nlua
--- Maybe I should just use that plugin?
-local get_lua_runtime = function()
-	local res = {}
-
-	res[vim.fn.expand "$VIMRUNTIME/lua"] = true
-	res[vim.fn.expand "$VIMRUNTIME/lua/vim/lsp"] = true
-
-	for _, path in pairs(vim.api.nvim_list_runtime_paths()) do
-		local lua_path = path .. "/lua/"
-		if vim.fn.isdirectory(lua_path) then
-			res[lua_path] = true
-		end
-	end
-
-	return res
-end
-
--- Setup lua language server
-lsp_config.sumneko_lua.setup {
-	cmd = { sumneko_bin, "-E", sumneko_root .. "/main.lua" },
-	on_attach = on_attach,
-	settings = {
-		Lua = {
-			runtime = {
-				version = "LuaJIT",
-				path = vim.split(package.path, ";"),
-			},
-			completion = {
-				keywordSnippet = "Disable",
-			},
-			diagnostics = {
-				enable = true,
-				globals = { "vim" },
-			},
-			workspace = {
-				library = get_lua_runtime(),
-				maxPreload = 1000,
-				preloadFileSize = 1000,
-			},
-		},
-	},
-}
-
--- Rust tools config ---------------------------------------------------------------- {{{1
-
-local rust_tools = require "rust-tools"
-
-rust_tools.setup {
-	tools = {
-		autoSetHints = true,
-		hover_with_actions = false,
-		inlay_hints = {
-			show_parameter_hints = true,
-			parameter_hints_prefix = "« ",
-			other_hints_prefix = "» ",
-		},
-	},
-	server = {
-		on_attach = on_attach,
-		settings = {
-			["rust-analyzer"] = {
-				checkOnSave = {
-					command = "clippy",
-				},
-			},
-		},
-	},
-}
-
 -- Telescope config ----------------------------------------------------------------- {{{1
 
 local telescope = require "telescope"
@@ -554,6 +382,7 @@ map("n", "R", [[<cmd>lua vim.lsp.buf.rename()<cr>]], { noremap = true, silent = 
 map("n", "<c-q>", [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]], { noremap = true, silent = true })
 
 -- Treesitter config ---------------------------------------------------------------- {{{1
+
 local ts = require "nvim-treesitter.configs"
 
 ts.setup {
@@ -683,9 +512,11 @@ autopairs.setup {
 
 vim.cmd [[colorscheme gruvbox]]
 
--- Clear annoying colors
+-- 1. Clear annoying colors
+-- 2. Override some poor defaults and correct omissions from colorscheme
 vim.cmd [[
 	highlight link Operator     GruvboxRed
+	highlight link NormalFloat  GruvboxFg0
 
 	highlight Cursor            gui=NONE   guibg=#FB4632 guifg=NONE
 	highlight SignColumn        guibg=none

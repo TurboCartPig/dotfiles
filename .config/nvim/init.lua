@@ -4,7 +4,9 @@ require "plugins"
 require "lsp-settings"
 require "dap_config"
 
-vim.g.neovide_refresh_rate = 120
+if vim.g.neovide then
+	vim.g.neovide_refresh_rate = 120
+end
 
 vim.g.dashboard_default_executive = "telescope"
 
@@ -469,28 +471,34 @@ gitsigns.setup {
 
 -- Setup neoscroll ------------------------------------------------------------------ {{{1
 
-local neoscroll = require "neoscroll"
-local neoscroll_config = require "neoscroll.config"
+-- Only use neoscroll in terminal
+if vim.g.neovide then
+	map("n", "J", "10j", { noremap = true })
+	map("n", "K", "10k", { noremap = true })
+else
+	local neoscroll = require "neoscroll"
+	local neoscroll_config = require "neoscroll.config"
 
-neoscroll.setup {
-	mappings = {
-		"zt",
-		"zz",
-		"zb",
-		"J",
-		"K",
-	},
-	hide_cursor = true, -- Hide cursor while scrolling
-	stop_eof = true, -- Stop at <EOF> when scrolling downwards
-	respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-	cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-}
+	neoscroll.setup {
+		mappings = {
+			"zt",
+			"zz",
+			"zb",
+			"J",
+			"K",
+		},
+		hide_cursor = true, -- Hide cursor while scrolling
+		stop_eof = true, -- Stop at <EOF> when scrolling downwards
+		respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+		cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+	}
 
--- Setup custom mappings
-local mappings = {}
-mappings["J"] = { "scroll", { "0.20", "false", "10" } }
-mappings["K"] = { "scroll", { "-0.20", "false", "10" } }
-neoscroll_config.set_mappings(mappings)
+	-- Setup custom mappings
+	local mappings = {}
+	mappings["J"] = { "scroll", { "0.20", "false", "10" } }
+	mappings["K"] = { "scroll", { "-0.20", "false", "10" } }
+	neoscroll_config.set_mappings(mappings)
+end
 
 -- Setup colorizer ------------------------------------------------------------------ {{{1
 

@@ -75,6 +75,11 @@ vim.opt.background = "dark"
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:Cursor"
 vim.opt.guifont = "Hasklug NF:h17"
 
+-- spellchecking
+-- NOTE: spell is only set for some filetypes
+vim.opt.spelllang = "en_us"
+vim.opt.spelloptions = "camel"
+
 -- TODO: Find a way to cycle through predefined listchars
 vim.opt.list = true
 vim.opt.listchars = { tab = "→ ", nbsp = "␣", lead = "·", trail = "·", precedes = "«", extends = "»" }
@@ -157,7 +162,7 @@ vim.cmd [[
 	" Plaintext editing
 	augroup Plaintext
 		autocmd!
-		autocmd FileType markdown,text,rst setl spell spelllang=en_us textwidth=70 wrapmargin=5
+		autocmd FileType markdown,text,rst setl spell textwidth=70 wrapmargin=5
 	augroup END
 
 	augroup Term

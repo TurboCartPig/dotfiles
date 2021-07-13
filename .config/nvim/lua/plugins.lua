@@ -11,12 +11,13 @@ vim.cmd [[packadd packer.nvim]]
 
 -- Compile pluins on change
 vim.cmd [[
-	augroup Packer
-		autocmd!
-		autocmd BufWritePost plugins.lua PackerCompile
-		autocmd BufWritePost plugins.lua PackerInstall
-	augroup end
-]]
+ 	augroup Packer
+ 		autocmd!
+		autocmd BufWritePost plugins.lua luafile <afile>
+ 		autocmd BufWritePost plugins.lua PackerCompile
+ 		autocmd BufWritePost plugins.lua PackerInstall
+ 	augroup end
+ ]]
 
 -- Define plugins {{{1
 
@@ -48,11 +49,14 @@ packer.startup(function(use)
 	use "christoomey/vim-tmux-navigator"
 
 	-- Language support
-	use {
-		"sheerun/vim-polyglot",
-		opt = true, -- Explicitly loaded later
-	}
-	use "elzr/vim-json" -- Bundeled version is broken
+	-- use {
+	-- 	"sheerun/vim-polyglot",
+	-- 	opt = true, -- Explicitly loaded later
+	-- }
+	use "tpope/vim-git"
+	use { "tikhomirov/vim-glsl", ft = { "glsl" } }
+	use { "plasticboy/vim-markdown", ft = { "markdown" } }
+	use { "elzr/vim-json", ft = { "json" } }
 	use {
 		"fatih/vim-go",
 		ft = { "go", "gomod", "gosum", "godoc" },

@@ -49,11 +49,7 @@ packer.startup(function(use)
 	use "christoomey/vim-tmux-navigator"
 
 	-- Language support
-	-- use {
-	-- 	"sheerun/vim-polyglot",
-	-- 	opt = true, -- Explicitly loaded later
-	-- }
-	use "tpope/vim-git"
+	use { "tpope/vim-git" }
 	use { "tikhomirov/vim-glsl", ft = { "glsl" } }
 	use { "plasticboy/vim-markdown", ft = { "markdown" } }
 	use { "elzr/vim-json", ft = { "json" } }

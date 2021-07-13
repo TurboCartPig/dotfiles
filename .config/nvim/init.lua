@@ -222,39 +222,12 @@ map("i", "<C-M-@>", "@", { noremap = true })
 map("i", "<C-M-`>", "`", { noremap = true })
 map("i", "<C-M-´>", "´", { noremap = true })
 
--- vim-polyglot settings ------------------------------------------------------------ {{{1
-
--- Disable broken plugins or those covered by treesitter
-vim.g.polyglot_disabled = {
-	"c",
-	"cpp",
-	"c_sharp",
-	"css",
-	"dockerfile",
-	"go",
-	"html",
-	"java",
-	"javascript",
-	"json",
-	"kotlin",
-	"lua",
-	"nix",
-	"ocaml",
-	"php",
-	"python",
-	"rust",
-	"autoindent",
-	"sensible",
-	"typescript",
-	"toml",
-	"yaml",
-	"zig",
-}
+-- Various language settings --------------------------------------------------------- {{{1
 
 -- Settings for pangloss/vim-javascript
-vim.g.javascript_plugin_jsdoc = true
-vim.g.javascript_plugin_ngdoc = false
-vim.g.javascript_plugin_flow = false
+-- vim.g.javascript_plugin_jsdoc = true
+-- vim.g.javascript_plugin_ngdoc = false
+-- vim.g.javascript_plugin_flow = false
 
 -- Settings for elzr/vim-json
 vim.g.vim_json_syntax_conceal = true
@@ -272,9 +245,6 @@ vim.g.vim_markdown_fenced_languages = {
 	"bash=sh",
 	"ini=dosini",
 }
-
--- Explicitly load plugin after setting polyglot_disabled
-vim.cmd [[packadd vim-polyglot]]
 
 -- Termdebug settings --------------------------------------------------------------- {{{1
 vim.g.termdebug_popup = 0

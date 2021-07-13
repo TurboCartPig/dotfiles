@@ -277,10 +277,11 @@ vim.g.termdebug_wide = 163
 
 -- Neoformat settings --------------------------------------------------------------- {{{1
 vim.g.neoformat_basic_format_align = false
-vim.g.neoformat_basic_format_retab = true
+vim.g.neoformat_basic_format_retab = false
 vim.g.neoformat_basic_format_trim = true
-vim.g.neoformat_enabled_haskell = { "stylish-haskell", "ormolu" }
+vim.g.neoformat_enabled_haskell = { "stylishhaskell", "ormolu" }
 vim.g.neoformat_enabled_python = { "black" }
+vim.g.neoformat_enabled_javascript = { "prettier" }
 vim.g.neoformat_enabled_lua = { "stylua" }
 
 map("n", "<c-m-L>", [[<cmd>Neoformat<cr>]], { noremap = true, silent = true })

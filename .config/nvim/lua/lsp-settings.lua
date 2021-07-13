@@ -69,26 +69,38 @@ end
 -- List all the servers and any custom configuration
 local servers = {
 	hls = {
-		languageServerHaskell = {
-			formattingProvider = "stylish-haskell",
+		settings = {
+			languageServerHaskell = {
+				formattingProvider = "stylish-haskell",
+			},
 		},
 	},
 	clangd = {},
 	pyls = {},
 	-- pyright = {},
 	vimls = {},
-	-- NOTE: Does not work on windows, due to .cmd not being handled properly
-	-- dockerls = {},
-	-- jsonls = {},
-	-- yamlls = {},
 }
+
+local windows_overrides = {
+	dockerls = {
+		cmd = { "docker-langserver.cmd", "--stdio" },
+	},
+	jsonls = {
+		cmd = { "vscode-json-language-server.cmd", "--stdio" },
+	},
+	yamlls = {
+		cmd = { "yaml-language-server.cmd", "--stdio" },
+	},
+}
+
+if vim.fn.has "win32" == 1 then
+	servers = vim.tbl_extend("force", servers, windows_overrides)
+end
 
 -- Setup all the servers with their respective settings
 for ls, settings in pairs(servers) do
-	lsp_config[ls].setup {
-		on_attach = M.on_attach,
-		settings = settings,
-	}
+	local s = vim.tbl_extend("error", settings, { on_attach = M.on_attach })
+	lsp_config[ls].setup(s)
 end
 
 return M

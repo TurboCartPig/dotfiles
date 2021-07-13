@@ -17,6 +17,16 @@ local colors = {
 
 gl.short_line_list = { "NvimTree", "packer", "minimap" }
 
+gl.section.short_line_left = {
+	{
+		Sep = {
+			provider = function()
+				return string.rep("-", vim.o.columns)
+			end,
+		},
+	},
+}
+
 gl.section.left = {
 	{
 		ViMode = {
@@ -51,26 +61,44 @@ gl.section.left = {
 			highlight = { colors.red, colors.bg, "bold" },
 		},
 	},
-	{ DiagnosticError = {
-		provider = "DiagnosticError",
-		icon = "  ",
-		highlight = { colors.red, colors.bg },
-	} },
-	{ DiagnosticWarn = {
-		provider = "DiagnosticWarn",
-		icon = "  ",
-		highlight = { colors.yellow, colors.bg },
-	} },
-	{ DiagnosticHint = {
-		provider = "DiagnosticHint",
-		icon = "  ",
-		highlight = { colors.cyan, colors.bg },
-	} },
-	{ DiagnosticInfo = {
-		provider = "DiagnosticInfo",
-		icon = "  ",
-		highlight = { colors.blue, colors.bg },
-	} },
+	{
+		GetLspClient = {
+			provider = "GetLspClient",
+			condition = function()
+				return #vim.lsp.buf_get_clients(0) > 0
+			end,
+			separator = " ",
+			highlight = { colors.white, colors.bg, "bold" },
+		},
+	},
+	{
+		DiagnosticError = {
+			provider = "DiagnosticError",
+			icon = "  ",
+			highlight = { colors.red, colors.bg },
+		},
+	},
+	{
+		DiagnosticWarn = {
+			provider = "DiagnosticWarn",
+			icon = "  ",
+			highlight = { colors.yellow, colors.bg },
+		},
+	},
+	{
+		DiagnosticHint = {
+			provider = "DiagnosticHint",
+			icon = "  ",
+			highlight = { colors.cyan, colors.bg },
+		},
+	},
+	{
+		DiagnosticInfo = {
+			provider = "DiagnosticInfo",
+			icon = "  ",
+			highlight = { colors.blue, colors.bg },
+		},
+	},
 }
 
 gl.section.mid = {
@@ -129,6 +157,14 @@ gl.section.right = {
 			provider = "GitBranch",
 			condition = condition.check_git_workspace,
 			highlight = { colors.white, colors.bg, "bold" },
+		},
+	},
+	{
+		Padding = {
+			provider = function()
+				return " "
+			end,
+			highlight = { colors.red, colors.bg, "bold" },
 		},
 	},
 }

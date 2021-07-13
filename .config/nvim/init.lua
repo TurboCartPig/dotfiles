@@ -68,6 +68,7 @@ vim.opt.cursorline = true
 vim.opt.cmdheight = 2
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
+vim.opt.virtualedit = "block"
 
 -- Visual stuff
 vim.opt.termguicolors = true
@@ -99,9 +100,9 @@ vim.opt.splitbelow = true
 
 -- Window settings
 vim.opt.winheight = 12
-vim.opt.winwidth = 85
-vim.opt.winminheight = 6
-vim.opt.winminwidth = 12
+vim.opt.winwidth = 100
+vim.opt.winminheight = 3
+vim.opt.winminwidth = 8
 
 -- Menus
 vim.opt.wildmenu = true

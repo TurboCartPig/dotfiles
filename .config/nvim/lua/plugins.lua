@@ -122,7 +122,7 @@ packer.startup(function(use)
 	}
 	use {
 		"nvim-telescope/telescope-fzf-native.nvim",
-		run = "make",
+		-- run = "make",
 	}
 	use {
 		"folke/trouble.nvim",
@@ -132,7 +132,6 @@ packer.startup(function(use)
 	}
 	use {
 		"wfxr/minimap.vim",
-		run = "cargo install code-minimap",
 	}
 	use {
 		"norcalli/nvim-colorizer.lua",

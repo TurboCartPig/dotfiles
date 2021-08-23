@@ -76,8 +76,8 @@ local servers = {
 		},
 	},
 	clangd = {},
-	pyls = {},
-	-- pyright = {},
+	-- pylsp = {},
+	pyright = {},
 	vimls = {},
 }
 

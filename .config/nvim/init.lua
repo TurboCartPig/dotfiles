@@ -100,7 +100,7 @@ vim.opt.splitbelow = true
 
 -- Window settings
 vim.opt.winheight = 12
-vim.opt.winwidth = 100
+vim.opt.winwidth = 110
 vim.opt.winminheight = 3
 vim.opt.winminwidth = 8
 
@@ -440,9 +440,11 @@ gitsigns.setup {
 		topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
 		changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
 	},
-	current_line_blame = false,
-	current_line_blame_delay = 10,
-	current_line_blame_position = "eol",
+	current_line_blame_opts = {
+		virt_text = true,
+		virt_text_pos = "eol",
+		delay = 100,
+	},
 	current_line_blame_formatter = function(name, blame_info, opts)
 		if blame_info.author == name then
 			blame_info.author = "You"

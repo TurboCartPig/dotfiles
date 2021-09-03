@@ -26,13 +26,13 @@ function M.on_attach(client, bufnr)
 
 	-- Setup lsp-hover on hold
 	if client.resolved_capabilities.hover then
-		vim.cmd "autocmd CursorHold <buffer> lua vim.lsp.buf.hover()"
+		-- vim.cmd "autocmd CursorHold <buffer> lua vim.lsp.buf.hover()"
 	end
 
 	-- Setup signature help on hold
 	-- FIXME: STFU when there is no signature help available
 	if client.resolved_capabilities.signature_help then
-		vim.cmd "autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()"
+		-- vim.cmd "autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()"
 	end
 
 	-- Only setup format on save for servers that support it

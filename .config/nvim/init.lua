@@ -353,6 +353,8 @@ map("n", "<m-cr>", [[<cmd>lua require("telescope.builtin").lsp_code_actions()<cr
 map("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]], { noremap = true, silent = true })
 map("n", "<c-p>", [[<cmd>lua require("telescope.builtin").git_files()<cr>]], { noremap = true, silent = true })
 map("n", "<c-s-p>", [[<cmd>Telescope<cr>]], { noremap = true, silent = true })
+map("n", "<c-b>", [[<cmd>lua require("telescope.builtin").buffers()<cr>]], { noremap = true, silent = true })
+
 map("n", "<c-t>", [[<cmd>lua vim.lsp.buf.hover()<cr>]], { noremap = true, silent = true })
 map("n", "R", [[<cmd>lua vim.lsp.buf.rename()<cr>]], { noremap = true, silent = true })
 map("n", "<c-q>", [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]], { noremap = true, silent = true })

@@ -76,12 +76,19 @@ local servers = {
 		},
 	},
 	clangd = {},
-	-- pylsp = {},
 	pyright = {},
 	vimls = {},
+	html = {},
+	tsserver = {},
+	dockerls = {},
+	jsonls = {},
+	yamlls = {},
 }
 
 local windows_overrides = {
+	tsserver = {
+		cmd = { "typescript-language-server.cmd", "--stdio" },
+	},
 	dockerls = {
 		cmd = { "docker-langserver.cmd", "--stdio" },
 	},

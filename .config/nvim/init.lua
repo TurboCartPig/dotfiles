@@ -269,6 +269,12 @@ vim.cmd [[
 	augroup END
 ]]
 
+-- orgmode settings--- -------------------------------------------------------------- {{{1
+
+local orgmode = require "orgmode"
+
+orgmode.setup {}
+
 -- Bufferline settings -------------------------------------------------------------- {{{1
 
 local bufferline = require "bufferline"
@@ -327,6 +333,7 @@ cmp.setup {
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "nvim_lua" },
+		{ name = "orgmode" },
 		{ name = "buffer" },
 		{ name = "path" },
 		{ name = "spell" },

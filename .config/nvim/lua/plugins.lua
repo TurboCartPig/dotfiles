@@ -27,9 +27,10 @@ packer.startup(function(use)
 	-- Let packer manage itself
 	use { "wbthomason/packer.nvim", opt = true }
 
-	-- Auto do stuff thingies
+	-- Misc
 	use "sbdchd/neoformat"
 	use "editorconfig/editorconfig-vim"
+	use "kristijanhusak/orgmode.nvim"
 
 	-- Git
 	use "lewis6991/gitsigns.nvim"
@@ -134,9 +135,6 @@ packer.startup(function(use)
 		run = function()
 			require("trouble").setup {}
 		end,
-	}
-	use {
-		"wfxr/minimap.vim",
 	}
 	use {
 		"norcalli/nvim-colorizer.lua",

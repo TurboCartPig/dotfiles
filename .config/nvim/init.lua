@@ -395,10 +395,20 @@ ts.setup {
 			enable = true,
 			set_jumps = true,
 			goto_next_start = {
-				["<leader>J"] = "@function.outer",
+				["]m"] = "@function.outer",
+				["]]"] = "@class.outer",
+			},
+			goto_next_end = {
+				["]M"] = "@function.outer",
+				["]["] = "@class.outer",
 			},
 			goto_previous_start = {
-				["<leader>K"] = "@function.outer",
+				["[m"] = "@function.outer",
+				["[["] = "@class.outer",
+			},
+			goto_previous_end = {
+				["[M"] = "@function.outer",
+				["[]"] = "@class.outer",
 			},
 		},
 	},

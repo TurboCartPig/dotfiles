@@ -65,7 +65,7 @@ vim.opt.numberwidth = 3
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
-vim.opt.cmdheight = 2
+-- vim.opt.cmdheight = 2 -- Maybe I don't need this?
 vim.opt.scrolloff = 5
 vim.opt.sidescrolloff = 5
 vim.opt.virtualedit = "block"
@@ -295,34 +295,43 @@ vim.g.nvim_tree_ignore = {
 -- Toggle file tree
 map("n", "<m-1>", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
 
--- nvim-compe config ---------------------------------------------------------------- {{{1
+-- nvim-cmp config ---------------------------------------------------------------- {{{1
 
-local compe = require "compe"
+local cmp = require "cmp"
+local lspkind = require "lspkind"
 
--- Setup compe auto completions
-compe.setup {
-	enable = true,
-	autocomplete = true,
-	debug = false,
-	min_length = 2,
-	preselect = "disable",
-	documentation = true,
-	source = {
-		calc = false,
-		buffer = true,
-		nvim_lsp = true,
-		nvim_lua = true,
-		omni = false,
-		-- tabnine = true,
-		tags = false,
-		spell = true,
-		path = true,
-		vsnip = false,
+lspkind.init {}
+
+cmp.setup {
+	formatting = {
+		format = function(entry, vim_item)
+			vim_item.kind = lspkind.presets.default[vim_item.kind]
+			return vim_item
+		end,
+	},
+	snippet = {
+		expand = function(args)
+			-- TODO: Setup more mappings for vsnip
+			vim.fn["vsnip#anonymous"](args.body)
+		end,
+	},
+	mapping = {
+		["<c-n>"] = cmp.mapping.select_next_item(),
+		["<c-p>"] = cmp.mapping.select_prev_item(),
+		["<c-e>"] = cmp.mapping.close(),
+		["<c-y>"] = cmp.mapping.confirm {
+			behavior = cmp.ConfirmBehavior.Replace,
+			select = true,
+		},
+	},
+	sources = {
+		{ name = "nvim_lsp" },
+		{ name = "nvim_lua" },
+		{ name = "buffer" },
+		{ name = "path" },
+		{ name = "spell" },
 	},
 }
-
-map("i", "<c-y>", [[compe#confirm("<cr>")]], { expr = true, noremap = true, silent = true })
-map("i", "<c-e>", [[compe#close("<c-e>")]], { expr = true, noremap = true, silent = true })
 
 -- Telescope config ----------------------------------------------------------------- {{{1
 

@@ -65,15 +65,20 @@ packer.startup(function(use)
 
 	-- LSP and autocompletions
 	use "neovim/nvim-lspconfig"
-	use "hrsh7th/nvim-compe"
+	use "onsails/lspkind-nvim"
 	use "kosayoda/nvim-lightbulb"
-	use "simrat39/rust-tools.nvim"
 	use {
-		"onsails/lspkind-nvim",
-		config = function()
-			require("lspkind").init {}
-		end,
+		"hrsh7th/nvim-cmp",
+		requires = {
+			"hrsh7th/cmp-buffer",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-nvim-lua",
+			"f3fora/cmp-spell",
+			"hrsh7th/vim-vsnip",
+		},
 	}
+	use "simrat39/rust-tools.nvim"
 
 	-- Treesitter
 	use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }

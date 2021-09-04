@@ -38,7 +38,7 @@ function M.on_attach(client, bufnr)
 	-- Only setup format on save for servers that support it
 	if client.resolved_capabilities.document_formatting then
 		-- Override format keymap
-		map("n", "<c-m-L>", [[lua vim.lsp.buf.formatting()]], { noremap = true, silent = true })
+		-- map("n", "<c-m-l>", [[lua vim.lsp.buf.formatting()<cr>]], { noremap = true, silent = true })
 
 		-- Autoformat on save
 		vim.cmd [[
@@ -65,6 +65,10 @@ function M.on_attach(client, bufnr)
 		vim.g.lsp_handler_opts
 	)
 end
+
+-- Advertise client capabilities to servers
+local cmp_nvim_lsp = require "cmp_nvim_lsp"
+local capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- List all the servers and any custom configuration
 local servers = {
@@ -106,7 +110,7 @@ end
 
 -- Setup all the servers with their respective settings
 for ls, settings in pairs(servers) do
-	local s = vim.tbl_extend("error", settings, { on_attach = M.on_attach })
+	local s = vim.tbl_extend("error", settings, { on_attach = M.on_attach, capabilities = capabilities })
 	lsp_config[ls].setup(s)
 end
 

@@ -21,7 +21,7 @@ gl.section.short_line_left = {
 	{
 		Sep = {
 			provider = function()
-				return string.rep("-", vim.o.columns)
+				return string.rep("━", vim.o.columns)
 			end,
 		},
 	},

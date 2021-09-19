@@ -129,12 +129,16 @@ export VCPKG_ROOT="$HOME/Projects/vcpkg"
 export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 export FZF_DEFAULT_OPTS="--layout=reverse --tabstop=4"
 
+# Neovide configuration
+export NEOVIDE_MULTIGRID="on"
+
 # Setup search path for libraries in cuda sdk
 export LD_LIBRARY_PATH="/usr/local/cuda-11/lib64":$LD_LIBRARY_PATH
 export PATH=$PATH:"/usr/local/cuda-11/bin"
 
 export GPG_TTY=$(tty)
 
+export MANPAGER='nvim +Man!'
 export MANPATH="$MANPATH:/usr/local/man"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,

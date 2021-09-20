@@ -16,6 +16,7 @@ let mapleader = ' '
 nmap gs <Action>(GotoSymbol)
 nmap gi <Action>(GotoImplementation)
 nmap R  <Action>(RenameElement)
+nmap <c-q> <Action>(ShowErrorDescription)
 
 " Use Up/Down to scroll
 nmap J <C-d>

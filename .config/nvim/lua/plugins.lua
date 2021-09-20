@@ -136,6 +136,7 @@ packer.startup(function(use)
 			require("trouble").setup {}
 		end,
 	}
+	use "sindrets/diffview.nvim"
 	use {
 		"norcalli/nvim-colorizer.lua",
 	}

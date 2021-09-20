@@ -286,6 +286,14 @@ bufferline.setup {
 	},
 }
 
+-- Diffview.nvim settings ----------------------------------------------------------- {{{1
+
+local diffview = require "diffview"
+
+diffview.setup {
+	use_icons = true,
+}
+
 -- nvim-tree settings --------------------------------------------------------------- {{{1
 
 -- Setup ignores

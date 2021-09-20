@@ -1,4 +1,3 @@
-# This is Git's per-user configuration file.
 [user]
 	name = Dennis Kristiansen
 	email = denniskristiansen@protonmail.com
@@ -14,20 +13,28 @@
 	editor = nvim
 	pager = bat
 
-[filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-
 [pull]
-	rebase = true
 	ff = only
+
+[merge]
+	guitool = smerge
+	tool = nvimdiff
 
 [alias]
 	s = status
 	a = add
 	c = commit
+	ch = checkout
 	sw = switch
 	d = diff
 	ds = diff --staged
+	rs = restore --staged
+	ll = log --all --oneline
+	graph = log --all --oneline --decorate --graph
+	purge = clean -fdxi
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

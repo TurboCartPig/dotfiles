@@ -163,7 +163,7 @@ vim.cmd [[
 	" Plaintext editing
 	augroup Plaintext
 		autocmd!
-		autocmd FileType markdown,text,rst setl spell textwidth=70 wrapmargin=5
+		autocmd FileType markdown,org,text,rst setl spell textwidth=70 wrapmargin=5
 	augroup END
 
 	augroup Term

@@ -260,15 +260,6 @@ vim.g.neoformat_enabled_python = { "black" }
 vim.g.neoformat_enabled_javascript = { "prettier" }
 vim.g.neoformat_enabled_lua = { "stylua" }
 
-map("n", "<c-m-L>", [[<cmd>Neoformat<cr>]], { noremap = true, silent = true })
-
-vim.cmd [[
-	augroup AutoFormat
-		autocmd!
-		autocmd BufWritePre * Neoformat
-	augroup END
-]]
-
 -- orgmode settings--- -------------------------------------------------------------- {{{1
 
 local orgmode = require "orgmode"
@@ -365,6 +356,7 @@ telescope.setup {
 
 telescope.load_extension "fzf"
 
+-- Telescope keymappings
 map("n", "gr", [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]], { noremap = true, silent = true })
 map("n", "gs", [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]], { noremap = true, silent = true })
 map(
@@ -378,10 +370,6 @@ map("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]]
 map("n", "<c-p>", [[<cmd>lua require("telescope.builtin").find_files()<cr>]], { noremap = true, silent = true })
 map("n", "<m-p>", [[<cmd>Telescope<cr>]], { noremap = true, silent = true })
 map("n", "<c-b>", [[<cmd>lua require("telescope.builtin").buffers()<cr>]], { noremap = true, silent = true })
-
-map("n", "<c-t>", [[<cmd>lua vim.lsp.buf.hover()<cr>]], { noremap = true, silent = true })
-map("n", "R", [[<cmd>lua vim.lsp.buf.rename()<cr>]], { noremap = true, silent = true })
-map("n", "<c-q>", [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]], { noremap = true, silent = true })
 
 -- Treesitter config ---------------------------------------------------------------- {{{1
 
@@ -446,7 +434,7 @@ ts.setup {
 		smart_rename = {
 			enable = true,
 			keymaps = {
-				smart_rename = "<leader>r",
+				smart_rename = "R",
 			},
 		},
 		navigation = {

@@ -87,6 +87,7 @@ packer.startup(function(use)
 	use "nvim-treesitter/nvim-treesitter-refactor"
 	use "nvim-treesitter/nvim-treesitter-textobjects"
 	use "JoosepAlviste/nvim-ts-context-commentstring"
+	use "windwp/nvim-ts-autotag"
 	-- NOTE: This is buggy for some reason
 	-- use "romgrk/nvim-treesitter-context"
 

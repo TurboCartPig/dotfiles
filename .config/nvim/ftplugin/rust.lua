@@ -17,6 +17,7 @@ rust_tools.setup {
 		},
 	},
 	server = {
+		cmd = { "rustup", "run", "nightly", "rust-analyzer" },
 		on_attach = lsp_settings.on_attach,
 		settings = {
 			["rust-analyzer"] = {

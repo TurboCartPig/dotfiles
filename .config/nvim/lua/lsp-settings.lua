@@ -25,14 +25,20 @@ function M.on_attach(client, bufnr)
 	vim.cmd "autocmd CursorHold <buffer> lua vim.lsp.diagnostic.show_line_diagnostics(vim.g.lsp_handler_opts)"
 
 	-- Setup lsp-hover on hold
-	if client.resolved_capabilities.hover then
-		-- vim.cmd "autocmd CursorHold <buffer> lua vim.lsp.buf.hover()"
-	end
+	-- if client.resolved_capabilities.hover then
+	-- 	vim.cmd "autocmd CursorHold <buffer> lua vim.lsp.buf.hover()"
+	-- end
 
 	-- Setup signature help on hold
 	-- FIXME: STFU when there is no signature help available
-	if client.resolved_capabilities.signature_help then
-		-- vim.cmd "autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()"
+	-- if client.resolved_capabilities.signature_help then
+	-- 	vim.cmd "autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()"
+	-- end
+
+	-- Disable formatting for servers with sucky formatters
+	if vim.tbl_contains({ "jsonls", "tsserver", "html", "pyright", "gopls" }, client.name) then
+		client.resolved_capabilities.document_formatting = false
+		client.resolved_capabilities.document_range_formatting = false
 	end
 
 	-- Only setup format on save for servers that support it
@@ -70,6 +76,29 @@ end
 local cmp_nvim_lsp = require "cmp_nvim_lsp"
 local capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
+-- Setup null-ls
+local null = require "null-ls"
+local fmt = null.builtins.formatting
+local diag = null.builtins.diagnostics
+
+null.config {
+	sources = {
+		-- Formatters
+		fmt.stylua,
+		fmt.black,
+		fmt.prettier,
+		-- fmt.stylelint,
+		fmt.goimports,
+
+		-- Diagnostics
+		diag.selene,
+		diag.markdownlint,
+		diag.eslint,
+		-- diag.stylelint,
+		diag.shellcheck,
+	},
+}
+
 -- List all the servers and any custom configuration
 local servers = {
 	hls = {
@@ -87,6 +116,7 @@ local servers = {
 	dockerls = {},
 	jsonls = {},
 	yamlls = {},
+	["null-ls"] = {},
 }
 
 local windows_overrides = {

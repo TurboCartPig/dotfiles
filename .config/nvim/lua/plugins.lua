@@ -81,6 +81,7 @@ packer.startup(function(use)
 		},
 	}
 	use "simrat39/rust-tools.nvim"
+	use "jose-elias-alvarez/null-ls.nvim"
 
 	-- Treesitter
 	use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }

@@ -40,6 +40,7 @@ packer.startup(function(use)
 	use "tpope/vim-commentary"
 	use "tpope/vim-endwise"
 	use "tpope/vim-repeat"
+	use "tpope/vim-sleuth"
 	use "kana/vim-operator-user"
 	use "airblade/vim-rooter"
 	use "windwp/nvim-autopairs"

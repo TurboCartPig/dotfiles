@@ -90,6 +90,9 @@ local servers = {
 }
 
 local windows_overrides = {
+	html = {
+		cmd = { "vscode-html-language-server.cmd", "--stdio" },
+	},
 	tsserver = {
 		cmd = { "typescript-language-server.cmd", "--stdio" },
 	},

@@ -3,20 +3,28 @@ set surround
 set commentary
 
 " Search/Filter
-set ignorecase
+" See: https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
+set smartcase
 set incsearch
 
 " IdeaVim stuff
-set ideajoin
+" See: https://github.com/JetBrains/ideavim/wiki/%22set%22-commands
+set ideajoin                " Use IDEA's joins
+set idearefactormode="keep" " Do not change mode on refactor
+set ideavimsupport=""       " Where to enable vim emulation
+
+set scrolloff=5
+set sidescrolloff=5
 
 " Map leader
 let mapleader = ' '
 
 " IdeaVim keymappings
-nmap gs <Action>(GotoSymbol)
-nmap gi <Action>(GotoImplementation)
 nmap R  <Action>(RenameElement)
-nmap <c-q> <Action>(ShowErrorDescription)
+nmap gs <Action>(GotoSymbol)
+nmap gd <Action>(GotoDeclaration)
+nmap gi <Action>(ShowErrorDescription)
+nmap gh <Action>(QuickJavaDoc)
 
 " Use Up/Down to scroll
 nmap J <C-d>

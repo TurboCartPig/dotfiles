@@ -86,11 +86,11 @@ null.config {
 		fmt.goimports,
 
 		-- Diagnostics
-		diag.selene,
-		diag.markdownlint,
-		diag.eslint,
+		-- diag.selene,
+		-- diag.eslint,
 		-- diag.stylelint,
 		diag.shellcheck,
+		diag.markdownlint,
 	},
 }
 

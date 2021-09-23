@@ -117,6 +117,8 @@ packer.startup(function(use)
 
 	-- Interfaces
 	use "glepnir/dashboard-nvim"
+	use "sindrets/diffview.nvim"
+	use "norcalli/nvim-colorizer.lua"
 	use {
 		"kyazdani42/nvim-tree.lua",
 		requires = "kyazdani42/nvim-web-devicons",
@@ -139,9 +141,8 @@ packer.startup(function(use)
 			require("trouble").setup {}
 		end,
 	}
-	use "sindrets/diffview.nvim"
 	use {
-		"norcalli/nvim-colorizer.lua",
+		"folke/which-key.nvim",
 	}
 end)
 

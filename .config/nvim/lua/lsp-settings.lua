@@ -1,7 +1,6 @@
 -- Most setup of lsp clients
 -- Some clients are configured in ftplugin/<lang>.lua
 
-local map = vim.api.nvim_set_keymap
 local lsp_config = require "lspconfig"
 
 M = {}
@@ -43,10 +42,6 @@ function M.on_attach(client, bufnr)
 
 	-- Only setup format on save for servers that support it
 	if client.resolved_capabilities.document_formatting then
-		-- Override format keymap
-		map("n", "<c-m-l>", [[lua vim.lsp.buf.formatting()<cr>]], { noremap = true, silent = true })
-
-		-- Autoformat on save
 		vim.cmd [[
 			augroup AutoFormat
 				autocmd!
@@ -54,11 +49,6 @@ function M.on_attach(client, bufnr)
 			augroup END
 		]]
 	end
-
-	-- LSP keymappings
-	map("n", "gh", [[<cmd>lua vim.lsp.buf.hover()<cr>]], { noremap = true, silent = true })
-	map("n", "gi", [[<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>]], { noremap = true, silent = true })
-	map("n", "<leader>r", [[<cmd>lua vim.lsp.buf.rename()<cr>]], { noremap = true, silent = true })
 
 	-- Add handler for publishDiagnostics
 	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {

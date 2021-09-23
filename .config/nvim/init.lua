@@ -181,24 +181,48 @@ vim.cmd [[
 
 vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"]]
 
+-- Setup which-key ------------------------------------------------------------------ {{{1
+local wk = require "which-key"
+
+wk.setup {}
+
+-- Neovim LSP keymappings ----------------------------------------------------------- {{{1
+
+wk.register {
+	["gh"] = {
+		function()
+			vim.lsp.buf.hover()
+		end,
+		"LSP: Hover",
+	},
+	["gi"] = {
+		function()
+			vim.diagnostic.show_line_diagnostics()
+		end,
+		"LSP: Show Line Diagnostics",
+	},
+	["<leader>r"] = {
+		function()
+			vim.lsp.buf.rename()
+		end,
+		"LSP: Rename symbol",
+	},
+	["<leader>f"] = {
+		function()
+			vim.lsp.buf.formatting()
+		end,
+		"LSP: Format buffer",
+	},
+}
+
+
 -- Neovim set custom keybinds ------------------------------------------------------- {{{1
 
--- Switch between two buffers easily
-map("n", "<leader><leader>", "<cmd>b#<cr>", { noremap = true, silent = true })
-
--- Close view
-map("n", "<s-esc>", "<cmd>close<cr>", { noremap = true, silent = true })
-
--- Change multiple of the same word, use dot to replace next word
--- Use this instead of multiple cursors
--- TODO: How to not mess with jump history
-map("n", "<c-d>", "*<c-o>cgn", { noremap = true, silent = true })
-
--- Move around easier in insert mode
-map("i", "<c-h>", "<left>", { noremap = true })
-map("i", "<c-j>", "<down>", { noremap = true })
-map("i", "<c-k>", "<up>", { noremap = true })
-map("i", "<c-l>", "<right>", { noremap = true })
+wk.register {
+	["<leader><leader>"] = { "<cmd>buffer#<cr>", "Switch buffers" },
+	["<s-esc>"] = { "<cmd>close<cr>", "Close window" },
+	["<c-d>"] = { "*<c-o>cgn", "Change multiple of the same word (use dot to replace next word)" },
+}
 
 -- String left/right
 map("n", "H", "0", { noremap = true })
@@ -223,7 +247,7 @@ map("i", "<C-M-@>", "@", { noremap = true })
 map("i", "<C-M-`>", "`", { noremap = true })
 map("i", "<C-M-´>", "´", { noremap = true })
 
--- Various language settings --------------------------------------------------------- {{{1
+-- Various language settings -------------------------------------------------------- {{{1
 
 -- Settings for pangloss/vim-javascript
 -- vim.g.javascript_plugin_jsdoc = true
@@ -357,19 +381,56 @@ telescope.setup {
 telescope.load_extension "fzf"
 
 -- Telescope keymappings
-map("n", "gr", [[<cmd>lua require("telescope.builtin").lsp_references()<cr>]], { noremap = true, silent = true })
-map("n", "gs", [[<cmd>lua require("telescope.builtin").lsp_document_symbols()<cr>]], { noremap = true, silent = true })
-map(
-	"n",
-	"gll",
-	[[<cmd>lua require("telescope.builtin").lsp_document_diagnostics()<cr>]],
-	{ noremap = true, silent = true }
-)
-map("n", "<m-cr>", [[<cmd>lua require("telescope.builtin").lsp_code_actions()<cr>]], { noremap = true, silent = true })
-map("n", "<c-cr>", [[<cmd>lua require("telescope.builtin").spell_suggest()<cr>]], { noremap = true, silent = true })
-map("n", "<c-p>", [[<cmd>lua require("telescope.builtin").find_files()<cr>]], { noremap = true, silent = true })
-map("n", "<m-p>", [[<cmd>Telescope<cr>]], { noremap = true, silent = true })
-map("n", "<c-b>", [[<cmd>lua require("telescope.builtin").buffers()<cr>]], { noremap = true, silent = true })
+local tb = require "telescope.builtin"
+
+wk.register {
+	["gr"] = {
+		function()
+			tb.lsp_references()
+		end,
+		"LSP References",
+	},
+	["gs"] = {
+		function()
+			tb.lsp_document_symbols()
+		end,
+		"LSP Symbols",
+	},
+	["gll"] = {
+		function()
+			tb.lsp_document_diagnostics()
+		end,
+		"LSP Diagnostics",
+	},
+	["<m-cr>"] = {
+		function()
+			tb.lsp_code_actions()
+		end,
+		"LSP Code Actions",
+	},
+	["<c-cr>"] = {
+		function()
+			tb.spell_suggest()
+		end,
+		"Spelling suggestions",
+	},
+	["<c-b>"] = {
+		function()
+			tb.buffers()
+		end,
+		"Buffers",
+	},
+	["<c-p>"] = {
+		function()
+			tb.find_files()
+		end,
+		"Find files",
+	},
+	["<m-p>"] = {
+		"<cmd>Telescope<cr>",
+		"Telescope",
+	},
+}
 
 -- Treesitter config ---------------------------------------------------------------- {{{1
 

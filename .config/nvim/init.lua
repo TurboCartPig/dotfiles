@@ -187,7 +187,25 @@ vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printi
 -- Setup which-key ------------------------------------------------------------------ {{{1
 local wk = require "which-key"
 
-wk.setup {}
+wk.setup {
+	icons = {
+		breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+		separator = "➜ ", -- symbol used between a key and it's label
+		group = "@", -- symbol prepended to a group
+	},
+	window = {
+		border = "none", -- none, single, double, shadow
+		position = "bottom", -- bottom, top
+		margin = { 0, 0, 0, 0 }, -- extra window margin [top, right, bottom, left]
+		padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+	},
+	layout = {
+		height = { min = 4, max = 30 }, -- min and max height of the columns
+		width = { min = 25, max = 50 }, -- min and max width of the columns
+		spacing = 3, -- spacing between columns
+		align = "center", -- align columns left, center or right
+	},
+}
 
 -- Neovim LSP keymappings ----------------------------------------------------------- {{{1
 
@@ -639,6 +657,7 @@ vim.cmd [[
 		autocmd ColorScheme gruvbox highlight! link DiffAdd      GruvboxGreenSign
 		autocmd ColorScheme gruvbox highlight! link DiffChange   GruvboxPurpleSign
 		autocmd ColorScheme gruvbox highlight! link DiffDelete   GruvboxRedSign
+		autocmd ColorScheme gruvbox highlight! link WhichKeyGroup Identifier
 	augroup END
 ]]
 

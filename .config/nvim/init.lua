@@ -8,6 +8,9 @@ if vim.g.neovide then
 	vim.g.neovide_refresh_rate = 120
 end
 
+-- Add the .root to vim-rooter patterns
+vim.g.rooter_patterns = { "vim.toml", ".git", ".hg", ".bzr", ".svn", "Makefile", "package.json" }
+
 vim.g.dashboard_default_executive = "telescope"
 
 vim.g.dashboard_custom_header = {

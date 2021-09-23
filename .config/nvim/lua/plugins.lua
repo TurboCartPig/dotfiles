@@ -135,15 +135,9 @@ packer.startup(function(use)
 		"nvim-telescope/telescope-fzf-native.nvim",
 		-- run = "make",
 	}
-	use {
-		"folke/trouble.nvim",
-		run = function()
-			require("trouble").setup {}
-		end,
-	}
-	use {
-		"folke/which-key.nvim",
-	}
+	use "folke/trouble.nvim"
+	use "folke/which-key.nvim"
+	use "folke/todo-comments.nvim"
 end)
 
 -- vi: foldmethod=marker

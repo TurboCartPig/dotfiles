@@ -184,6 +184,21 @@ vim.cmd [[
 
 vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"]]
 
+-- Setup trouble -------------------------------------------------------------------- {{{1
+local trouble = require "trouble"
+
+trouble.setup {}
+
+-- Setup todo-comments -------------------------------------------------------------- {{{1
+local todo = require "todo-comments"
+
+todo.setup {
+	signs = false,
+	highlight = {
+		comments_only = true,
+	}
+}
+
 -- Setup which-key ------------------------------------------------------------------ {{{1
 local wk = require "which-key"
 

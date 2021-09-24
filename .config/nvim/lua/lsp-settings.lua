@@ -103,7 +103,9 @@ local servers = {
 			},
 		},
 	},
-	clangd = {},
+	clangd = {
+		cmd = { "clangd", "--background-index", "--clang-tidy", "--suggest-missing-includes" },
+	},
 	pyright = {},
 	vimls = {},
 	html = {},

@@ -1,7 +1,7 @@
 -- Settings for lua
 
 local lsp_config = require "lspconfig"
-local lsp_settings = require "lsp-settings"
+local lsp_settings = require "dk.lsp"
 
 -- Find lua language server based on platform
 local sumneko_root

@@ -25,7 +25,7 @@ vim.g.go_metalinter_deadline = "2s"
 
 -- Setup language server ----------------------------------------------------------- {{{1
 local lsp_config = require "lspconfig"
-local lsp_settings = require "lsp-settings"
+local lsp_settings = require "dk.lsp"
 
 lsp_config.gopls.setup {
 	on_attach = lsp_settings.on_attach,

@@ -2,7 +2,7 @@
 -- Some Rust settings are left in init.lua
 
 local rust_tools = require "rust-tools"
-local lsp_settings = require "lsp-settings"
+local lsp_settings = require "dk.lsp"
 
 -- Lsp setup ----------------------------------------------------------------------- {{{1
 

@@ -15,7 +15,6 @@ vim.cmd [[
  		autocmd!
 		autocmd BufWritePost plugins.lua luafile <afile>
  		autocmd BufWritePost plugins.lua PackerCompile
- 		autocmd BufWritePost plugins.lua PackerInstall
  	augroup end
  ]]
 
@@ -102,12 +101,12 @@ packer.startup(function(use)
 	use "nvim-treesitter/nvim-treesitter-textobjects"
 	use "JoosepAlviste/nvim-ts-context-commentstring"
 	use "windwp/nvim-ts-autotag"
-	-- NOTE: This is buggy for some reason
+	-- FIXME: Broken on windows due to upstream bug neovim/neovim#15063
 	-- use "romgrk/nvim-treesitter-context"
 
 	-- Dap (Debugging)
-	use "mfussenegger/nvim-dap"
-	use "theHamsta/nvim-dap-virtual-text"
+	-- use "mfussenegger/nvim-dap"
+	-- use "theHamsta/nvim-dap-virtual-text"
 
 	-- Themes
 	use "ryanoasis/vim-devicons"

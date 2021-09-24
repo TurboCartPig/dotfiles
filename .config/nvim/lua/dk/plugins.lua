@@ -30,9 +30,7 @@ packer.startup(function(use)
 	-- Misc
 	use "sbdchd/neoformat"
 	use "editorconfig/editorconfig-vim"
-	use "kristijanhusak/orgmode.nvim"
-
-	-- Git
+	use "windwp/nvim-autopairs"
 	use "lewis6991/gitsigns.nvim"
 
 	-- This isn't default?
@@ -43,7 +41,6 @@ packer.startup(function(use)
 	use "tpope/vim-sleuth"
 	use "kana/vim-operator-user"
 	use "airblade/vim-rooter"
-	use "windwp/nvim-autopairs"
 
 	-- Motion(s)
 	use "wellle/targets.vim"
@@ -51,10 +48,20 @@ packer.startup(function(use)
 	use "christoomey/vim-tmux-navigator"
 
 	-- Language support
-	use { "tpope/vim-git" }
-	use { "tikhomirov/vim-glsl", ft = { "glsl" } }
-	use { "plasticboy/vim-markdown", ft = { "markdown" } }
-	use { "elzr/vim-json", ft = { "json" } }
+	use "tpope/vim-git"
+	use "kristijanhusak/orgmode.nvim"
+	use {
+		"tikhomirov/vim-glsl",
+		ft = { "glsl" },
+	}
+	use {
+		"plasticboy/vim-markdown",
+		ft = { "markdown" },
+	}
+	use {
+		"elzr/vim-json",
+		ft = { "json" },
+	}
 	use {
 		"fatih/vim-go",
 		ft = { "go", "gomod", "gosum", "godoc" },
@@ -69,6 +76,8 @@ packer.startup(function(use)
 	use "neovim/nvim-lspconfig"
 	use "onsails/lspkind-nvim"
 	use "kosayoda/nvim-lightbulb"
+	use "simrat39/rust-tools.nvim"
+	use "jose-elias-alvarez/null-ls.nvim"
 	use {
 		"hrsh7th/nvim-cmp",
 		requires = {
@@ -80,11 +89,15 @@ packer.startup(function(use)
 			"hrsh7th/vim-vsnip",
 		},
 	}
-	use "simrat39/rust-tools.nvim"
-	use "jose-elias-alvarez/null-ls.nvim"
 
 	-- Treesitter
-	use { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" }
+	use {
+		"nvim-treesitter/nvim-treesitter",
+		run = ":TSUpdate",
+		config = function()
+			require "dk.plugins.treesitter"
+		end,
+	}
 	use "nvim-treesitter/nvim-treesitter-refactor"
 	use "nvim-treesitter/nvim-treesitter-textobjects"
 	use "JoosepAlviste/nvim-ts-context-commentstring"
@@ -102,7 +115,7 @@ packer.startup(function(use)
 		"glepnir/galaxyline.nvim",
 		branch = "main",
 		config = function()
-			require "dk.statusline"
+			require "dk.plugins.galaxyline"
 		end,
 		requires = "kyazdani42/nvim-web-devicons",
 	}
@@ -119,10 +132,10 @@ packer.startup(function(use)
 	use "glepnir/dashboard-nvim"
 	use "sindrets/diffview.nvim"
 	use "norcalli/nvim-colorizer.lua"
-	use {
-		"kyazdani42/nvim-tree.lua",
-		requires = "kyazdani42/nvim-web-devicons",
-	}
+	use "folke/trouble.nvim"
+	use "folke/which-key.nvim"
+	use "folke/todo-comments.nvim"
+	use "nvim-telescope/telescope-fzf-native.nvim"
 	use {
 		"nvim-telescope/telescope.nvim",
 		requires = {
@@ -130,14 +143,14 @@ packer.startup(function(use)
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
 		},
+		config = function()
+			require "dk.plugins.telescope"
+		end,
 	}
 	use {
-		"nvim-telescope/telescope-fzf-native.nvim",
-		-- run = "make",
+		"kyazdani42/nvim-tree.lua",
+		requires = "kyazdani42/nvim-web-devicons",
 	}
-	use "folke/trouble.nvim"
-	use "folke/which-key.nvim"
-	use "folke/todo-comments.nvim"
 end)
 
 -- vi: foldmethod=marker

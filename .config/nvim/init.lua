@@ -186,7 +186,7 @@ map("n", "<c-l>", "<c-w>l", { noremap = true })
 require "dk.plugins"
 require "dk.plugins.misc"
 require "dk.lsp"
-require "dk.dap"
+-- require "dk.dap"
 
 -- highlights and colorscheme ------------------------------------------------------- {{{1
 

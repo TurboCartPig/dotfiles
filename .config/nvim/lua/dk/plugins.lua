@@ -9,7 +9,7 @@ end
 -- Load the packer pack
 vim.cmd [[packadd packer.nvim]]
 
--- Compile pluins on change
+-- Compile plugins on change
 vim.cmd [[
  	augroup Packer
  		autocmd!

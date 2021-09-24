@@ -8,20 +8,6 @@ if vim.g.neovide then
 	vim.g.neovide_refresh_rate = 120
 end
 
--- Add the .root to vim-rooter patterns
-vim.g.rooter_patterns = { "vim.toml", ".git", ".hg", ".bzr", ".svn", "Makefile", "package.json" }
-
-vim.g.dashboard_default_executive = "telescope"
-
-vim.g.dashboard_custom_header = {
-	" ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
-	" ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
-	" ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
-	" ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
-	" ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
-	" ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
-}
-
 -- Neovim set options --------------------------------------------------------------- {{{1
 
 -- Leader
@@ -77,7 +63,7 @@ vim.opt.virtualedit = "block"
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:Cursor"
-vim.opt.guifont = "Hasklug NF:h17"
+vim.opt.guifont = "Hasklug NF:h14"
 
 -- spellchecking
 -- NOTE: spell is only set for some filetypes
@@ -180,6 +166,10 @@ vim.cmd [[
 	augroup END
 ]]
 
+-- Termdebug settings --------------------------------------------------------------- {{{1
+vim.g.termdebug_popup = 0
+vim.g.termdebug_wide = 163
+
 -- Neovim set custom commands ------------------------------------------------------- {{{1
 
 vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"]]
@@ -196,7 +186,7 @@ todo.setup {
 	signs = false,
 	highlight = {
 		comments_only = true,
-	}
+	},
 }
 
 -- Setup which-key ------------------------------------------------------------------ {{{1
@@ -251,7 +241,6 @@ wk.register {
 	},
 }
 
-
 -- Neovim set custom keybinds ------------------------------------------------------- {{{1
 
 wk.register {
@@ -271,17 +260,6 @@ map("n", "<c-h>", "<c-w>h", { noremap = true })
 map("n", "<c-j>", "<c-w>j", { noremap = true })
 map("n", "<c-k>", "<c-w>k", { noremap = true })
 map("n", "<c-l>", "<c-w>l", { noremap = true })
-
--- Fix broken AlrGr keys with neovide
--- NOTE: This is just a hack and should be fixed properly in
--- neovide by figuring out the whole windows backend issue they have.
-map("i", "<C-M-[>", "[", { noremap = true })
-map("i", "<C-M-]>", "]", { noremap = true })
-map("i", "<C-M-{>", "{", { noremap = true })
-map("i", "<C-M-}>", "}", { noremap = true })
-map("i", "<C-M-@>", "@", { noremap = true })
-map("i", "<C-M-`>", "`", { noremap = true })
-map("i", "<C-M-´>", "´", { noremap = true })
 
 -- Various language settings -------------------------------------------------------- {{{1
 
@@ -307,9 +285,20 @@ vim.g.vim_markdown_fenced_languages = {
 	"ini=dosini",
 }
 
--- Termdebug settings --------------------------------------------------------------- {{{1
-vim.g.termdebug_popup = 0
-vim.g.termdebug_wide = 163
+-- Setup vim-rooter ----------------------------------------------------------------- {{{1
+vim.g.rooter_patterns = { "vim.toml", ".git", ".hg", ".bzr", ".svn", "Makefile", "package.json" }
+
+-- Setup dashboard ------------------------------------------------------------------ {{{1
+vim.g.dashboard_default_executive = "telescope"
+
+vim.g.dashboard_custom_header = {
+	" ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗",
+	" ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║",
+	" ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║",
+	" ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║",
+	" ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║",
+	" ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝",
+}
 
 -- Neoformat settings --------------------------------------------------------------- {{{1
 vim.g.neoformat_basic_format_align = false
@@ -347,7 +336,6 @@ diffview.setup {
 
 -- nvim-tree settings --------------------------------------------------------------- {{{1
 
--- Setup ignores
 vim.g.nvim_tree_width = 20
 vim.g.nvim_tree_gitignore = false
 vim.g.nvim_tree_ignore = {
@@ -358,7 +346,9 @@ vim.g.nvim_tree_ignore = {
 }
 
 -- Toggle file tree
-map("n", "<m-1>", "<cmd>NvimTreeToggle<cr>", { noremap = true, silent = true })
+wk.register {
+	["<m-1>"] = { "<cmd>NvimTreeToggle<cr>", "Toggle nvim-tree" },
+}
 
 -- nvim-cmp config ---------------------------------------------------------------- {{{1
 

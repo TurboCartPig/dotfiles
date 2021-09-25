@@ -86,6 +86,7 @@ wk.register {
 		function()
 			tb.live_grep(theme)
 		end,
+		"Live Grep",
 	},
 	["<m-p>"] = {
 		function()

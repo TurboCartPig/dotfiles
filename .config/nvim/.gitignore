@@ -3,3 +3,4 @@ plugin/packer_compiled.lua
 
 # Binary files part of spellchecking
 spell/*.spl
+spell/*.sug

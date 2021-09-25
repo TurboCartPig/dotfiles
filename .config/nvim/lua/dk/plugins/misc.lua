@@ -159,6 +159,7 @@ diffview.setup {
 
 vim.g.nvim_tree_width = 20
 vim.g.nvim_tree_gitignore = false
+vim.g.nvim_tree_disable_netrw = 0
 vim.g.nvim_tree_ignore = {
 	".git",
 	"node_modules",

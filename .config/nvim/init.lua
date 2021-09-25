@@ -63,7 +63,7 @@ vim.opt.guifont = "Hasklug NF:h14"
 
 -- spellchecking
 -- NOTE: spell is only set for some filetypes
-vim.opt.spelllang = "en_us"
+vim.opt.spelllang = "en,nb"
 vim.opt.spelloptions = "camel"
 
 -- TODO: Find a way to cycle through predefined listchars

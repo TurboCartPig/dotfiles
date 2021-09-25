@@ -126,6 +126,12 @@ packer.startup(function(use)
 		"npxbr/gruvbox.nvim",
 		requires = "rktjmp/lush.nvim",
 	}
+	use {
+		"akinsho/org-bullets.nvim",
+		config = function()
+			require("org-bullets").setup {}
+		end,
+	}
 
 	-- Interfaces
 	use "glepnir/dashboard-nvim"

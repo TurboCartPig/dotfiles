@@ -74,6 +74,13 @@ vim.opt.listchars = { tab = "→ ", nbsp = "␣", lead = "·", trail = "·", pre
 -- Folds
 -- 'foldmethod' and 'foldlevel' are set by autocmds for various filetypes
 vim.opt.foldlevelstart = 99
+vim.opt.foldnestmax = 3
+vim.opt.foldminlines = 1
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.fillchars = "fold: "
+vim.opt.foldtext =
+	[[substitute(getline(v:foldstart), '\t', repeat('\ ', &tabstop), 'g').'...'.trim(getline(v:foldend))]]
 
 -- Conceals
 vim.opt.concealcursor = "nc"
@@ -138,10 +145,6 @@ vim.cmd [[
 	" Override fold methods per language
 	augroup FoldingSettings
 		autocmd!
-
-		" Use treesitter to automatically create folds
-		autocmd FileType c,cpp,go,rust,lua setlocal foldmethod=expr foldexpr=nvim_treesitter#foldexpr()
-
 		autocmd FileType json setlocal foldmethod=syntax
 	augroup END
 

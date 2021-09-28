@@ -24,6 +24,7 @@
 	s = status
 	a = add
 	c = commit
+	cm = commit -m
 	ch = checkout
 	sw = switch
 	d = diff

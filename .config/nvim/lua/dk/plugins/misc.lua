@@ -65,6 +65,12 @@ wk.register {
 		end,
 		"LSP: Show Line Diagnostics",
 	},
+	["<c-[>"] = {
+		function()
+			vim.lsp.buf.declaration()
+		end,
+		"LSP: Goto declaration",
+	},
 	["<leader>r"] = {
 		function()
 			vim.lsp.buf.rename()

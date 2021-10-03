@@ -161,23 +161,6 @@ diffview.setup {
 	use_icons = true,
 }
 
--- nvim-tree settings --------------------------------------------------------------- {{{1
-
-vim.g.nvim_tree_width = 20
-vim.g.nvim_tree_gitignore = false
-vim.g.nvim_tree_disable_netrw = 0
-vim.g.nvim_tree_ignore = {
-	".git",
-	"node_modules",
-	".idea",
-	"__pycache__",
-}
-
--- Toggle file tree
-wk.register {
-	["<m-1>"] = { "<cmd>NvimTreeToggle<cr>", "Toggle nvim-tree" },
-}
-
 -- nvim-cmp config ---------------------------------------------------------------- {{{1
 
 local cmp = require "cmp"

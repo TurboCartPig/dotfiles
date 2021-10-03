@@ -37,6 +37,7 @@ vim.cmd [[
 	augroup FormattingOverrides
 		autocmd!
 		autocmd FileType haskell,cabal setlocal expandtab shiftwidth=2
+		autocmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2 
 	augroup END
 
 	" Override fold methods per language
@@ -74,7 +75,7 @@ vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printi
 
 local map = vim.api.nvim_set_keymap
 local opts = {
-	noremap = true
+	noremap = true,
 }
 
 -- Strong left/right

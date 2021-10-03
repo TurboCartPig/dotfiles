@@ -189,6 +189,9 @@ cmp.setup {
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		},
+		["<cr>"] = cmp.mapping.confirm {
+			select = true,
+		},
 	},
 	sources = {
 		{ name = "nvim_lsp" },
@@ -288,4 +291,8 @@ local autopairs = require "nvim-autopairs"
 
 autopairs.setup {
 	disable_filetype = { "TelescopePrompt" },
+	check_ts = true,
 }
+
+-- Setup completion after cmp completion
+require("nvim-autopairs.completion.cmp").setup {}

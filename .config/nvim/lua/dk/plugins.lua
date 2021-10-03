@@ -35,10 +35,8 @@ packer.startup(function(use)
 	-- This isn't default?
 	use "tpope/vim-surround"
 	use "tpope/vim-commentary"
-	use "tpope/vim-endwise"
 	use "tpope/vim-repeat"
 	use "tpope/vim-sleuth"
-	use "kana/vim-operator-user"
 	use "airblade/vim-rooter"
 
 	-- Motion(s)

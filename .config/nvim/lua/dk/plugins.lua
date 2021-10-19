@@ -132,7 +132,6 @@ packer.startup(function(use)
 	}
 
 	-- Interfaces
-	use "glepnir/dashboard-nvim"
 	use "sindrets/diffview.nvim"
 	use "norcalli/nvim-colorizer.lua"
 	use "folke/trouble.nvim"

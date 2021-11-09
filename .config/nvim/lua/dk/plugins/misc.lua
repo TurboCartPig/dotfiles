@@ -280,6 +280,3 @@ autopairs.setup {
 	disable_filetype = { "TelescopePrompt" },
 	check_ts = true,
 }
-
--- Setup completion after cmp completion
-require("nvim-autopairs.completion.cmp").setup {}

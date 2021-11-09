@@ -75,6 +75,7 @@ packer.startup(function(use)
 	use "kosayoda/nvim-lightbulb"
 	use "simrat39/rust-tools.nvim"
 	use "jose-elias-alvarez/null-ls.nvim"
+	use "b0o/schemastore.nvim"
 	use {
 		"hrsh7th/nvim-cmp",
 		requires = {

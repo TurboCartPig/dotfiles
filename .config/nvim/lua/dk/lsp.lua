@@ -110,10 +110,16 @@ local servers = {
 	vimls = {},
 	tsserver = {},
 	dockerls = {},
-	jsonls = {},
 	html = {},
 	cssls = {},
 	eslint = {},
+	jsonls = {
+		settings = {
+			json = {
+				schemas = require("schemastore").json.schemas(),
+			},
+		},
+	},
 	yamlls = {},
 	["null-ls"] = {},
 }

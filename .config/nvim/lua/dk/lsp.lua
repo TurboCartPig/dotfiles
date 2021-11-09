@@ -106,6 +106,9 @@ local servers = {
 	clangd = {
 		cmd = { "clangd", "--background-index", "--clang-tidy", "--suggest-missing-includes" },
 	},
+	-- omnisharp = {
+	-- 	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
+	-- },
 	pyright = {},
 	vimls = {},
 	tsserver = {},

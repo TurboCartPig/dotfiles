@@ -21,7 +21,7 @@ function M.on_attach(client, bufnr)
 	vim.cmd "autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()"
 
 	-- Setup line diagnostic on hover
-	vim.cmd "autocmd CursorHold <buffer> lua vim.diagnostic.show_position_diagnostics(vim.g.lsp_handler_opts)"
+	vim.cmd [[ autocmd CursorHold <buffer> lua vim.diagnostic.open_float(nil, vim.tbl_expand("error", vim.g.lsp_handler_opts, { scope = "cursor" })) ]]
 
 	-- Setup lsp-hover on hold
 	-- if client.resolved_capabilities.hover then
@@ -50,15 +50,6 @@ function M.on_attach(client, bufnr)
 		]]
 	end
 
-	-- Add handler for publishDiagnostics
-	vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
-		underline = true,
-		virtual_text = true,
-		signs = true,
-		update_in_insert = true,
-		severity_sort = true,
-	})
-
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, vim.g.lsp_handler_opts)
 
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
@@ -66,6 +57,15 @@ function M.on_attach(client, bufnr)
 		vim.g.lsp_handler_opts
 	)
 end
+
+-- Setup look of diagnostics
+vim.diagnostic.config {
+	underline = true,
+	virtual_text = true,
+	signs = true,
+	update_in_insert = true,
+	severity_sort = true,
+}
 
 -- Advertise client capabilities to servers
 local cmp_nvim_lsp = require "cmp_nvim_lsp"

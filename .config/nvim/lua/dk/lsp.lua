@@ -21,7 +21,7 @@ function M.on_attach(client, bufnr)
 	vim.cmd "autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()"
 
 	-- Setup line diagnostic on hover
-	vim.cmd [[ autocmd CursorHold <buffer> lua vim.diagnostic.open_float(nil, vim.tbl_expand("error", vim.g.lsp_handler_opts, { scope = "cursor" })) ]]
+	vim.cmd [[ autocmd CursorHold <buffer> lua vim.diagnostic.open_float(nil, vim.tbl_extend("error", vim.g.lsp_handler_opts, { scope = "cursor" })) ]]
 
 	-- Setup lsp-hover on hold
 	-- if client.resolved_capabilities.hover then

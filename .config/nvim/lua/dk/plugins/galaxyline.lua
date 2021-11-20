@@ -15,7 +15,7 @@ local colors = {
 	red = "#fb4632",
 }
 
-gl.short_line_list = { "NvimTree", "packer", "minimap" }
+gl.short_line_list = { "NvimTree", "packer" }
 
 gl.section.short_line_left = {
 	{
@@ -28,6 +28,14 @@ gl.section.short_line_left = {
 }
 
 gl.section.left = {
+	{
+		Padding = {
+			provider = function()
+				return " "
+			end,
+			highlight = { colors.red, colors.bg, "bold" },
+		},
+	},
 	{
 		ViMode = {
 			provider = function()
@@ -56,19 +64,9 @@ gl.section.left = {
 				}
 				vim.cmd("hi GalaxyViMode guifg=" .. mode_color[vim.fn.mode()])
 
-				return "    "
+				return "  "
 			end,
 			highlight = { colors.red, colors.bg, "bold" },
-		},
-	},
-	{
-		GetLspClient = {
-			provider = "GetLspClient",
-			condition = function()
-				return #vim.lsp.buf_get_clients(0) > 0
-			end,
-			separator = " ",
-			highlight = { colors.white, colors.bg, "bold" },
 		},
 	},
 	{

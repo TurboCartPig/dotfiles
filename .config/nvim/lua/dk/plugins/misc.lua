@@ -59,12 +59,6 @@ wk.register {
 		end,
 		"LSP: Hover",
 	},
-	["gi"] = {
-		function()
-			vim.diagnostic.show_line_diagnostics()
-		end,
-		"LSP: Show Line Diagnostics",
-	},
 	["<c-[>"] = {
 		function()
 			vim.lsp.buf.declaration()
@@ -176,9 +170,6 @@ cmp.setup {
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = true,
 		},
-		["<cr>"] = cmp.mapping.confirm {
-			select = true,
-		},
 	},
 	sources = {
 		{ name = "nvim_lsp" },
@@ -233,34 +224,28 @@ gitsigns.setup {
 
 -- Setup neoscroll ------------------------------------------------------------------ {{{1
 
--- Only use neoscroll in terminal
-if vim.g.neovide then
-	map("n", "J", "10j", { noremap = true })
-	map("n", "K", "10k", { noremap = true })
-else
-	local neoscroll = require "neoscroll"
-	local neoscroll_config = require "neoscroll.config"
+local neoscroll = require "neoscroll"
+local neoscroll_config = require "neoscroll.config"
 
-	neoscroll.setup {
-		mappings = {
-			"zt",
-			"zz",
-			"zb",
-			"J",
-			"K",
-		},
-		hide_cursor = true, -- Hide cursor while scrolling
-		stop_eof = true, -- Stop at <EOF> when scrolling downwards
-		respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
-		cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
-	}
+neoscroll.setup {
+	mappings = {
+		"zt",
+		"zz",
+		"zb",
+		"J",
+		"K",
+	},
+	hide_cursor = true, -- Hide cursor while scrolling
+	stop_eof = true, -- Stop at <EOF> when scrolling downwards
+	respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
+	cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
+}
 
-	-- Setup custom mappings
-	local mappings = {}
-	mappings["J"] = { "scroll", { "0.20", "false", "10" } }
-	mappings["K"] = { "scroll", { "-0.20", "false", "10" } }
-	neoscroll_config.set_mappings(mappings)
-end
+-- Setup custom mappings
+local mappings = {}
+mappings["J"] = { "scroll", { "0.20", "false", "10" } }
+mappings["K"] = { "scroll", { "-0.20", "false", "10" } }
+neoscroll_config.set_mappings(mappings)
 
 -- Setup colorizer ------------------------------------------------------------------ {{{1
 

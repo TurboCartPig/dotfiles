@@ -91,6 +91,7 @@ null.config {
 		-- diag.stylelint,
 		diag.shellcheck,
 		diag.markdownlint,
+		diag.golangci_lint,
 	},
 }
 
@@ -106,9 +107,6 @@ local servers = {
 	clangd = {
 		cmd = { "clangd", "--background-index", "--clang-tidy", "--suggest-missing-includes" },
 	},
-	-- omnisharp = {
-	-- 	cmd = { "omnisharp", "--languageserver", "--hostPID", tostring(vim.fn.getpid()) },
-	-- },
 	pyright = {},
 	vimls = {},
 	tsserver = {},

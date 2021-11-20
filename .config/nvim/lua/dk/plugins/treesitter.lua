@@ -1,11 +1,32 @@
 -- Treesitter config ---------------------------------------------------------------- {{{1
 
+local parsers = require("nvim-treesitter.parsers").get_parser_configs()
 local ts = require "nvim-treesitter.configs"
 
+-- Add install source for org parser
+parsers.org = {
+	filetype = "org",
+	install_info = {
+		url = "https://github.com/milisims/tree-sitter-org",
+		revision = "main",
+		files = { "src/parser.c", "src/scanner.cc" },
+	},
+}
+
+-- Setup treesitters and treesitters plugins' settings
 ts.setup {
-	ensure_installed = "maintained",
+	ensure_installed = {
+		"bash", "c", "c_sharp", "clojure", "cmake", "comment", "commonlisp", "cpp", "css", "cuda", "dockerfile", "dot",
+		"fennel", "fish", "glsl", "go", "gomod", "graphql", "hjson", "html", "http", "java", "javascript",
+		"jsdoc", "json", "json5", "jsonc", "kotlin", "latex", "llvm", "lua", "nix", "ocaml",
+		"perl", "php", "python", "regex", "rst", "ruby", "rust", "scala", "scss", "svelte",
+		"tlaplus", "toml", "tsx", "typescript", "vim", "vue", "yaml", "zig", "org",
+		"teal",
+	},
 	highlight = {
 		enable = true,
+		disable = { "org" },
+		additional_vim_regex_highlighting = { "org", "json" },
 	},
 	indent = {
 		enable = true,

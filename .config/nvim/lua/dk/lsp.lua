@@ -5,6 +5,20 @@ local lsp_config = require "lspconfig"
 
 M = {}
 
+-- Format the buffer using either LSP or Neoformat
+function M.format()
+	-- Find the first client that can do formatting
+	for _, client in pairs(vim.lsp.get_active_clients()) do
+		if client.server_capabilities.document_formatting then
+			vim.lsp.buf.formatting_sync(nil, 1000)
+			return
+		end
+	end
+
+	-- Else sync with neoformat
+	vim.cmd "Neoformat"
+end
+
 -- Run this every time a language server attaches to a buffer
 function M.on_attach(client, bufnr)
 	-- Override options for lsp handlers
@@ -38,16 +52,6 @@ function M.on_attach(client, bufnr)
 	if vim.tbl_contains({ "jsonls", "tsserver", "html", "pyright", "gopls" }, client.name) then
 		client.resolved_capabilities.document_formatting = false
 		client.resolved_capabilities.document_range_formatting = false
-	end
-
-	-- Only setup format on save for servers that support it
-	if client.resolved_capabilities.document_formatting then
-		vim.cmd [[
-			augroup AutoFormat
-				autocmd!
-				autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)
-			augroup END
-		]]
 	end
 
 	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, vim.g.lsp_handler_opts)

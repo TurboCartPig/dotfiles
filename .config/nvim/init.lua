@@ -40,6 +40,12 @@ vim.cmd [[
 		autocmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2 
 	augroup END
 
+	" Format on save
+	augroup AutoFormat
+		autocmd!
+		autocmd BufWritePre <buffer> lua require("dk.lsp").format()
+	augroup END
+
 	" Override fold methods per language
 	augroup FoldingSettings
 		autocmd!

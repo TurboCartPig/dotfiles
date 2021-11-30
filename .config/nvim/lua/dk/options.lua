@@ -37,9 +37,11 @@ vim.opt.expandtab = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 0
+vim.opt.formatoptions:remove { "o" }
 
 -- Wrapping and line limits
 vim.opt.wrap = false
+vim.opt.linebreak = true
 vim.opt.textwidth = 120
 vim.opt.wrapmargin = 5
 

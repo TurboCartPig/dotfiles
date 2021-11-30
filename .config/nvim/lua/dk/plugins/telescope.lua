@@ -46,6 +46,12 @@ wk.register {
 		end,
 		"LSP References",
 	},
+	["<c-[>"] = {
+		function()
+			vim.lsp.buf.declaration()
+		end,
+		"LSP: Goto declaration",
+	},
 	["gs"] = {
 		function()
 			tb.lsp_document_symbols(theme)
@@ -58,29 +64,35 @@ wk.register {
 		end,
 		"LSP Diagnostics",
 	},
-	["<m-cr>"] = {
+	["gh"] = {
+		function()
+			vim.lsp.buf.hover()
+		end,
+		"LSP: Hover",
+	},
+	["<leader>c"] = {
 		function()
 			tb.lsp_code_actions(theme)
 		end,
 		"LSP Code Actions",
 	},
-	["<c-cr>"] = {
+	["z="] = {
 		function()
 			tb.spell_suggest(theme)
 		end,
 		"Spelling suggestions",
 	},
-	["<c-b>"] = {
-		function()
-			tb.buffers(theme)
-		end,
-		"Buffers",
-	},
 	["<c-p>"] = {
 		function()
-			tb.find_files(theme)
+			tb.find_files(vim.tbl_extend("error", { hidden = true }, theme))
 		end,
 		"Find files",
+	},
+	["<leader>r"] = {
+		function()
+			vim.lsp.buf.rename()
+		end,
+		"LSP: Rename symbol",
 	},
 	["<leader>g"] = {
 		function()
@@ -93,5 +105,31 @@ wk.register {
 			tb.builtin(theme)
 		end,
 		"Telescope",
+	},
+	["<leader>b"] = {
+		name = "Buffer",
+		b = {
+			function()
+				tb.buffers(theme)
+			end,
+			"Buffers",
+		},
+		n = {
+			"<cmd>bnext<cr>",
+			"Next buffer",
+		},
+		p = {
+			"<cmd>bprevious<cr>",
+			"Previous buffer",
+		},
+	},
+	["<leader>f"] = {
+		name = "Find",
+		p = {
+			function()
+				tb.find_files(vim.tbl_extend("keep", { cwd = vim.fn.stdpath "config", hidden = true }, theme))
+			end,
+			"Config files",
+		},
 	},
 }

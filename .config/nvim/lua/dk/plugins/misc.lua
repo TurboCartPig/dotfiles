@@ -50,35 +50,6 @@ wk.register {
 	["<c-d>"] = { "*<c-o>cgn", "Change multiple of the same word (use dot to replace next word)" },
 }
 
--- Neovim LSP keymappings ----------------------------------------------------------- {{{1
-
-wk.register {
-	["gh"] = {
-		function()
-			vim.lsp.buf.hover()
-		end,
-		"LSP: Hover",
-	},
-	["<c-[>"] = {
-		function()
-			vim.lsp.buf.declaration()
-		end,
-		"LSP: Goto declaration",
-	},
-	["<leader>r"] = {
-		function()
-			vim.lsp.buf.rename()
-		end,
-		"LSP: Rename symbol",
-	},
-	["<leader>f"] = {
-		function()
-			vim.lsp.buf.formatting()
-		end,
-		"LSP: Format buffer",
-	},
-}
-
 -- Various language settings -------------------------------------------------------- {{{1
 
 -- Settings for pangloss/vim-javascript
@@ -225,27 +196,22 @@ gitsigns.setup {
 -- Setup neoscroll ------------------------------------------------------------------ {{{1
 
 local neoscroll = require "neoscroll"
-local neoscroll_config = require "neoscroll.config"
 
 neoscroll.setup {
 	mappings = {
 		"zt",
 		"zz",
 		"zb",
-		"J",
-		"K",
+		"<C-u>",
+		"<C-f>",
+		"<C-e>",
+		"<C-y>",
 	},
 	hide_cursor = true, -- Hide cursor while scrolling
 	stop_eof = true, -- Stop at <EOF> when scrolling downwards
 	respect_scrolloff = false, -- Stop scrolling when the cursor reaches the scrolloff margin of the file
 	cursor_scrolls_alone = true, -- The cursor will keep on scrolling even if the window cannot scroll further
 }
-
--- Setup custom mappings
-local mappings = {}
-mappings["J"] = { "scroll", { "0.20", "false", "10" } }
-mappings["K"] = { "scroll", { "-0.20", "false", "10" } }
-neoscroll_config.set_mappings(mappings)
 
 -- Setup colorizer ------------------------------------------------------------------ {{{1
 
@@ -255,6 +221,7 @@ colorizer.setup {
 	"css",
 	"html",
 	"lua",
+	"vim",
 }
 
 -- Setup nvim-autopairs ------------------------------------------------------------- {{{1

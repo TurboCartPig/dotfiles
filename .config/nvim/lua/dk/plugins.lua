@@ -29,8 +29,8 @@ packer.startup(function(use)
 	-- Misc
 	use "sbdchd/neoformat"
 	use "editorconfig/editorconfig-vim"
-	use "windwp/nvim-autopairs"
-	use "lewis6991/gitsigns.nvim"
+	use { "windwp/nvim-autopairs", config = require("dk.plugins.misc").autopairs() }
+	use { "lewis6991/gitsigns.nvim", config = require("dk.plugins.misc").gitsigns() }
 
 	-- This isn't default?
 	use "tpope/vim-surround"
@@ -41,12 +41,12 @@ packer.startup(function(use)
 
 	-- Motion(s)
 	use "wellle/targets.vim"
-	use "karb94/neoscroll.nvim"
+	use { "karb94/neoscroll.nvim", config = require("dk.plugins.misc").neoscroll() }
 	use "christoomey/vim-tmux-navigator"
 
 	-- Language support
 	use "tpope/vim-git"
-	use "kristijanhusak/orgmode.nvim"
+	use { "kristijanhusak/orgmode.nvim", config = require("dk.plugins.misc").orgmode() }
 	use {
 		"tikhomirov/vim-glsl",
 		ft = { "glsl" },
@@ -86,15 +86,14 @@ packer.startup(function(use)
 			"f3fora/cmp-spell",
 			"hrsh7th/vim-vsnip",
 		},
+		config = require("dk.plugins.misc").cmp(),
 	}
 
 	-- Treesitter
 	use {
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
-		config = function()
-			require "dk.plugins.treesitter"
-		end,
+		config = require "dk.plugins.treesitter",
 	}
 	use "nvim-treesitter/nvim-treesitter-refactor"
 	use "nvim-treesitter/nvim-treesitter-textobjects"
@@ -114,9 +113,7 @@ packer.startup(function(use)
 	use {
 		"glepnir/galaxyline.nvim",
 		branch = "main",
-		config = function()
-			require "dk.plugins.galaxyline"
-		end,
+		config = require "dk.plugins.galaxyline",
 		requires = "kyazdani42/nvim-web-devicons",
 	}
 	use {
@@ -129,17 +126,15 @@ packer.startup(function(use)
 	}
 	use {
 		"akinsho/org-bullets.nvim",
-		config = function()
-			require("org-bullets").setup {}
-		end,
+		config = require("org-bullets").setup {},
 	}
 
 	-- Interfaces
-	use "sindrets/diffview.nvim"
-	use "norcalli/nvim-colorizer.lua"
-	use "folke/trouble.nvim"
-	use "folke/which-key.nvim"
-	use "folke/todo-comments.nvim"
+	use { "folke/which-key.nvim", config = require("dk.plugins.misc").which_key() }
+	use { "folke/trouble.nvim", config = require("dk.plugins.misc").trouble() }
+	use { "folke/todo-comments.nvim", config = require("dk.plugins.misc").todo() }
+	use { "sindrets/diffview.nvim", config = require("dk.plugins.misc").diffview() }
+	use { "norcalli/nvim-colorizer.lua", config = require("dk.plugins.misc").colorizer() }
 	use "nvim-telescope/telescope-fzf-native.nvim"
 	use {
 		"nvim-telescope/telescope.nvim",
@@ -148,9 +143,7 @@ packer.startup(function(use)
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
 		},
-		config = function()
-			require "dk.plugins.telescope"
-		end,
+		config = require "dk.plugins.telescope",
 	}
 end)
 

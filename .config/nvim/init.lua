@@ -2,7 +2,6 @@
 require "dk.options"
 require "dk.colorscheme"
 require "dk.plugins"
-require "dk.plugins.misc"
 require "dk.lsp"
 require "dk.dap"
 
@@ -92,5 +91,53 @@ map("v", "L", "$", opts)
 
 -- Move between windows easier in normal mode
 map("n", "<leader>w", "<c-w>", opts)
+
+-- Neovim set custom keybinds ------------------------------------------------------- {{{1
+
+local wk = require "which-key"
+
+wk.register {
+	["<leader><leader>"] = { "<cmd>buffer#<cr>", "Switch buffers" },
+	["<s-esc>"] = { "<cmd>close<cr>", "Close window" },
+	["<c-d>"] = { "*<c-o>cgn", "Change multiple of the same word (use dot to replace next word)" },
+}
+
+-- Various language settings -------------------------------------------------------- {{{1
+
+-- Settings for pangloss/vim-javascript
+-- vim.g.javascript_plugin_jsdoc = true
+-- vim.g.javascript_plugin_ngdoc = false
+-- vim.g.javascript_plugin_flow = false
+
+-- Settings for elzr/vim-json
+vim.g.vim_json_syntax_conceal = true
+
+-- Settings for plasticboy/vim-markdown
+vim.g.vim_markdown_toc_autofit = true
+vim.g.vim_markdown_conceal_code_blocks = false
+vim.g.vim_markdown_follow_anchor = true
+vim.g.vim_markdown_strikethrough = true
+
+-- Create alias for fenced languages with the format: alias=actual
+vim.g.vim_markdown_fenced_languages = {
+	"c++=cpp",
+	"viml=vim",
+	"bash=sh",
+	"ini=dosini",
+}
+
+-- Setup vim-rooter ----------------------------------------------------------------- {{{1
+
+vim.g.rooter_patterns = { "vim.toml", ".git", ".hg", ".bzr", ".svn", "Makefile", "package.json" }
+
+-- Neoformat settings --------------------------------------------------------------- {{{1
+
+vim.g.neoformat_basic_format_align = false
+vim.g.neoformat_basic_format_retab = false
+vim.g.neoformat_basic_format_trim = true
+vim.g.neoformat_enabled_haskell = { "stylishhaskell", "ormolu" }
+vim.g.neoformat_enabled_python = { "black" }
+vim.g.neoformat_enabled_javascript = { "prettier" }
+vim.g.neoformat_enabled_lua = { "stylua" }
 
 -- vi: foldmethod=marker

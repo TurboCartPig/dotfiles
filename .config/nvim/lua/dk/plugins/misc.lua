@@ -164,6 +164,9 @@ gitsigns.setup {
 		topdelete = { hl = "GitSignsDelete", text = "‾", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
 		changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
 	},
+	diff_opts = {
+		internal = vim.fn.has "win32" ~= 1,
+	},
 	current_line_blame_opts = {
 		virt_text = true,
 		virt_text_pos = "eol",

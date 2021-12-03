@@ -106,8 +106,8 @@ packer.startup(function(use)
 	-- use "romgrk/nvim-treesitter-context"
 
 	-- Dap (Debugging)
-	-- use "mfussenegger/nvim-dap"
-	-- use "theHamsta/nvim-dap-virtual-text"
+	use "mfussenegger/nvim-dap"
+	use "theHamsta/nvim-dap-virtual-text"
 
 	-- Themes
 	use "ryanoasis/vim-devicons"

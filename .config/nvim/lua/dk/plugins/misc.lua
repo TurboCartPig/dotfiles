@@ -232,3 +232,13 @@ autopairs.setup {
 	disable_filetype = { "TelescopePrompt" },
 	check_ts = true,
 }
+
+-- Setup spellsitter.nvim ------------------------------------------------------------- {{{1
+
+local spellsitter = require "spellsitter"
+
+spellsitter.setup {
+	enable = true,
+	hl = "SpellBad",
+	spellchecker = "vimfn",
+}

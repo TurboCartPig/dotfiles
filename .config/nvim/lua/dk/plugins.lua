@@ -98,8 +98,10 @@ packer.startup(function(use)
 	}
 	use "nvim-treesitter/nvim-treesitter-refactor"
 	use "nvim-treesitter/nvim-treesitter-textobjects"
+	use "nvim-treesitter/playground"
 	use "JoosepAlviste/nvim-ts-context-commentstring"
 	use "windwp/nvim-ts-autotag"
+	use "lewis6991/spellsitter.nvim"
 	-- FIXME: Broken on windows due to upstream bug neovim/neovim#15063
 	-- use "romgrk/nvim-treesitter-context"
 

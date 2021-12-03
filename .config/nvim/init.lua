@@ -43,7 +43,7 @@ vim.cmd [[
 	" Format on save
 	augroup AutoFormat
 		autocmd!
-		autocmd BufWritePre <buffer> lua require("dk.lsp").format()
+		autocmd BufWritePre * lua require("dk.lsp").format()
 	augroup END
 
 	" Override fold methods per language

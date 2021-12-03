@@ -4,6 +4,26 @@ local telescope = require "telescope"
 local wk = require "which-key"
 
 telescope.setup {
+	defaults = {
+		theme = "ivy-dropdown",
+		results_title = false,
+		preview_title = "",
+		sorting_strategy = "ascending",
+		layout_strategy = "bottom_pane",
+		layout_config = {
+			preview_cutoff = 1,
+			height = function(_, _, max_lines)
+				return math.min(max_lines, 25)
+			end,
+		},
+		border = true,
+		borderchars = {
+			prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
+			results = { " ", "│", " ", " ", " ", " ", " ", " " },
+			preview = { " " },
+		},
+		file_ignore_patterns = { ".git[\\/]" },
+	},
 	extensions = {
 		fzf = {
 			fuzzy = true,
@@ -16,33 +36,13 @@ telescope.setup {
 
 telescope.load_extension "fzf"
 
-local theme = {
-	theme = "ivy-dropdown",
-	results_title = false,
-	preview_title = "",
-	sorting_strategy = "ascending",
-	layout_strategy = "bottom_pane",
-	layout_config = {
-		preview_cutoff = 1,
-		height = function(_, _, max_lines)
-			return math.min(max_lines, 25)
-		end,
-	},
-	border = true,
-	borderchars = {
-		prompt = { "─", " ", " ", " ", "─", "─", " ", " " },
-		results = { " ", "│", " ", " ", " ", " ", " ", " " },
-		preview = { " " },
-	},
-}
-
 -- Telescope keymappings
 local tb = require "telescope.builtin"
 
 wk.register {
 	["gr"] = {
 		function()
-			tb.lsp_references(theme)
+			tb.lsp_references()
 		end,
 		"LSP References",
 	},
@@ -54,13 +54,13 @@ wk.register {
 	},
 	["gs"] = {
 		function()
-			tb.lsp_document_symbols(theme)
+			tb.lsp_document_symbols()
 		end,
 		"LSP Symbols",
 	},
 	["gll"] = {
 		function()
-			tb.lsp_document_diagnostics(theme)
+			tb.lsp_document_diagnostics()
 		end,
 		"LSP Diagnostics",
 	},
@@ -72,19 +72,19 @@ wk.register {
 	},
 	["<leader>c"] = {
 		function()
-			tb.lsp_code_actions(theme)
+			tb.lsp_code_actions()
 		end,
 		"LSP Code Actions",
 	},
 	["z="] = {
 		function()
-			tb.spell_suggest(theme)
+			tb.spell_suggest()
 		end,
 		"Spelling suggestions",
 	},
 	["<c-p>"] = {
 		function()
-			tb.find_files(vim.tbl_extend("error", { hidden = true }, theme))
+			tb.find_files { hidden = true }
 		end,
 		"Find files",
 	},
@@ -96,13 +96,13 @@ wk.register {
 	},
 	["<leader>g"] = {
 		function()
-			tb.live_grep(theme)
+			tb.live_grep()
 		end,
 		"Live Grep",
 	},
 	["<m-p>"] = {
 		function()
-			tb.builtin(theme)
+			tb.builtin()
 		end,
 		"Telescope",
 	},
@@ -110,7 +110,7 @@ wk.register {
 		name = "Buffer",
 		b = {
 			function()
-				tb.buffers(theme)
+				tb.buffers()
 			end,
 			"Buffers",
 		},
@@ -127,9 +127,21 @@ wk.register {
 		name = "Find",
 		p = {
 			function()
-				tb.find_files(vim.tbl_extend("keep", { cwd = vim.fn.stdpath "config", hidden = true }, theme))
+				tb.find_files { cwd = vim.fn.stdpath "config", hidden = true }
 			end,
-			"Config files",
+			"config files",
+		},
+		f = {
+			function()
+				tb.find_files { hidden = true }
+			end,
+			"files",
+		},
+		h = {
+			function()
+				tb.help_tags()
+			end,
+			"help",
 		},
 	},
 }

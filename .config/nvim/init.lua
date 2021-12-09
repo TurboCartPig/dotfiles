@@ -144,4 +144,30 @@ vim.g.neoformat_enabled_lua = { "stylua" }
 
 vim.g.goyo_width = 100
 vim.g.goyo_height = 80
+
+-- Prevent loading of default plugins ----------------------------------------------- {{{1
+
+-- NOTE: Could be useful for goto definition into archives
+vim.g.loaded_gzip = 1
+vim.g.loaded_zip = 1
+vim.g.loaded_zipPlugin = 1
+vim.g.loaded_tar = 1
+vim.g.loaded_tarPlugin = 1
+
+vim.g.loaded_getscript = 1
+vim.g.loaded_getscriptPlugin = 1
+vim.g.loaded_vimball = 1
+vim.g.loaded_vimballPlugin = 1
+vim.g.loaded_2html_plugin = 1
+
+vim.g.loaded_matchit = 1
+vim.g.loaded_matchparen = 1
+vim.g.loaded_logiPat = 1
+vim.g.loaded_rrhelper = 1
+
+-- NOTE: I need these to download norwegian 'spell' dictionaries
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrwSettings = 1
+
 -- vi: foldmethod=marker

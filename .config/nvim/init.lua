@@ -1,7 +1,7 @@
 -- Source config modules
 require "dk.options"
 require "dk.colorscheme"
-require "dk.plugins"
+-- require "dk.plugins"
 require "dk.lsp"
 require "dk.dap"
 

@@ -8,29 +8,39 @@ end
 
 -- Load the packer pack
 vim.cmd [[packadd packer.nvim]]
+vim.cmd [[packadd vimball]]
 
 -- Compile plugins on change
 vim.cmd [[
- 	augroup Packer
- 		autocmd!
-		autocmd BufWritePost plugins.lua luafile <afile>
- 		autocmd BufWritePost plugins.lua PackerCompile
- 	augroup end
- ]]
+	augroup Packer
+		autocmd!
+		autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+	augroup end
+]]
 
 -- Define plugins {{{1
 
-local packer = require "packer"
-
-packer.startup(function(use)
+return require("packer").startup(function(use)
 	-- Let packer manage itself
 	use { "wbthomason/packer.nvim", opt = true }
+
+	use { "lewis6991/impatient.nvim" }
 
 	-- Misc
 	use "sbdchd/neoformat"
 	use "editorconfig/editorconfig-vim"
-	use { "windwp/nvim-autopairs", config = require("dk.plugins.misc").autopairs() }
-	use { "lewis6991/gitsigns.nvim", config = require("dk.plugins.misc").gitsigns() }
+	use {
+		"windwp/nvim-autopairs",
+		config = function()
+			require("dk.plugins.misc").autopairs()
+		end,
+	}
+	use {
+		"lewis6991/gitsigns.nvim",
+		config = function()
+			require("dk.plugins.misc").gitsigns()
+		end,
+	}
 
 	-- This isn't default?
 	use "tpope/vim-surround"
@@ -41,12 +51,22 @@ packer.startup(function(use)
 
 	-- Motion(s)
 	use "wellle/targets.vim"
-	use { "karb94/neoscroll.nvim", config = require("dk.plugins.misc").neoscroll() }
+	use {
+		"karb94/neoscroll.nvim",
+		config = function()
+			require("dk.plugins.misc").neoscroll()
+		end,
+	}
 	use "christoomey/vim-tmux-navigator"
 
 	-- Language support
 	use "tpope/vim-git"
-	use { "kristijanhusak/orgmode.nvim", config = require("dk.plugins.misc").orgmode() }
+	use {
+		"kristijanhusak/orgmode.nvim",
+		config = function()
+			require("dk.plugins.misc").orgmode()
+		end,
+	}
 	use {
 		"tikhomirov/vim-glsl",
 		ft = { "glsl" },
@@ -86,14 +106,18 @@ packer.startup(function(use)
 			"f3fora/cmp-spell",
 			"hrsh7th/vim-vsnip",
 		},
-		config = require("dk.plugins.misc").cmp(),
+		config = function()
+			require("dk.plugins.misc").cmp()
+		end,
 	}
 
 	-- Treesitter
 	use {
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
-		config = require "dk.plugins.treesitter",
+		config = function()
+			require "dk.plugins.treesitter"
+		end,
 	}
 	use "nvim-treesitter/nvim-treesitter-refactor"
 	use "nvim-treesitter/nvim-treesitter-textobjects"
@@ -113,7 +137,9 @@ packer.startup(function(use)
 	use {
 		"glepnir/galaxyline.nvim",
 		branch = "main",
-		config = require "dk.plugins.galaxyline",
+		config = function()
+			require "dk.plugins.galaxyline"
+		end,
 		requires = "kyazdani42/nvim-web-devicons",
 	}
 	use {
@@ -126,25 +152,58 @@ packer.startup(function(use)
 	}
 	use {
 		"akinsho/org-bullets.nvim",
-		config = require("org-bullets").setup {},
+		config = function()
+			require("org-bullets").setup {}
+		end,
+	}
+	use {
+		"lukas-reineke/headlines.nvim",
 	}
 
 	-- Interfaces
-	use { "folke/which-key.nvim", config = require("dk.plugins.misc").which_key() }
-	use { "folke/trouble.nvim", config = require("dk.plugins.misc").trouble() }
-	use { "folke/todo-comments.nvim", config = require("dk.plugins.misc").todo() }
-	use { "sindrets/diffview.nvim", config = require("dk.plugins.misc").diffview() }
-	use { "norcalli/nvim-colorizer.lua", config = require("dk.plugins.misc").colorizer() }
-	use "nvim-telescope/telescope-fzf-native.nvim"
+	use {
+		"folke/which-key.nvim",
+		config = function()
+			require("dk.plugins.misc").which_key()
+		end,
+	}
+	use {
+		"folke/trouble.nvim",
+		config = function()
+			require("dk.plugins.misc").trouble()
+		end,
+	}
+	use {
+		"folke/todo-comments.nvim",
+		config = function()
+			require("dk.plugins.misc").todo()
+		end,
+	}
+	use {
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			require("dk.plugins.misc").colorizer()
+		end,
+	}
 	use { "junegunn/goyo.vim", cmd = "Goyo" }
+	use {
+		"sindrets/diffview.nvim",
+		cmd = { "DiffviewOpen", "DiffviewToggleFiles" },
+		config = function()
+			require("dk.plugins.misc").diffview()
+		end,
+	}
 	use {
 		"nvim-telescope/telescope.nvim",
 		requires = {
 			"kyazdani42/nvim-web-devicons",
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
+			"nvim-telescope/telescope-fzf-native.nvim",
 		},
-		config = require "dk.plugins.telescope",
+		config = function()
+			require "dk.plugins.telescope"
+		end,
 	}
 end)
 

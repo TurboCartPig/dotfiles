@@ -16,6 +16,9 @@ end
 
 vim.cmd [[filetype plugin indent on]]
 
+-- Defaults to Norwegian on Windows for some reason
+vim.cmd [[language en_US.utf8]]
+
 -- Needed for some plugins to work properly
 vim.opt.hidden = true
 
@@ -59,7 +62,9 @@ vim.opt.virtualedit = "block"
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:Cursor"
-vim.opt.guifont = "Hasklug NF:h14"
+vim.opt.guifont = "FiraCode NF:h14"
+vim.opt.showmode = false -- Redundant by statusline
+vim.opt.showcmd = false
 
 -- spellchecking
 -- NOTE: spell is only set for some filetypes

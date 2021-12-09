@@ -140,4 +140,8 @@ vim.g.neoformat_enabled_python = { "black" }
 vim.g.neoformat_enabled_javascript = { "prettier" }
 vim.g.neoformat_enabled_lua = { "stylua" }
 
+-- Goyo settings -------------------------------------------------------------------- {{{1
+
+vim.g.goyo_width = 100
+vim.g.goyo_height = 80
 -- vi: foldmethod=marker

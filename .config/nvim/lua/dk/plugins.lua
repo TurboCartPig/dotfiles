@@ -136,6 +136,7 @@ packer.startup(function(use)
 	use { "sindrets/diffview.nvim", config = require("dk.plugins.misc").diffview() }
 	use { "norcalli/nvim-colorizer.lua", config = require("dk.plugins.misc").colorizer() }
 	use "nvim-telescope/telescope-fzf-native.nvim"
+	use { "junegunn/goyo.vim", cmd = "Goyo" }
 	use {
 		"nvim-telescope/telescope.nvim",
 		requires = {

@@ -129,9 +129,6 @@ export VCPKG_ROOT="$HOME/Projects/vcpkg"
 export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 export FZF_DEFAULT_OPTS="--layout=reverse --tabstop=4"
 
-# Neovide configuration
-export NEOVIDE_MULTIGRID="on"
-
 # Setup search path for libraries in cuda sdk
 export LD_LIBRARY_PATH="/usr/local/cuda-11/lib64":$LD_LIBRARY_PATH
 export PATH=$PATH:"/usr/local/cuda-11/bin"
@@ -159,6 +156,3 @@ alias vcpkg="/home/dennis/Projects/vcpkg/vcpkg"
 
 # Evals
 eval $(starship init zsh)
-
-# Source brew env
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)

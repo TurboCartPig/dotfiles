@@ -129,34 +129,6 @@ local servers = {
 	["null-ls"] = {},
 }
 
-local windows_overrides = {
-	html = {
-		cmd = { "vscode-html-language-server.cmd", "--stdio" },
-	},
-	cssls = {
-		cmd = { "vscode-css-language-server.cmd", "--stdio" },
-	},
-	jsonls = {
-		cmd = { "vscode-json-language-server.cmd", "--stdio" },
-	},
-	eslint = {
-		cmd = { "vscode-eslint-language-server.cmd", "--stdio" },
-	},
-	tsserver = {
-		cmd = { "typescript-language-server.cmd", "--stdio" },
-	},
-	dockerls = {
-		cmd = { "docker-langserver.cmd", "--stdio" },
-	},
-	yamlls = {
-		cmd = { "yaml-language-server.cmd", "--stdio" },
-	},
-}
-
-if vim.fn.has "win32" == 1 then
-	servers = vim.tbl_extend("force", servers, windows_overrides)
-end
-
 -- Setup all the servers with their respective settings
 for ls, settings in pairs(servers) do
 	local s = vim.tbl_extend("error", settings, { on_attach = M.on_attach, capabilities = capabilities })

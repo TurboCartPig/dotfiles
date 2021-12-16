@@ -60,6 +60,7 @@ vim.cmd [[
 	augroup Term
 		autocmd!
 		autocmd TermOpen * startinsert
+		autocmd TermOpen * setlocal nonumber
 	augroup END
 
 	augroup DashboardTabline

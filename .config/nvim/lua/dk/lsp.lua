@@ -75,30 +75,6 @@ vim.diagnostic.config {
 local cmp_nvim_lsp = require "cmp_nvim_lsp"
 local capabilities = cmp_nvim_lsp.update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
--- Setup null-ls
-local null = require "null-ls"
-local fmt = null.builtins.formatting
-local diag = null.builtins.diagnostics
-
-null.config {
-	sources = {
-		-- Formatters
-		fmt.stylua,
-		fmt.black,
-		fmt.prettier,
-		-- fmt.stylelint,
-		fmt.goimports,
-
-		-- Diagnostics
-		-- diag.selene,
-		-- diag.eslint,
-		-- diag.stylelint,
-		diag.shellcheck,
-		diag.markdownlint,
-		diag.golangci_lint,
-	},
-}
-
 -- List all the servers and any custom configuration
 local servers = {
 	hls = {
@@ -126,7 +102,6 @@ local servers = {
 		},
 	},
 	yamlls = {},
-	["null-ls"] = {},
 }
 
 -- Setup all the servers with their respective settings

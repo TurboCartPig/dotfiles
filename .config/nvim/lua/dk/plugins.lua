@@ -93,9 +93,14 @@ return require("packer").startup(function(use)
 	use "neovim/nvim-lspconfig"
 	use "onsails/lspkind-nvim"
 	use "kosayoda/nvim-lightbulb"
-	use "simrat39/rust-tools.nvim"
-	use "jose-elias-alvarez/null-ls.nvim"
 	use "b0o/schemastore.nvim"
+	use "simrat39/rust-tools.nvim"
+	use {
+		"jose-elias-alvarez/null-ls.nvim",
+		config = function()
+			require("dk.plugins.misc").null()
+		end,
+	}
 	use {
 		"hrsh7th/nvim-cmp",
 		requires = {

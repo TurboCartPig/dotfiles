@@ -233,7 +233,7 @@ function M.autopairs()
 	}
 end
 
--- Setup spellsitter.nvim ------------------------------------------------------------- {{{1
+-- Setup spellsitter.nvim ----------------------------------------------------------- {{{1
 
 function M.spellsitter()
 	local spellsitter = require "spellsitter"
@@ -242,6 +242,38 @@ function M.spellsitter()
 		enable = true,
 		hl = "SpellBad",
 		spellchecker = "vimfn",
+	}
+end
+
+-- Setup null-ls -------------------------------------------------------------------- {{{1
+
+function M.null()
+	local null = require "null-ls"
+	local fmt = null.builtins.formatting
+	local diag = null.builtins.diagnostics
+	-- local ca = null.builtins.code_actions
+
+	null.setup {
+		sources = {
+			-- Formatters
+			fmt.stylua,
+			fmt.black,
+			fmt.prettier,
+			-- fmt.stylelint,
+			fmt.goimports,
+
+			-- Diagnostics
+			diag.selene,
+			-- diag.eslint,
+			-- diag.stylelint,
+			diag.shellcheck,
+			diag.markdownlint,
+			diag.golangci_lint,
+
+			-- Code Actions
+			-- ca.gitsigns,
+		},
+		on_attach = M.on_attach,
 	}
 end
 

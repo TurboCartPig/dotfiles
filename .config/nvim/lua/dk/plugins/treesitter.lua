@@ -48,6 +48,7 @@ ts.setup {
 		"llvm",
 		"lua",
 		"nix",
+		"markdown",
 		"ocaml",
 		"perl",
 		"php",
@@ -73,8 +74,7 @@ ts.setup {
 	},
 	highlight = {
 		enable = true,
-		disable = { "org" },
-		additional_vim_regex_highlighting = { "org", "json" },
+		additional_vim_regex_highlighting = { "json" },
 	},
 	indent = {
 		enable = true,

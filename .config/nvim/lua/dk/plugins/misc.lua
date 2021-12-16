@@ -60,7 +60,10 @@ end
 function M.orgmode()
 	local orgmode = require "orgmode"
 
-	orgmode.setup {}
+	orgmode.setup {
+		org_agenda_files = { "~/Dropbox/org/*" },
+		org_default_notes_file = "~/Dropbox/org/notes.org",
+	}
 end
 
 -- Bufferline settings -------------------------------------------------------------- {{{1

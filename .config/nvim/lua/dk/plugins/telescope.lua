@@ -137,6 +137,12 @@ wk.register {
 			end,
 			"files",
 		},
+		r = {
+			function()
+				tb.oldfiles()
+			end,
+			"recent files",
+		},
 		h = {
 			function()
 				tb.help_tags()

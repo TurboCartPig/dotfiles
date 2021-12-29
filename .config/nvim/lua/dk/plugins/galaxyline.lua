@@ -104,7 +104,7 @@ gl.section.mid = {
 		FileIcon = {
 			provider = "FileIcon",
 			condition = condition.buffer_not_empty,
-			highlight = { require("galaxyline.provider_fileinfo").get_file_icon_color, colors.bg },
+			highlight = { require("galaxyline.providers.fileinfo").get_file_icon_color, colors.bg },
 		},
 	},
 	{

@@ -140,7 +140,7 @@ return require("packer").startup(function(use)
 	-- Themes
 	use "ryanoasis/vim-devicons"
 	use {
-		"glepnir/galaxyline.nvim",
+		"NTBBloodbath/galaxyline.nvim",
 		branch = "main",
 		config = function()
 			require "dk.plugins.galaxyline"

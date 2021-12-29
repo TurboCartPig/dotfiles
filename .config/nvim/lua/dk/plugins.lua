@@ -178,6 +178,12 @@ return require("packer").startup(function(use)
 
 	-- Interfaces
 	use {
+		"chentau/marks.nvim",
+		config = function()
+			require("dk.plugins.misc").marks()
+		end,
+	}
+	use {
 		"folke/which-key.nvim",
 		config = function()
 			require("dk.plugins.misc").which_key()

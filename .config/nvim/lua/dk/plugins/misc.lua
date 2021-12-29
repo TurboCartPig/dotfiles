@@ -277,5 +277,16 @@ function M.null()
 	}
 end
 
+-- Setup marks.nvim ----------------------------------------------------------------- {{{1
+
+function M.marks()
+	local marks = require "marks"
+
+	marks.setup {
+		default_mappings = true,
+		refresh_interval = 500,
+	}
+end
+
 -- Return the module
 return M

@@ -228,7 +228,7 @@ function M.autopairs()
 	local autopairs = require "nvim-autopairs"
 
 	autopairs.setup {
-		disable_filetype = { "TelescopePrompt" },
+		disable_filetype = { "TelescopePrompt", "lisp", "lisp_vlime", "clojure", "fennel" },
 		check_ts = true,
 	}
 end

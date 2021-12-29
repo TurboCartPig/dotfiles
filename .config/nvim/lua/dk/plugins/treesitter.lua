@@ -1,10 +1,17 @@
 -- Treesitter config ---------------------------------------------------------------- {{{1
 
-local parsers = require("nvim-treesitter.parsers").get_parser_configs()
+local parsers = require "nvim-treesitter.parsers"
 local ts = require "nvim-treesitter.configs"
 
+-- Inverse a list of enabled parsers into a list of disabled parsers.
+local function inverse_enabled(enabled_list)
+	return vim.tbl_filter(function(p)
+		return not vim.tbl_contains(enabled_list, p)
+	end, parsers.available_parsers())
+end
+
 -- Add install source for org parser
-parsers.org = {
+parsers.get_parser_configs().org = {
 	filetype = "org",
 	install_info = {
 		url = "https://github.com/milisims/tree-sitter-org",
@@ -146,6 +153,10 @@ ts.setup {
 	},
 	playground = {
 		enable = true,
+	},
+	rainbow = {
+		enable = true,
+		disable = inverse_enabled { "commonlisp", "clojure", "fennel" },
 	},
 	context_commentstring = {
 		enable = true,

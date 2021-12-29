@@ -1,6 +1,3 @@
-# Setup zsh completions from brew
-FPATH=/home/linuxbrew/.linuxbrew/share/zsh/site-functions:$FPATH
-
 # Path to your oh-my-zsh installation.
 export ZSH=/home/dennis/.config/oh-my-zsh/
 
@@ -94,8 +91,12 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 export DEFAULT_USER=dennis
+
+# Set neovim as default editor and man pager
 export EDITOR=nvim
 export VISUAL=nvim
+export MANPAGER='nvim +Man!'
+export MANPATH="$MANPATH:/usr/local/man"
 
 # Cargo rust
 export PATH="$PATH:$HOME/.cargo/bin/"
@@ -122,21 +123,11 @@ export CMAKE_EXPORT_COMPILE_COMMANDS="ON"
 export CMAKE_C_COMPILER_LAUNCHER="sccache"
 export CMAKE_CXX_COMPILER_LAUNCHER="sccache"
 
-# Vcpkg path
-export VCPKG_ROOT="$HOME/Projects/vcpkg"
-
 # Fzf configuration
 export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 export FZF_DEFAULT_OPTS="--layout=reverse --tabstop=4"
 
-# Setup search path for libraries in cuda sdk
-export LD_LIBRARY_PATH="/usr/local/cuda-11/lib64":$LD_LIBRARY_PATH
-export PATH=$PATH:"/usr/local/cuda-11/bin"
-
 export GPG_TTY=$(tty)
-
-export MANPAGER='nvim +Man!'
-export MANPATH="$MANPATH:/usr/local/man"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
@@ -152,7 +143,7 @@ alias lt="exa -lT --git-ignore"
 alias diff="colordiff"
 alias v="nvim"
 alias sv="sudo nvim"
-alias vcpkg="/home/dennis/Projects/vcpkg/vcpkg"
+alias lyadm="lazygit -g ~/.local/share/yadm/repo.git"
 
 # Evals
 eval $(starship init zsh)

@@ -146,6 +146,28 @@ vim.g.neoformat_enabled_lua = { "stylua" }
 vim.g.goyo_width = 100
 vim.g.goyo_height = 80
 
+-- Vlime settings ------------------------------------------------------------------- {{{1
+
+vim.g.vlime_cl_use_terminal = true
+vim.g.vlime_enable_autodoc = true
+vim.g.vlime_window_settings = {
+	sldb = {
+		pos = "topright",
+		size = 20,
+		vertical = true,
+	},
+	repl = {
+		pos = "topright",
+		size = 20,
+		vertical = true,
+	},
+	server = {
+		pos = "botright",
+		size = 5,
+		vertical = true,
+	},
+}
+
 -- Prevent loading of default plugins ----------------------------------------------- {{{1
 
 -- NOTE: Could be useful for goto definition into archives

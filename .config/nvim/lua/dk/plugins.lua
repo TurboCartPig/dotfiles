@@ -36,6 +36,11 @@ return require("packer").startup(function(use)
 		end,
 	}
 	use {
+		"eraserhd/parinfer-rust",
+		ft = { "lisp", "clojure", "fennel" },
+		run = "cargo build --release",
+	}
+	use {
 		"lewis6991/gitsigns.nvim",
 		config = function()
 			require("dk.plugins.misc").gitsigns()
@@ -87,6 +92,11 @@ return require("packer").startup(function(use)
 		"rust-lang/rust.vim",
 		cmd = { "Cargo" },
 		ft = { "rust" },
+	}
+	use {
+		"vlime/vlime",
+		ft = "lisp",
+		rtp = "vim/",
 	}
 
 	-- LSP and autocompletions

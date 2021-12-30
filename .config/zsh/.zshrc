@@ -23,11 +23,6 @@ compinit
 # Zsh options
 # ===========
 
-# History in cache directory:
-HISTSIZE=50000
-SAVEHIST=50000
-HISTFILE="$XDG_CACHE_HOME"/zsh/history
-
 # automatically list choices on ambiguous completion
 setopt AUTO_LIST
 # show completion menu on a successive tab press
@@ -42,12 +37,18 @@ setopt HASH_LIST_ALL
 setopt ALWAYS_TO_END
 
 # History
+export HISTSIZE=50000
+export SAVEHIST=50000
+export HISTFILE=~/.cache/zsh/history
+
 # dont store duplicate lines in the history file
-setopt HIST_SAVE_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+setopt INC_APPEND_HISTORY
 # write and import history on every command
-setopt SHARE_HISTORY
-setopt HIST_FIND_NO_DUPS
+# setopt SHARE_HISTORY
+# setopt HIST_FIND_NO_DUPS
 
 # allow comments in command line
 setopt INTERACTIVE_COMMENTS

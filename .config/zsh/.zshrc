@@ -1,91 +1,75 @@
-# Path to your oh-my-zsh installation.
-export ZSH=/home/dennis/.config/oh-my-zsh/
+# Plugins
+# =======
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-# ZSH_THEME="kardan"
-ZSH_THEME=""
+source ~/.config/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh
+source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.config/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
+# Autocompletion
+# ==============
 
-# Fix completion permissions issues
-ZSH_DISABLE_COMPFIX=true
+autoload -U compinit
+zmodload zsh/complist
+zstyle ':completion:*' menu select
 
-# Uncomment the following line to use case-sensitive completion.
-# CASE_SENSITIVE="true"
+# Include hidden files.
+_comp_options+=(globdots)
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
-HYPHEN_INSENSITIVE="true"
+# Autocomplete from the middle of the word
+zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
+compinit
 
-# Uncomment the following line to disable bi-weekly auto-update checks.
-DISABLE_AUTO_UPDATE="true"
+# Zsh options
+# ===========
 
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
+# History in cache directory:
+HISTSIZE=50000
+SAVEHIST=50000
+HISTFILE="$XDG_CACHE_HOME"/zsh/history
 
-# Uncomment the following line to change how often to auto-update (in days).
-# export UPDATE_ZSH_DAYS=13
+# automatically list choices on ambiguous completion
+setopt AUTO_LIST
+# show completion menu on a successive tab press
+setopt AUTO_MENU
+# if completed parameter is a directory, add a trailing slash
+setopt AUTO_PARAM_SLASH
+# complete from the cursor rather than from the end of the word
+setopt COMPLETE_IN_WORD
+# do not autoselect the first completion entry
+setopt NO_MENU_COMPLETE
+setopt HASH_LIST_ALL
+setopt ALWAYS_TO_END
 
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
+# History
+# dont store duplicate lines in the history file
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_IGNORE_ALL_DUPS
+# write and import history on every command
+setopt SHARE_HISTORY
+setopt HIST_FIND_NO_DUPS
 
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
+# allow comments in command line
+setopt INTERACTIVE_COMMENTS
 
-# Uncomment the following line to disable auto-setting terminal title.
-DISABLE_AUTO_TITLE="true"
+# Aliases
+# =======
 
-# Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+alias ls="exa"
+alias ll="exa -la --git-ignore"
+alias lt="exa -lT --git-ignore"
 
-# Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+alias diff="colordiff"
 
-# Uncomment the following line if you want to disable marking untracked files
-# under VCS as dirty. This makes repository status check for large repositories
-# much, much faster.
-DISABLE_UNTRACKED_FILES_DIRTY="true"
+alias v="nvim"
+alias sv="sudo nvim"
 
-# Uncomment the following line if you want to change the command execution time
-# stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
-HIST_STAMPS="yyyy-mm-dd"
+# Lazygit for yadm
+alias ly="lazygit -g ~/.local/share/yadm/repo.git"
+alias lg="lazygit"
 
-# Would you like to use another custom folder than $ZSH/custom?
-ZSH_CUSTOM=$HOME/.config/oh-my-zsh-custom/
-
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-# Add wisely, as too many plugins slow down shell startup.
-plugins=(
-	vi-mode
-	command-not-found
-	zsh-syntax-highlighting
-	zsh-autosuggestions
-	zsh-completions
-	git
-	gh
-	docker
-	rust
-	golang
-)
-
-# Reload completions
-autoload -U compinit && compinit
-
-source $ZSH/oh-my-zsh.sh
+# Environment variables
+# =====================
 
 # User configuration
 export DEFAULT_USER=dennis
@@ -127,21 +111,7 @@ export FZF_DEFAULT_OPTS="--layout=reverse --tabstop=4"
 
 export GPG_TTY=$(tty)
 
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
-# plugins, and themes. Aliases can be placed here, though oh-my-zsh
-# users are encouraged to define aliases within the ZSH_CUSTOM folder.
-# For a full list of active aliases, run `alias`.
-#
-# Example aliases
-#
-# My aliases
-alias ls="exa"
-alias ll="exa -la --git-ignore"
-alias lt="exa -lT --git-ignore"
-alias diff="colordiff"
-alias v="nvim"
-alias sv="sudo nvim"
-alias lyadm="lazygit -g ~/.local/share/yadm/repo.git"
+# Prompt
+# ======
 
-# Evals
 eval $(starship init zsh)

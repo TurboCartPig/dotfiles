@@ -72,15 +72,13 @@ ZSH_CUSTOM=$HOME/.config/oh-my-zsh-custom/
 plugins=(
 	vi-mode
 	command-not-found
-	colored-man-pages
 	zsh-syntax-highlighting
 	zsh-autosuggestions
 	zsh-completions
 	git
 	gh
 	docker
-	cargo
-	rustup
+	rust
 	golang
 )
 

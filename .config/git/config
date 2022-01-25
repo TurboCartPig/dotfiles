@@ -19,6 +19,7 @@
 [merge]
 	guitool = smerge
 	tool = nvimdiff
+	conflictStyle = zdiff3
 
 [alias]
 	s = status
@@ -27,8 +28,8 @@
 	cm = commit -m
 	ch = checkout
 	sw = switch
-	d = diff
-	ds = diff --staged
+	d = diff --minimal --histogram
+	ds = diff --minimal --histogram --staged
 	rs = restore --staged
 	ll = log --all --oneline
 	graph = log --all --oneline --decorate --graph

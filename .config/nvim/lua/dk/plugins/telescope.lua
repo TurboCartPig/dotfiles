@@ -46,12 +46,6 @@ wk.register {
 		end,
 		"LSP References",
 	},
-	["<c-[>"] = {
-		function()
-			vim.lsp.buf.declaration()
-		end,
-		"LSP: Goto declaration",
-	},
 	["gs"] = {
 		function()
 			tb.lsp_document_symbols()

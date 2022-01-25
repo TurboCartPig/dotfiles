@@ -21,12 +21,23 @@ vim.cmd [[
 		autocmd ColorScheme gruvbox highlight  GruvboxRedSign    guibg=none
 		autocmd ColorScheme gruvbox highlight  GruvboxYellowSign guibg=none
 
-		autocmd ColorScheme gruvbox highlight  link Operator     GruvboxRed
-		autocmd ColorScheme gruvbox highlight  link NormalFloat  GruvboxFg0
-		autocmd ColorScheme gruvbox highlight! link DiffAdd      GruvboxGreenSign
-		autocmd ColorScheme gruvbox highlight! link DiffChange   GruvboxPurpleSign
-		autocmd ColorScheme gruvbox highlight! link DiffDelete   GruvboxRedSign
-		autocmd ColorScheme gruvbox highlight! link WhichKeyGroup Identifier
+		autocmd ColorScheme gruvbox highlight  link Operator       GruvboxRed
+		autocmd ColorScheme gruvbox highlight  link NormalFloat    GruvboxFg0
+
+		autocmd ColorScheme gruvbox highlight! link DiffAdd        GruvboxGreenSign
+		autocmd ColorScheme gruvbox highlight! link DiffChange     GruvboxPurpleSign
+		autocmd ColorScheme gruvbox highlight! link DiffDelete     GruvboxRedSign
+		autocmd ColorScheme gruvbox highlight! link GitsignsAdd    DiffAdd
+		autocmd ColorScheme gruvbox highlight! link GitsignsDelete DiffDelete
+		autocmd ColorScheme gruvbox highlight! link GitsignsChange DiffChange
+
+		autocmd ColorScheme gruvbox highlight! link WhichKeyGroup  Identifier
+
+		autocmd ColorScheme gruvbox highlight! link DiagnosticSignError DiagnosticError
+		autocmd ColorScheme gruvbox highlight! link DiagnosticSignHint  DiagnosticHint
+		autocmd ColorScheme gruvbox highlight! link DiagnosticSignWarn  DiagnosticWarn
+		autocmd ColorScheme gruvbox highlight! link DiagnosticSignInfo  DiagnosticInfo
+		autocmd ColorScheme gruvbox highlight! link DiagnosticSignOther DiagnosticOther
 	augroup END
 ]]
 

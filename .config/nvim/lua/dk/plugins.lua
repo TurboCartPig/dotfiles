@@ -184,6 +184,12 @@ return require("packer").startup(function(use)
 		end,
 	}
 	use {
+		"rcarriga/nvim-notify",
+		config = function()
+			vim.notify = require "notify"
+		end,
+	}
+	use {
 		"folke/which-key.nvim",
 		config = function()
 			require("dk.plugins.misc").which_key()

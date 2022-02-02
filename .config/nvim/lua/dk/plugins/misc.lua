@@ -129,6 +129,20 @@ function M.cmp()
 			{ name = "spell" },
 		},
 	}
+
+	-- Setup cmp in cmdline
+	require("cmp").setup.cmdline(":", {
+		sources = {
+			{ name = "cmdline" },
+		},
+	})
+
+	-- Setup cmp in search
+	require("cmp").setup.cmdline("/", {
+		sources = {
+			{ name = "buffer" },
+		},
+	})
 end
 
 -- Setup gitsigns ------------------------------------------------------------------- {{{1

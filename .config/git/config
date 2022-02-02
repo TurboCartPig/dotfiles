@@ -19,7 +19,7 @@
 [merge]
 	guitool = smerge
 	tool = nvimdiff
-	conflictStyle = zdiff3
+	conflictstyle = diff3
 
 [alias]
 	s = status

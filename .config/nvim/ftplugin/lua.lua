@@ -8,10 +8,10 @@ local sumneko_root
 local sumneko_bin
 if vim.fn.has "win32" == 1 then
 	sumneko_root = "C:/Projects/lua-language-server"
-	sumneko_bin = sumneko_root .. "/bin/Windows/lua-language-server.exe"
+	sumneko_bin = sumneko_root .. "/bin/lua-language-server.exe"
 elseif vim.fn.has "unix" == 1 then
 	sumneko_root = vim.fn.expand "$HOME/Projects/lua-language-server"
-	sumneko_bin = sumneko_root .. "/bin/Linux/lua-language-server"
+	sumneko_bin = sumneko_root .. "/bin/lua-language-server"
 end
 
 -- Ripped from tjdevries/nlua

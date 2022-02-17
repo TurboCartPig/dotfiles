@@ -35,8 +35,7 @@ vim.cmd [[
 	" Formatting overrides
 	augroup FormattingOverrides
 		autocmd!
-		autocmd FileType haskell,cabal setlocal expandtab shiftwidth=2
-		autocmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2 
+		autocmd FileType haskell,cabal,yaml setlocal expandtab shiftwidth=2
 	augroup END
 
 	" Format on save
@@ -54,7 +53,8 @@ vim.cmd [[
 	" Plaintext editing
 	augroup Plaintext
 		autocmd!
-		autocmd FileType markdown,org,text,rst setl spell wrap textwidth=70 wrapmargin=5
+		autocmd FileType markdown,org,text,rst setl spell wrap textwidth=70 wrapmargin=5 shiftwidth=2
+		autocmd FileType gitcommit,gitsendmail setl spell
 	augroup END
 
 	augroup Term

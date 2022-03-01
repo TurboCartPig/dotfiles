@@ -2,6 +2,7 @@
 
 local parsers = require "nvim-treesitter.parsers"
 local ts = require "nvim-treesitter.configs"
+local orgmode = require "orgmode"
 
 -- Inverse a list of enabled parsers into a list of disabled parsers.
 local function inverse_enabled(enabled_list)
@@ -11,14 +12,7 @@ local function inverse_enabled(enabled_list)
 end
 
 -- Add install source for org parser
-parsers.get_parser_configs().org = {
-	filetype = "org",
-	install_info = {
-		url = "https://github.com/milisims/tree-sitter-org",
-		revision = "main",
-		files = { "src/parser.c", "src/scanner.cc" },
-	},
-}
+orgmode.setup_ts_grammar()
 
 -- Setup treesitters and treesitters plugins' settings
 ts.setup {
@@ -81,7 +75,8 @@ ts.setup {
 	},
 	highlight = {
 		enable = true,
-		additional_vim_regex_highlighting = { "json" },
+		disable = { "org" },
+		additional_vim_regex_highlighting = { "json", "org" },
 	},
 	indent = {
 		enable = true,

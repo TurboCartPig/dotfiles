@@ -145,6 +145,18 @@ function M.cmp()
 	})
 end
 
+-- Setup lsp_signature -------------------------------------------------------------- {{{1
+
+function M.lsp_signature()
+	local lsp_signature = require "lsp_signature"
+
+	lsp_signature.setup {
+		floating_window = false,
+		hint_enable = true,
+		hint_prefix = "",
+	}
+end
+
 -- Setup gitsigns ------------------------------------------------------------------- {{{1
 
 function M.gitsigns()

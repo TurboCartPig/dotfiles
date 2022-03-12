@@ -106,6 +106,12 @@ return require("packer").startup(function(use)
 	use "b0o/schemastore.nvim"
 	use "simrat39/rust-tools.nvim"
 	use {
+		"ray-x/lsp_signature.nvim",
+		config = function()
+			require("dk.plugins.misc").lsp_signature()
+		end,
+	}
+	use {
 		"jose-elias-alvarez/null-ls.nvim",
 		config = function()
 			require("dk.plugins.misc").null()

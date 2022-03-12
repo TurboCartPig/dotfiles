@@ -277,27 +277,32 @@ function M.null()
 	local null = require "null-ls"
 	local fmt = null.builtins.formatting
 	local diag = null.builtins.diagnostics
-	-- local ca = null.builtins.code_actions
+	local ca = null.builtins.code_actions
 
 	null.setup {
 		sources = {
 			-- Formatters
 			fmt.stylua,
 			fmt.black,
-			fmt.prettier,
+			fmt.isort,
+			-- fmt.prettier,
+			fmt.prettierd,
 			-- fmt.stylelint,
 			fmt.goimports,
 
 			-- Diagnostics
-			diag.selene,
-			-- diag.eslint,
+			diag.gitlint,
+			-- diag.selene,
+			-- diag.mypy,
 			-- diag.stylelint,
 			diag.shellcheck,
 			diag.markdownlint,
+			diag.hadolint,
 			diag.golangci_lint,
 
 			-- Code Actions
-			-- ca.gitsigns,
+			ca.gitsigns,
+			ca.shellcheck,
 		},
 		on_attach = M.on_attach,
 	}

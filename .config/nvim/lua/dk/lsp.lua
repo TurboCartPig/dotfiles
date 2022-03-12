@@ -3,7 +3,7 @@
 
 local lsp_config = require "lspconfig"
 
-M = {}
+local M = {}
 
 -- Format the buffer using either LSP or Neoformat
 function M.format()

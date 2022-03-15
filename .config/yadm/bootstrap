@@ -1,0 +1,48 @@
+#!/bin/bash
+
+# TODO: Include all the stuff
+# TODO: Make idempotent
+
+yadm submodule update --init --recursive
+
+mkdir ~/Projects
+
+# Install yadm?
+
+# Install cli tools
+sudo dnf install neovim zsh fzf exa bat fd-find ripgrep startship ShellCheck wl-clipboard -y
+
+# Install development tools
+sudo dnf in @"Development Tools" @"C Development Tools and Libraries" -y
+sudo dnf install cmake ninja-build clang clang-tools-extra golang cargo rust rustfmt clippy -y
+
+# Install nerd-fonts
+
+# Install github cli
+sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
+sudo dnf install gh -y
+
+# Setup git credential manager
+# Fedora change: https://discussion.fedoraproject.org/t/attention-git-credential-libsecret-for-storing-git-passwords-in-the-gnome-keyring-is-now-an-extra-package/18275?u=rugk
+
+# Install language servers
+
+## Lua language server
+
+### Install dependencies
+sudo dnf in libstdc++-static -y
+
+### Clone and initialize submodules
+git clone https://github.com/sumneko/lua-language-server ~/Projects/lua-language-server
+cd ~/Projects/lua-language-server
+git submodule update --init --recursive
+
+### Build build system
+cd ./3rd/luamake
+./compile/install.sh
+
+### Build binary
+cd ../..
+./3rd/luamake/luamake rebuild
+
+cd ~

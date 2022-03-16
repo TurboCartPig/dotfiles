@@ -68,7 +68,7 @@ vim.opt.showcmd = false
 
 -- spellchecking
 -- NOTE: spell is only set for some filetypes
-vim.opt.spelllang = "en,nb"
+vim.opt.spelllang = "en"
 vim.opt.spelloptions = "camel"
 
 -- TODO: Find a way to cycle through predefined listchars

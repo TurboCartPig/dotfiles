@@ -3,6 +3,7 @@
 # TODO: Include all the stuff
 # TODO: Make idempotent
 
+# Checkout submodules
 yadm submodule update --init --recursive
 
 mkdir ~/Projects
@@ -10,27 +11,44 @@ mkdir ~/Projects
 # Install yadm?
 
 # Install cli tools
-sudo dnf install neovim zsh fzf exa bat fd-find ripgrep startship ShellCheck wl-clipboard -y
+sudo dnf install -y neovim zsh fzf exa bat fd-find ripgrep startship ShellCheck wl-clipboard
 
 # Install development tools
 sudo dnf in @"Development Tools" @"C Development Tools and Libraries" -y
-sudo dnf install cmake ninja-build clang clang-tools-extra golang cargo rust rustfmt clippy -y
+sudo dnf install -y nodejs cmake ninja-build clang clang-tools-extra golang cargo rust rustfmt clippy
 
 # Install nerd-fonts
 
 # Install github cli
 sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
-sudo dnf install gh -y
+sudo dnf install -y gh
 
 # Setup git credential manager
 # Fedora change: https://discussion.fedoraproject.org/t/attention-git-credential-libsecret-for-storing-git-passwords-in-the-gnome-keyring-is-now-an-extra-package/18275?u=rugk
 
+# Install python tools
+sudo dnf install -y poetry black python3-isort
+
+# Install node tools
+npm install --global \
+	tree-sitter-cli \
+	prettier @fsouza/prettierd \
+	eslint eslint_d
+
 # Install language servers
+
+## NPM based ones
+
+npm install --global \
+	typescript typescript-language-server \
+	vscode-langservers-extracted \
+	yaml-language-server \
+	pyright
 
 ## Lua language server
 
 ### Install dependencies
-sudo dnf in libstdc++-static -y
+sudo dnf install -y libstdc++-static
 
 ### Clone and initialize submodules
 git clone https://github.com/sumneko/lua-language-server ~/Projects/lua-language-server

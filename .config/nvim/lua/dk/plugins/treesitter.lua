@@ -76,7 +76,8 @@ ts.setup {
 	highlight = {
 		enable = true,
 		disable = { "org" },
-		additional_vim_regex_highlighting = { "json", "org" },
+		-- additional_vim_regex_highlighting = { "json", "org" },
+		additional_vim_regex_highlighting = true,
 	},
 	indent = {
 		enable = true,

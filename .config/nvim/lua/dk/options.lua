@@ -70,6 +70,7 @@ vim.opt.showcmd = false
 -- NOTE: spell is only set for some filetypes
 vim.opt.spelllang = "en"
 vim.opt.spelloptions = "camel"
+vim.opt.spellcapcheck = ""
 
 -- TODO: Find a way to cycle through predefined listchars
 vim.opt.list = true

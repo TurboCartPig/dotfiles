@@ -92,7 +92,8 @@ export VOLTA_HOME="$HOME/.volta"
 export PATH="$VOLTA_HOME/bin:$PATH"
 
 # Node.js
-export PATH="$PATH:$HOME/.config/node-global/bin"
+export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/config"
+export PATH="$PATH:$HOME/.local/share/npm/bin"
 
 # Haskell
 export PATH="$PATH:$HOME/.local/bin/"
@@ -116,3 +117,5 @@ export GPG_TTY=$(tty)
 # ======
 
 eval $(starship init zsh)
+
+alias luamake=/home/dennis/Projects/lua-language-server/3rd/luamake/luamake

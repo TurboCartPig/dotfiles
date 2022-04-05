@@ -48,23 +48,25 @@ vim.opt.linebreak = true
 vim.opt.textwidth = 120
 vim.opt.wrapmargin = 5
 
--- Gutters/Scrolloffs and stuff
+-- Scrolloff
+vim.opt.scrolloff = 5
+vim.opt.sidescrolloff = 5
+vim.opt.virtualedit = "block"
+
+-- Columns and lines
 vim.opt.numberwidth = 3
 vim.opt.number = true
 vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
--- vim.opt.cmdheight = 2 -- Maybe I don't need this?
-vim.opt.scrolloff = 5
-vim.opt.sidescrolloff = 5
-vim.opt.virtualedit = "block"
+vim.opt.showmode = false -- Redundant by statusline
+vim.opt.showcmd = false
+vim.opt.laststatus = 3 -- Global statusline
 
 -- Visual stuff
 vim.opt.termguicolors = true
 vim.opt.background = "dark"
 vim.opt.guicursor = "n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20,a:Cursor"
 vim.opt.guifont = "FiraCode NF:h14"
-vim.opt.showmode = false -- Redundant by statusline
-vim.opt.showcmd = false
 
 -- spellchecking
 -- NOTE: spell is only set for some filetypes

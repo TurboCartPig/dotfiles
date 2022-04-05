@@ -301,7 +301,7 @@ function M.null()
 			diag.golangci_lint,
 
 			-- Code Actions
-			ca.gitsigns,
+			-- ca.gitsigns,
 			ca.shellcheck,
 		},
 		on_attach = M.on_attach,

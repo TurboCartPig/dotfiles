@@ -69,6 +69,9 @@ vim.cmd [[
 	augroup END
 ]]
 
+-- Use filetype.lua
+vim.g.do_filetype_lua = 1
+
 -- Termdebug settings --------------------------------------------------------------- {{{1
 vim.g.termdebug_popup = 0
 vim.g.termdebug_wide = 163

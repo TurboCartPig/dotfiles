@@ -53,7 +53,7 @@ vim.cmd [[
 	" Plaintext editing
 	augroup Plaintext
 		autocmd!
-		autocmd FileType markdown,org,text,rst setl spell wrap textwidth=70 wrapmargin=5 shiftwidth=2
+		autocmd FileType markdown,org,norg,text,rst setl spell wrap textwidth=70 wrapmargin=5 shiftwidth=2
 		autocmd FileType gitcommit,gitsendmail setl spell
 	augroup END
 
@@ -101,6 +101,19 @@ wk.register {
 	["<leader><leader>"] = { "<cmd>buffer#<cr>", "Switch buffers" },
 	["<s-esc>"] = { "<cmd>close<cr>", "Close window" },
 	["<c-d>"] = { "*<c-o>cgn", "Change multiple of the same word (use dot to replace next word)" },
+	["<leader>ss"] = {
+		function()
+			require("dk.utils").reload()
+		end,
+		"Reload config in-place",
+	},
+	["<leader>s."] = {
+		function()
+			vim.cmd [[luafile %]]
+			print "File reloaded!"
+		end,
+		"Reload this config file in-place",
+	},
 }
 
 -- Various language settings -------------------------------------------------------- {{{1

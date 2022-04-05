@@ -44,19 +44,13 @@ wk.register {
 		function()
 			tb.lsp_references()
 		end,
-		"LSP References",
+		"LSP: References",
 	},
 	["gs"] = {
 		function()
 			tb.lsp_document_symbols()
 		end,
-		"LSP Symbols",
-	},
-	["gll"] = {
-		function()
-			tb.lsp_document_diagnostics()
-		end,
-		"LSP Diagnostics",
+		"LSP: Symbols",
 	},
 	["gh"] = {
 		function()
@@ -68,7 +62,13 @@ wk.register {
 		function()
 			tb.lsp_code_actions()
 		end,
-		"LSP Code Actions",
+		"LSP: Code Actions",
+	},
+	["<c-.>"] = {
+		function()
+			tb.lsp_code_actions()
+		end,
+		"LSP: Code Actions",
 	},
 	["z="] = {
 		function()
@@ -144,4 +144,49 @@ wk.register {
 			"help",
 		},
 	},
+	["<leader>p"] = {
+		name = "Plugins",
+		p = {
+			function()
+				require "dk.plugins"
+				vim.cmd [[PackerSync]]
+			end,
+			"Update",
+		},
+		s = {
+			function()
+				require "dk.plugins"
+				vim.cmd [[PackerStatus]]
+			end,
+			"Status",
+		},
+		i = {
+			function()
+				require "dk.plugins"
+				vim.cmd [[PackerCompile]]
+				vim.cmd [[PackerInstall]]
+			end,
+			"Install",
+		},
+		c = {
+			function()
+				require "dk.plugins"
+				vim.cmd [[PackerCompile]]
+				vim.cmd [[PackerClean]]
+			end,
+			"Clean",
+		},
+	},
 }
+
+-- NOTE: Remember to config the terminal to interpret the keybindings correctly.
+-- Example for Alacritty:
+-- key_bindings:
+--   - {key: F5, mods: Control|Shift, chars: "\x1b[15;6;5~"}
+--   - {key: F5, mods: Control, chars: "\x1b[>15;5~"}
+--   - {key: F5, mods: Shift, chars: "\x1b[15;4~"}
+--   - {key: F5, mods: Alt, chars: "\x1b[15;6~"}
+--   - {key: B, mods: Control|Shift, chars: "\x1b[66;5u"}
+--   - {key: Plus, mods: Control|Shift, chars: "\x1b[43;5u"}
+--   - {key: Equals, mods: Control, chars: "\x1b[61;5u"}
+--   - {key: Period, mods: Control, chars: "\x1b[46;5u"}

@@ -51,7 +51,7 @@ return require("packer").startup(function(use)
 	use "tpope/vim-surround"
 	use "tpope/vim-commentary"
 	use "tpope/vim-repeat"
-	use "tpope/vim-sleuth"
+	-- use "tpope/vim-sleuth"
 	use "airblade/vim-rooter"
 
 	-- Motion(s)

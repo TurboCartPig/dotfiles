@@ -31,46 +31,47 @@ vim.cmd [[
 
 -- Neovim autocmds ------------------------------------------------------------------ {{{1
 
-vim.cmd [[
-	" Formatting overrides
-	augroup FormattingOverrides
-		autocmd!
-		autocmd FileType haskell,cabal,yaml setlocal expandtab shiftwidth=2
-	augroup END
+-- Automatically start in insert mode in terminals.
+-- And turn off the number column in terminal buffers.
+local Term = vim.api.nvim_create_augroup("Term", {})
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+	pattern = "*",
+	command = "setlocal nonumber | startinsert",
+	group = Term,
+})
 
-	" Format on save
-	augroup AutoFormat
-		autocmd!
-		autocmd BufWritePre * lua require("dk.lsp").format()
-	augroup END
+-- Auto-format buffers before writing them using either language server or Neoformat.
+local AutoFormat = vim.api.nvim_create_augroup("AutoFormat", {})
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+	pattern = "*",
+	callback = function()
+		require("dk.lsp").format()
+	end,
+	group = AutoFormat,
+})
 
-	" Override fold methods per language
-	augroup FoldingSettings
-		autocmd!
-		autocmd FileType json setlocal foldmethod=syntax
-	augroup END
-
-	" Plaintext editing
-	augroup Plaintext
-		autocmd!
-		autocmd FileType markdown,org,norg,text,rst setl spell wrap textwidth=70 wrapmargin=5 shiftwidth=2
-		autocmd FileType gitcommit,gitsendmail setl spell
-	augroup END
-
-	augroup Term
-		autocmd!
-		autocmd TermOpen * startinsert
-		autocmd TermOpen * setlocal nonumber
-	augroup END
-
-	augroup DashboardTabline
-		autocmd!
-		autocmd FileType dashboard set showtabline=0 | autocmd WinLeave <buffer> set showtabline=2
-	augroup END
-]]
-
--- Use filetype.lua
-vim.g.do_filetype_lua = 1
+-- Set language specific local options automatically.
+local LanguageOverrides = vim.api.nvim_create_augroup("LanguageOverrides", {})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "haskell", "cabal", "yaml" },
+	command = "setlocal expandtab shiftwidth=2",
+	group = LanguageOverrides,
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = "json",
+	command = "setlocal foldmethod=syntax",
+	group = LanguageOverrides,
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "markdown", "text", "rst", "org", "norg" },
+	command = "setlocal spell wrap textwidth=70 wrapmargin=5 shiftwidth=2",
+	group = LanguageOverrides,
+})
+vim.api.nvim_create_autocmd({ "FileType" }, {
+	pattern = { "gitcommit", "gitsendmail" },
+	command = "setlocal spell",
+	group = LanguageOverrides,
+})
 
 -- Termdebug settings --------------------------------------------------------------- {{{1
 vim.g.termdebug_popup = 0
@@ -78,7 +79,7 @@ vim.g.termdebug_wide = 163
 
 -- Neovim set custom commands ------------------------------------------------------- {{{1
 
-vim.cmd [[command! Pdf hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"]]
+vim.api.nvim_add_user_command("Pdf", [[hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"]], {})
 
 -- Neovim set custom keymappings ---------------------------------------------------- {{{1
 
@@ -208,5 +209,8 @@ vim.g.loaded_rrhelper = 1
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.loaded_netrwSettings = 1
+
+-- Use filetype.lua
+vim.g.do_filetype_lua = 1
 
 -- vi: foldmethod=marker

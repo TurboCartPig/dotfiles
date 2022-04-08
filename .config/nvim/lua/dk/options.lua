@@ -1,9 +1,3 @@
-if vim.g.neovide then
-	vim.g.neovide_refresh_rate = 120
-end
-
--- Neovim set options --------------------------------------------------------------- {{{1
-
 -- Leader
 vim.g.mapleader = " "
 
@@ -56,7 +50,7 @@ vim.opt.virtualedit = "block"
 -- Columns and lines
 vim.opt.numberwidth = 3
 vim.opt.number = true
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = "number"
 vim.opt.cursorline = true
 vim.opt.showmode = false -- Redundant by statusline
 vim.opt.showcmd = false

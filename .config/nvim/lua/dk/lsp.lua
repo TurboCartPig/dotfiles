@@ -60,6 +60,13 @@ function M.on_attach(client, bufnr)
 		vim.lsp.handlers.signature_help,
 		vim.g.lsp_handler_opts
 	)
+-- Override diagnostic signs
+-- FIXME: This can propbably be moved into init.lua
+local signs = { Error = "", Warn = "", Hint = "", Info = "" }
+for type, icon in pairs(signs) do
+	local hl = "DiagnosticSign" .. type
+	local opts = { text = icon, texthl = hl, numhl = hl }
+	vim.fn.sign_define(hl, opts)
 end
 
 -- Setup look of diagnostics

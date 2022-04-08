@@ -326,6 +326,8 @@ function M.null()
 			diag.gitlint,
 			-- diag.selene,
 			-- diag.mypy,
+			diag.pylint,
+			diag.pydocstyle,
 			-- diag.stylelint,
 			diag.shellcheck,
 			diag.markdownlint,

@@ -167,6 +167,7 @@ return require("packer").startup(function(use)
 	}
 	use {
 		"akinsho/nvim-bufferline.lua",
+		branch = "main",
 		requires = "kyazdani42/nvim-web-devicons",
 	}
 	use {

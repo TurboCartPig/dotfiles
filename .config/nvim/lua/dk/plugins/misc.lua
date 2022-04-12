@@ -271,6 +271,38 @@ function M.spellsitter()
 	}
 end
 
+-- Setup toggle-term ---------------------------------------------------------------- {{{1
+
+function M.toggleterm()
+	local toggleterm = require "toggleterm"
+	local wk = require "which-key"
+
+	toggleterm.setup {}
+
+	local Terminal = require("toggleterm.terminal").Terminal
+	local lazygit = Terminal:new { cmd = "lazygit", hidden = true, direction = "float" }
+
+	wk.register {
+		["<leader>t"] = {
+			name = "ToggleTerm",
+			f = {
+				"<cmd>ToggleTerm direction=float<cr>",
+				"Toggle floating terminal",
+			},
+			s = {
+				"<cmd>ToggleTerm<cr>",
+				"Toggle split terminal",
+			},
+			g = {
+				function()
+					lazygit:toggle()
+				end,
+				"Toggle lazygit terminal",
+			},
+		},
+	}
+end
+
 -- Setup null-ls -------------------------------------------------------------------- {{{1
 
 function M.null()

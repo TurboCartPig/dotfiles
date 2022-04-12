@@ -106,7 +106,7 @@ vim.opt.shortmess = "filoOTcF"
 -- Misc
 vim.opt.mouse = "a"
 vim.opt.clipboard = "unnamed,unnamedplus"
-vim.opt.updatetime = 200
+-- vim.opt.updatetime = 200
 vim.opt.viewoptions = "folds,cursor,curdir"
 vim.opt.sessionoptions = "curdir,folds,help,resize,tabpages,winsize"
 vim.opt.printoptions = { syntax = "y", number = "y", left = 0, right = 2, top = 2, bottom = 2 }

@@ -1,4 +1,5 @@
 local wk = require "which-key"
+local ts = require "telescope"
 local tb = require "telescope.builtin"
 
 local map = vim.api.nvim_set_keymap
@@ -85,12 +86,6 @@ wk.register {
 		end,
 		"LSP: Rename symbol",
 	},
-	["<leader>g"] = {
-		function()
-			tb.live_grep()
-		end,
-		"Live Grep",
-	},
 	["<m-p>"] = {
 		function()
 			tb.builtin()
@@ -116,7 +111,7 @@ wk.register {
 	},
 	["<leader>f"] = {
 		name = "Find",
-		p = {
+		c = {
 			function()
 				tb.find_files { cwd = vim.fn.stdpath "config", hidden = true }
 			end,
@@ -127,6 +122,12 @@ wk.register {
 				tb.find_files { hidden = true }
 			end,
 			"files",
+		},
+		l = {
+			function()
+				tb.live_grep()
+			end,
+			"lines (grep)",
 		},
 		r = {
 			function()
@@ -139,6 +140,12 @@ wk.register {
 				tb.help_tags()
 			end,
 			"help",
+		},
+		p = {
+			function()
+				ts.extensions.project.project {}
+			end,
+			"project",
 		},
 	},
 	["<leader>p"] = {

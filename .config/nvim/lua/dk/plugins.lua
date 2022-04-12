@@ -242,6 +242,7 @@ return require("packer").startup(function(use)
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
 			"nvim-telescope/telescope-fzf-native.nvim",
+			"nvim-telescope/telescope-project.nvim",
 		},
 		config = function()
 			require "dk.plugins.telescope"

@@ -1,7 +1,6 @@
 -- Telescope config ----------------------------------------------------------------- {{{1
 
 local telescope = require "telescope"
-local wk = require "which-key"
 
 telescope.setup {
 	defaults = {
@@ -31,7 +30,12 @@ telescope.setup {
 			override_file_sorter = true,
 			case_mode = "smart_case",
 		},
+		project = {
+			base_dirs = { { "~/Projects", max_depth = 2 } },
+			hidden_files = false,
+		},
 	},
 }
 
 telescope.load_extension "fzf"
+telescope.load_extension "project"

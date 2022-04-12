@@ -47,12 +47,19 @@ local cursorhold_updatetime = 200
 local cursorhold_timer = nil
 
 local function cursorhold(event)
+	-- Stop previous timer
 	if cursorhold_timer ~= nil then
 		cursorhold_timer:stop()
 	end
+
+	-- Register defered callback that invokes autocmds
 	cursorhold_timer = vim.defer_fn(function()
+		-- Cancel if vim is exiting
+		if vim.v.exiting ~= vim.NIL then
+			return
+		end
+
 		vim.opt.eventignore:remove(event)
-		-- print event
 		vim.cmd("doautocmd <nomodeline> " .. event)
 		vim.opt.eventignore:append(event)
 	end, cursorhold_updatetime)

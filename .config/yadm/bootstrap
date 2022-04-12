@@ -10,6 +10,9 @@ mkdir ~/Projects
 
 # Install yadm?
 
+# Set gnome settings
+gsettings set org.freedesktop.ibus.panel.emoji hotkey '[]'
+
 # Install cli tools
 sudo dnf install -y neovim zsh fzf exa bat fd-find ripgrep startship ShellCheck wl-clipboard
 

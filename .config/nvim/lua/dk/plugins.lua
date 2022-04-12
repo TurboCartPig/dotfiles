@@ -221,6 +221,7 @@ return require("packer").startup(function(use)
 		end,
 	}
 	use { "junegunn/goyo.vim", cmd = "Goyo" }
+	use { "akinsho/toggleterm.nvim" }
 	use {
 		"sindrets/diffview.nvim",
 		cmd = { "DiffviewOpen", "DiffviewToggleFiles" },

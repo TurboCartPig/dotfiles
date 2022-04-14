@@ -6,6 +6,12 @@ local lsp_settings = require "dk.lsp"
 
 -- Lsp setup ----------------------------------------------------------------------- {{{1
 
+-- Use rust-analyzer from rustup if rustup is installed
+local cmd = "rust-analyzer"
+if vim.fn.executable "rustup" == 1 then
+	cmd = { "rustup", "run", "nightly", "rust-analyzer" }
+end
+
 rust_tools.setup {
 	tools = {
 		autoSetHints = true,
@@ -17,7 +23,7 @@ rust_tools.setup {
 		},
 	},
 	server = {
-		cmd = { "rustup", "run", "nightly", "rust-analyzer" },
+		cmd = cmd,
 		on_attach = lsp_settings.on_attach,
 		settings = {
 			["rust-analyzer"] = {

@@ -61,22 +61,24 @@ npm install --global \
 	yaml-language-server \
 	pyright
 
-## Lua language server
+## Install lua language server from source
+if [ ! -d "$HOME/Projects/lua-language-server/" ]; then
+	### Install dependencies
+	sudo dnf install -y libstdc++-static
 
-### Install dependencies
-sudo dnf install -y libstdc++-static
+	### Clone and initialize submodules
+	git clone https://github.com/sumneko/lua-language-server ~/Projects/lua-language-server
+	cd ~/Projects/lua-language-server || exit
+	git submodule update --init --recursive
 
-### Clone and initialize submodules
-git clone https://github.com/sumneko/lua-language-server ~/Projects/lua-language-server
-cd ~/Projects/lua-language-server
-git submodule update --init --recursive
+	### Build build system
+	cd ./3rd/luamake || exit
+	./compile/install.sh
 
-### Build build system
-cd ./3rd/luamake
-./compile/install.sh
+	### Build binary
+	cd ../..
+	./3rd/luamake/luamake rebuild
 
-### Build binary
-cd ../..
-./3rd/luamake/luamake rebuild
+	cd ~ || exit
+fi
 
-cd ~

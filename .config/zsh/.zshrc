@@ -41,16 +41,17 @@ export HISTSIZE=50000
 export SAVEHIST=50000
 export HISTFILE=~/.cache/zsh/history
 
-# dont store duplicate lines in the history file
+# Don't store duplicate lines in the history file
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt INC_APPEND_HISTORY
-# write and import history on every command
+
+# Write and import history on every command
 # setopt SHARE_HISTORY
 # setopt HIST_FIND_NO_DUPS
 
-# allow comments in command line
+# Allow comments in command line
 setopt INTERACTIVE_COMMENTS
 
 # Aliases
@@ -66,7 +67,7 @@ alias v="nvim"
 alias sv="sudo nvim"
 
 # Lazygit for yadm
-alias ly="lazygit -g ~/.local/share/yadm/repo.git"
+alias ly="lazygit -g ~/.local/share/yadm/repo.git/"
 alias lg="lazygit"
 
 # Environment variables
@@ -79,7 +80,7 @@ export DEFAULT_USER=dennis
 export EDITOR=nvim
 export VISUAL=nvim
 export MANPAGER='nvim +Man!'
-export MANPATH="$MANPATH:/usr/local/man"
+export MANPATH="$MANPATH:/usr/local/man/"
 
 # Cargo rust
 export PATH="$PATH:$HOME/.cargo/bin/"
@@ -100,7 +101,7 @@ export PATH="$PATH:$HOME/.local/bin/"
 export CABAL_DIR="$HOME/.config/cabal"
 export GHCUP_USE_XDG_DIRS="ON"
 
-# Cmake
+# CMake
 export CMAKE_GENERATOR="Ninja"
 export CMAKE_CONFIG_TYPE="Debug"
 export CMAKE_EXPORT_COMPILE_COMMANDS="ON"
@@ -118,4 +119,3 @@ export GPG_TTY=$(tty)
 
 eval $(starship init zsh)
 
-alias luamake=/home/dennis/Projects/lua-language-server/3rd/luamake/luamake

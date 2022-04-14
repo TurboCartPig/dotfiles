@@ -48,9 +48,9 @@ vim.opt.sidescrolloff = 5
 vim.opt.virtualedit = "block"
 
 -- Columns and lines
-vim.opt.numberwidth = 3
+vim.opt.numberwidth = 4
 vim.opt.number = true
-vim.opt.signcolumn = "number"
+vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 vim.opt.showmode = false -- Redundant by statusline
 vim.opt.showcmd = false

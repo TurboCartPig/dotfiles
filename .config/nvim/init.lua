@@ -34,6 +34,6 @@ vim.cmd [[
 
 -- Neovim set custom commands ------------------------------------------------------- {{{1
 
-vim.api.nvim_add_user_command("Pdf", [[hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"]], {})
+vim.api.nvim_create_user_command("Pdf", [[hardcopy > %.ps | !ps2pdf %.ps && rm %.ps && echo "Printing to PDF"]], {})
 
 -- vi: foldmethod=marker

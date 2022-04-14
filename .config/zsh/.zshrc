@@ -89,8 +89,8 @@ export PATH="$PATH:$HOME/.cargo/bin/"
 export PATH="$PATH:$HOME/go/bin/"
 
 # Volta node.js
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
+export VOLTA_HOME="$HOME/.volta/"
+export PATH="$PATH:$VOLTA_HOME/bin/"
 
 # Node.js
 export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/config"

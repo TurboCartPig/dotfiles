@@ -39,7 +39,7 @@ setopt ALWAYS_TO_END
 # History
 export HISTSIZE=50000
 export SAVEHIST=50000
-export HISTFILE=~/.cache/zsh/history
+export HISTFILE="$HOME/.cache/zsh/history"
 
 # Don't store duplicate lines in the history file
 setopt HIST_IGNORE_ALL_DUPS

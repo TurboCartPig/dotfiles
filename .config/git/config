@@ -11,7 +11,13 @@
 
 [core]
 	editor = nvim
-	pager = bat
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
 
 [pull]
 	ff = only
@@ -20,6 +26,9 @@
 	guitool = smerge
 	tool = nvimdiff
 	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
 
 [alias]
 	s = status

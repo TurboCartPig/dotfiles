@@ -119,3 +119,7 @@ export GPG_TTY=$(tty)
 
 eval $(starship init zsh)
 
+# Hooks
+# =====
+
+eval "$(direnv hook zsh)"

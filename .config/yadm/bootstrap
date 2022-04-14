@@ -27,6 +27,13 @@ curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/
 chmod +x ~/.local/bin/rust-analyzer
 
 # Install nerd-fonts
+if [ ! -d "$HOME/Projects/nerd-fonts/" ]; then
+	echo "Installing nerd-fonts"
+	git clone https://github.com/ryanoasis/nerd-fonts ~/Projects/nerd-fonts --depth 1
+	cd ~/Projects/nerd-fonts/ || exit
+	./install.sh
+	cd ~ || exit
+fi
 
 # Install github cli
 sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo

@@ -6,6 +6,9 @@ source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source ~/.config/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
 
+# Add custom completions
+fpath+=~/.config/zsh/completions/
+
 # Autocompletion
 # ==============
 
@@ -76,29 +79,31 @@ alias lg="lazygit"
 # User configuration
 export DEFAULT_USER=dennis
 
+# User installed binaries
+export PATH="$HOME/.local/bin/:$PATH"
+
 # Set neovim as default editor and man pager
 export EDITOR=nvim
 export VISUAL=nvim
 export MANPAGER='nvim +Man!'
 export MANPATH="$MANPATH:/usr/local/man/"
 
-# Cargo rust
-export PATH="$PATH:$HOME/.cargo/bin/"
+# Add cargo installed binaries
+export PATH="$HOME/.cargo/bin/:$PATH"
 
 # Go
-export PATH="$PATH:$HOME/go/bin/"
+export PATH="$HOME/go/bin/:$PATH"
 
 # Volta node.js
 export VOLTA_HOME="$HOME/.volta/"
-export PATH="$PATH:$VOLTA_HOME/bin/"
+export PATH="$VOLTA_HOME/bin/:$PATH"
 
 # Node.js
 export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/config"
-export PATH="$PATH:$HOME/.local/share/npm/bin"
+export PATH="$HOME/.local/share/npm/bin/:$PATH"
 
 # Haskell
-export PATH="$PATH:$HOME/.local/bin/"
-export CABAL_DIR="$HOME/.config/cabal"
+export CABAL_DIR="$HOME/.config/cabal/"
 export GHCUP_USE_XDG_DIRS="ON"
 
 # CMake

@@ -95,8 +95,14 @@ end
 function M.cmp()
 	local cmp = require "cmp"
 	local lspkind = require "lspkind"
+	local luasnip = require "luasnip"
 
 	lspkind.init {}
+
+	local has_words_before = function()
+		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+	end
 
 	cmp.setup {
 		formatting = {
@@ -107,8 +113,7 @@ function M.cmp()
 		},
 		snippet = {
 			expand = function(args)
-				-- TODO: Setup more mappings for vsnip
-				vim.fn["vsnip#anonymous"](args.body)
+				luasnip.lsp_expand(args.body)
 			end,
 		},
 		mapping = {
@@ -119,10 +124,33 @@ function M.cmp()
 				behavior = cmp.ConfirmBehavior.Replace,
 				select = true,
 			},
+			["<cr>"] = cmp.mapping.confirm {
+				behavior = cmp.ConfirmBehavior.Replace,
+				select = true,
+			},
+			["<tab>"] = cmp.mapping(function(fallback)
+				if cmp.visible() then
+					cmp.select_next_item()
+				elseif luasnip.expand_or_jumpable() then
+					luasnip.expand_or_jump()
+				elseif has_words_before() then
+					cmp.complete()
+				else
+					fallback()
+				end
+			end, { "i", "s" }),
+			["<s-tab>"] = cmp.mapping(function()
+				if cmp.visible() then
+					cmp.select_prev_item()
+				elseif luasnip.jumpable(-1) then
+					luasnip.jump(-1)
+				end
+			end, { "i", "s" }),
 		},
 		sources = {
 			{ name = "nvim_lsp" },
 			{ name = "nvim_lua" },
+			{ name = "luasnip" },
 			{ name = "orgmode" },
 			{ name = "buffer" },
 			{ name = "path" },

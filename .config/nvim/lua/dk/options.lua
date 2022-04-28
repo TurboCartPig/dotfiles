@@ -94,7 +94,7 @@ vim.opt.splitbelow = true
 
 -- Window settings
 vim.opt.winheight = 12
-vim.opt.winwidth = 110
+vim.opt.winwidth = 80
 vim.opt.winminheight = 3
 vim.opt.winminwidth = 8
 

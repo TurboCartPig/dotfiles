@@ -126,7 +126,8 @@ return require("packer").startup(function(use)
 			"hrsh7th/cmp-nvim-lua",
 			"hrsh7th/cmp-cmdline",
 			"f3fora/cmp-spell",
-			"hrsh7th/vim-vsnip",
+			"L3MON4D3/LuaSnip",
+			"saadparwaiz1/cmp_luasnip",
 		},
 		config = function()
 			require("dk.plugins.misc").cmp()

@@ -9,6 +9,7 @@ yadm submodule update --init --recursive
 # Make directories
 mkdir ~/Projects
 mkdir ~/.local/bin
+mkdir ~/.config/zsh/completions/
 
 # Set gnome settings
 gsettings set org.freedesktop.ibus.panel.emoji hotkey '[]'
@@ -16,9 +17,18 @@ gsettings set org.freedesktop.ibus.panel.emoji hotkey '[]'
 # Install cli tools
 sudo dnf install -y neovim zsh direnv fzf exa bat git-delta fd-find ripgrep startship ShellCheck wl-clipboard xsel xclip
 
+# Install neovim from source
+# if [ ! -d "$HOME/Projects/neovim" ]; then
+# 	echo "TODO: Install neovim"
+# 	git clone https://github.com/neovim/neovim ~/Projects/neovim
+# fi
+
 # Install development tools
-sudo dnf in @"Development Tools" @"C Development Tools and Libraries" -y
-sudo dnf install -y nodejs cmake ninja-build clang clang-tools-extra golang cargo rust rustfmt clippy
+sudo dnf install @"Development Tools" @"C Development Tools and Libraries" -y
+sudo dnf install -y nodejs cmake ninja-build clang clang-tools-extra golang cargo rust rustfmt clippy hadolint
+
+# TODO: Install rustup
+# TODO: Install sccache
 
 # Install rust-analyzer by downloading latest github release
 # NOTE: This also updates rust-analyzer
@@ -36,8 +46,10 @@ if [ ! -d "$HOME/Projects/nerd-fonts/" ]; then
 fi
 
 # Install github cli
+# FIXME: Auth?
 sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
 sudo dnf install -y gh
+echo "Remember to login to github with 'gh auth login'"
 
 # Setup git credential manager
 # Fedora change: https://discussion.fedoraproject.org/t/attention-git-credential-libsecret-for-storing-git-passwords-in-the-gnome-keyring-is-now-an-extra-package/18275?u=rugk
@@ -48,6 +60,8 @@ sudo dnf install -y poetry black python3-isort
 # Install node tools
 npm install --global \
 	tree-sitter-cli \
+	stylelint \
+	markdownlint-cli \
 	prettier @fsouza/prettierd \
 	eslint eslint_d
 

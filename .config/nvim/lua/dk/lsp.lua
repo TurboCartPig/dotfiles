@@ -67,11 +67,13 @@ local servers = {
 
 local M = {}
 
+local sucky_servers = { "jsonls", "tsserver", "html", "pyright", "gopls", "eslint" }
+
 -- Format the buffer using either LSP or Neoformat
 function M.format()
 	-- Find the first client that can do formatting
 	for _, client in pairs(vim.lsp.get_active_clients()) do
-		if client.server_capabilities.document_formatting then
+		if client.server_capabilities.document_formatting and not vim.tbl_contains(sucky_servers, client.name) then
 			vim.lsp.buf.formatting_sync(nil, 1000)
 			return
 		end
@@ -110,6 +112,7 @@ function M.on_attach(client, bufnr)
 		group = augroup,
 	})
 
+	-- TODO : Rewrite with client.supports_method() api
 	-- Setup lsp-hover on hold
 	-- if client.resolved_capabilities.hover then
 	-- 	vim.cmd "autocmd CursorHold <buffer> lua vim.lsp.buf.hover()"
@@ -120,12 +123,6 @@ function M.on_attach(client, bufnr)
 	-- if client.resolved_capabilities.signature_help then
 	-- 	vim.cmd "autocmd CursorHoldI <buffer> lua vim.lsp.buf.signature_help()"
 	-- end
-
-	-- Disable formatting for servers with sucky formatters
-	if vim.tbl_contains({ "jsonls", "tsserver", "html", "pyright", "gopls" }, client.name) then
-		client.resolved_capabilities.document_formatting = false
-		client.resolved_capabilities.document_range_formatting = false
-	end
 end
 
 -- Setup all the servers with their respective settings

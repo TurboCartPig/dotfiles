@@ -381,5 +381,13 @@ function M.marks()
 	}
 end
 
+-- Setup dressing.nvim ------------------------------------------------------------- {{{1
+
+function M.dressing()
+	local dressing = require "dressing"
+
+	dressing.setup()
+end
+
 -- Return the module
 return M

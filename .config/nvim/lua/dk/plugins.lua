@@ -237,6 +237,12 @@ return require("packer").startup(function(use)
 		end,
 	}
 	use {
+		"stevearc/dressing.nvim",
+		config = function()
+			require("dk.plugins.misc").dressing()
+		end,
+	}
+	use {
 		"nvim-telescope/telescope.nvim",
 		requires = {
 			"kyazdani42/nvim-web-devicons",

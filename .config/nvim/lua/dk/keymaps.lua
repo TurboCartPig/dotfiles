@@ -36,7 +36,7 @@ wk.register {
 	},
 }
 
--- Telescope keymappings
+-- Telescope and LSP keymappings
 wk.register {
 	["gr"] = {
 		function()
@@ -58,13 +58,13 @@ wk.register {
 	},
 	["<leader>c"] = {
 		function()
-			tb.lsp_code_actions()
+			vim.lsp.buf.code_action()
 		end,
 		"LSP: Code Actions",
 	},
 	["<c-.>"] = {
 		function()
-			tb.lsp_code_actions()
+			vim.lsp.buf.code_action()
 		end,
 		"LSP: Code Actions",
 	},

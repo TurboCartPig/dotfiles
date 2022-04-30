@@ -93,9 +93,8 @@ function M.on_attach(client, bufnr)
 
 	-- Setup lightbulb on code_action
 	vim.fn.sign_define("LightBulbSign", { text = "", texthl = "DiagnosticsSignInfo" })
-	-- vim.cmd "autocmd CursorHold,CursorHoldI <buffer> lua require('nvim-lightbulb').update_lightbulb()"
 	vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-		pattern = "<buffer>",
+		buffer = bufnr,
 		callback = function()
 			require("nvim-lightbulb").update_lightbulb()
 		end,
@@ -103,9 +102,8 @@ function M.on_attach(client, bufnr)
 	})
 
 	-- Setup line diagnostic on hover
-	-- vim.cmd [[ autocmd CursorHold <buffer> lua vim.diagnostic.open_float(nil, vim.tbl_extend("error", vim.g.lsp_handler_opts, { scope = "cursor" })) ]]
 	vim.api.nvim_create_autocmd({ "CursorHold" }, {
-		pattern = "<buffer>",
+		buffer = bufnr,
 		callback = function()
 			vim.diagnostic.open_float(nil, vim.tbl_extend("error", handler_opts, { scope = "cursor" }))
 		end,

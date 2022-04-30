@@ -12,10 +12,14 @@ mkdir ~/.local/bin
 mkdir ~/.config/zsh/completions/
 
 # Set gnome settings
+# FIXME: Check if this is a desktop pc first
 gsettings set org.freedesktop.ibus.panel.emoji hotkey '[]'
 
 # Install cli tools
-sudo dnf install -y neovim zsh direnv fzf exa bat git-delta fd-find ripgrep startship ShellCheck wl-clipboard xsel xclip
+sudo dnf install -y \
+	neovim zsh direnv fzf exa bat git-delta \
+	fd-find ripgrep startship ShellCheck \
+	wl-clipboard xsel xclip
 
 # Install neovim from source
 # if [ ! -d "$HOME/Projects/neovim" ]; then
@@ -24,8 +28,14 @@ sudo dnf install -y neovim zsh direnv fzf exa bat git-delta fd-find ripgrep star
 # fi
 
 # Install development tools
+# FIXME: Avoid installing ccache as it conflicts with sccache
 sudo dnf install @"Development Tools" @"C Development Tools and Libraries" -y
-sudo dnf install -y nodejs cmake ninja-build clang clang-tools-extra golang cargo rust rustfmt clippy hadolint
+sudo dnf install -y \
+	nodejs \
+	cmake ninja-build clang clang-tools-extra lldb \
+	golang golang-x-tools-goimports \
+	cargo rust rustfmt rust-source clippy lldb-rust \
+	hadolint
 
 # TODO: Install rustup
 # TODO: Install sccache

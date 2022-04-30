@@ -7,7 +7,7 @@ local lsp_settings = require "dk.lsp"
 -- Lsp setup ----------------------------------------------------------------------- {{{1
 
 -- Use rust-analyzer from rustup if rustup is installed
-local cmd = "rust-analyzer"
+local cmd = { "rust-analyzer" }
 if vim.fn.executable "rustup" == 1 then
 	cmd = { "rustup", "run", "nightly", "rust-analyzer" }
 end

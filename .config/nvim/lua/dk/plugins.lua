@@ -155,6 +155,19 @@ return require("packer").startup(function(use)
 	-- Dap (Debugging)
 	use "mfussenegger/nvim-dap"
 	use "theHamsta/nvim-dap-virtual-text"
+	use {
+		"mfussenegger/nvim-dap-python",
+		config = function()
+			require("dap-python").test_runner = "pytest"
+			require("dap-python").setup "/usr/bin/python"
+		end,
+	}
+	use {
+		"leoluz/nvim-dap-go",
+		config = function()
+			require("dap-go").setup()
+		end,
+	}
 
 	-- Themes
 	use "ryanoasis/vim-devicons"

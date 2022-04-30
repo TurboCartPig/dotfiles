@@ -1,4 +1,5 @@
 local wk = require "which-key"
+local dap = require "dap"
 local ts = require "telescope"
 local tb = require "telescope.builtin"
 
@@ -33,6 +34,43 @@ wk.register {
 			print "File reloaded!"
 		end,
 		"Reload this config file in-place",
+	},
+}
+
+-- DAP keymappings
+wk.register {
+	["<leader>"] = {
+		name = "DAP",
+		["dd"] = {
+			function()
+				dap.toggle_breakpoint()
+			end,
+			"DAP: Toggle breakpoint",
+		},
+		["dc"] = {
+			function()
+				dap.continue()
+			end,
+			"DAP: Continue",
+		},
+		["di"] = {
+			function()
+				dap.step_into()
+			end,
+			"DAP: Step into",
+		},
+		["ds"] = {
+			function()
+				dap.step_over()
+			end,
+			"DAP: Step over",
+		},
+		["dr"] = {
+			function()
+				dap.repl.open()
+			end,
+			"DAP: Open repl",
+		},
 	},
 }
 

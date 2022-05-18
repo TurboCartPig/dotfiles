@@ -1,0 +1,23 @@
+cache: false
+downloader: Curl
+keep-dirs: Never
+key-bindings:
+  changelog:
+    KChar: c
+  down:
+    KChar: j
+  install:
+    KChar: i
+  quit:
+    KChar: q
+  set:
+    KChar: s
+  show-all:
+    KChar: a
+  show-all-tools:
+    KChar: t
+  uninstall:
+    KChar: u
+  up:
+    KChar: k
+meta-cache: 300

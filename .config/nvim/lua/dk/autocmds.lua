@@ -42,6 +42,19 @@ vim.api.nvim_create_autocmd({ "FileType" }, {
 	group = LanguageOverrides,
 })
 
+-- Auto-create folder when saving file
+local MkDir = vim.api.nvim_create_augroup("MkDir", {})
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+	pattern = "*",
+	callback = function()
+		local dir = vim.fn.expand("<afile>:p:h")
+		if vim.fn.isdirectory(dir) == 0 then
+			vim.fn.mkdir(dir, "p")
+		end
+	end,
+	group = MkDir,
+})
+
 -- Fix CursorHold and CursorHoldI by decoupling them from 'updatetime'
 local cursorhold_updatetime = 200
 local cursorhold_timer = nil

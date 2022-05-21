@@ -3,19 +3,14 @@ local dap = require "dap"
 local ts = require "telescope"
 local tb = require "telescope.builtin"
 
-local map = vim.api.nvim_set_keymap
-local opts = {
-	noremap = true,
-}
-
 -- Strong left/right
-map("n", "H", "0", opts)
-map("n", "L", "$", opts)
-map("v", "H", "0", opts)
-map("v", "L", "$", opts)
+vim.keymap.set("n", "H", "0")
+vim.keymap.set("n", "L", "$")
+vim.keymap.set("v", "H", "0")
+vim.keymap.set("v", "L", "$")
 
 -- Move between windows easier in normal mode
-map("n", "<leader>w", "<c-w>", opts)
+vim.keymap.set("n", "<leader>w", "<c-w>")
 
 -- Register keymaps with which-key for completion and descriptions
 wk.register {

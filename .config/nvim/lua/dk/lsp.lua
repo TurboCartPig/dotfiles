@@ -50,6 +50,7 @@ local servers = {
 	},
 	pyright = {},
 	vimls = {},
+	elmls = {},
 	tsserver = {},
 	dockerls = {},
 	html = {},

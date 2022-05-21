@@ -85,6 +85,11 @@ npm install --global \
 	yaml-language-server \
 	pyright
 
+## Elm
+npm install --global \
+	elm elm-test elm-format elm-review \
+	@elm-tooling/elm-language-server
+
 ## Install lua language server from source
 if [ ! -d "$HOME/Projects/lua-language-server/" ]; then
 	### Install dependencies

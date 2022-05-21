@@ -29,6 +29,7 @@ ts.setup {
 		"cuda",
 		"dockerfile",
 		"dot",
+		"elm",
 		"fennel",
 		"fish",
 		"glsl",

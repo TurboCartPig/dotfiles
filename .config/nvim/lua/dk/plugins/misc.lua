@@ -305,7 +305,26 @@ function M.toggleterm()
 	local toggleterm = require "toggleterm"
 	local wk = require "which-key"
 
-	toggleterm.setup {}
+	local function set_keymappings(terminal)
+		-- Only bind these for normal shell terminals, not lazygit for example.
+		if terminal.cmd ~= nil then
+			return
+		end
+
+		-- Make it easier to escape the terminal buffer
+		vim.keymap.set("t", "<c-t>", [[<cmd>ToggleTerm<cr>]], { buffer = true })
+		vim.keymap.set("t", "<esc>", [[<c-\><c-n>]], { buffer = true })
+		vim.keymap.set("t", "<c-w>h", [[<c-\><c-n><c-w>h]], { buffer = true })
+		vim.keymap.set("t", "<c-w>j", [[<c-\><c-n><c-w>j]], { buffer = true })
+		vim.keymap.set("t", "<c-w>k", [[<c-\><c-n><c-w>k]], { buffer = true })
+		vim.keymap.set("t", "<c-w>l", [[<c-\><c-n><c-w>l]], { buffer = true })
+		vim.keymap.set("t", "<c-w><c-w>", [[<c-\><c-n><c-w><c-w>]], { buffer = true })
+	end
+
+	toggleterm.setup {
+		shade_terminals = false,
+		on_open = set_keymappings,
+	}
 
 	local Terminal = require("toggleterm.terminal").Terminal
 	local lazygit = Terminal:new { cmd = "lazygit", hidden = true, direction = "float" }
@@ -318,7 +337,7 @@ function M.toggleterm()
 				"Toggle floating terminal",
 			},
 			s = {
-				"<cmd>ToggleTerm<cr>",
+				"<cmd>ToggleTerm direction=horizontal<cr>",
 				"Toggle split terminal",
 			},
 			g = {
@@ -327,6 +346,10 @@ function M.toggleterm()
 				end,
 				"Toggle lazygit terminal",
 			},
+		},
+		["<c-t>"] = {
+			"<cmd>ToggleTerm direction=horizontal<cr>",
+			"Toggle split terminal",
 		},
 	}
 end

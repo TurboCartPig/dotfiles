@@ -153,19 +153,21 @@ function M.cmp()
 		},
 	}
 
+	-- FIXME: cmdline is broken somehow
+
 	-- Setup cmp in cmdline
-	require("cmp").setup.cmdline(":", {
-		sources = {
-			{ name = "cmdline" },
-		},
-	})
+	-- cmp.setup.cmdline(":", {
+	-- 	sources = {
+	-- 		{ name = "cmdline" },
+	-- 	},
+	-- })
 
 	-- Setup cmp in search
-	require("cmp").setup.cmdline("/", {
-		sources = {
-			{ name = "buffer" },
-		},
-	})
+	-- cmp.setup.cmdline("/", {
+	-- 	sources = {
+	-- 		{ name = "buffer" },
+	-- 	},
+	-- })
 end
 
 -- Setup lsp_signature -------------------------------------------------------------- {{{1

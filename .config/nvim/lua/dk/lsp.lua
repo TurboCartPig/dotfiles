@@ -77,7 +77,6 @@ function M.format()
 	for _, client in pairs(vim.lsp.get_active_clients()) do
 		if client.server_capabilities.document_formatting and not vim.tbl_contains(sucky_servers, client.name) then
 			vim.lsp.buf.formatting_sync(nil, 1000)
-			return
 		end
 	end
 

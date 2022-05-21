@@ -200,7 +200,7 @@ return require("packer").startup(function(use)
 
 	-- Interfaces
 	use {
-		"chentau/marks.nvim",
+		"chentoast/marks.nvim",
 		config = function()
 			require("dk.plugins.misc").marks()
 		end,

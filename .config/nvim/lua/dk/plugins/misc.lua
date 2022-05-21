@@ -97,8 +97,6 @@ function M.cmp()
 	local lspkind = require "lspkind"
 	local luasnip = require "luasnip"
 
-	lspkind.init {}
-
 	local has_words_before = function()
 		local line, col = unpack(vim.api.nvim_win_get_cursor(0))
 		return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
@@ -106,10 +104,7 @@ function M.cmp()
 
 	cmp.setup {
 		formatting = {
-			format = function(entry, vim_item)
-				vim_item.kind = lspkind.presets.default[vim_item.kind]
-				return vim_item
-			end,
+			format = lspkind.cmp_format(),
 		},
 		snippet = {
 			expand = function(args)

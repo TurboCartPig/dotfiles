@@ -14,6 +14,12 @@ fpath+=~/.config/zsh/completions/
 
 autoload -U compinit
 zmodload zsh/complist
+
+# Enable completion caching
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+
+# Autocomplete with interactive menu
 zstyle ':completion:*' menu select
 
 # Include hidden files.
@@ -21,6 +27,10 @@ _comp_options+=(globdots)
 
 # Autocomplete from the middle of the word
 zstyle ':completion:*' matcher-list 'r:|=*' 'l:|=* r:|=*'
+
+# Autocomplete smartcase like vim
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+
 compinit
 
 # Zsh options

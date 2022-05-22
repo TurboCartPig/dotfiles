@@ -171,14 +171,7 @@ return require("packer").startup(function(use)
 
 	-- Themes
 	use "ryanoasis/vim-devicons"
-	use {
-		"NTBBloodbath/galaxyline.nvim",
-		branch = "main",
-		config = function()
-			require "dk.plugins.galaxyline"
-		end,
-		requires = "kyazdani42/nvim-web-devicons",
-	}
+	use "kyazdani42/nvim-web-devicons"
 	use {
 		"akinsho/nvim-bufferline.lua",
 		branch = "main",

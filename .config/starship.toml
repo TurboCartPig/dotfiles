@@ -5,14 +5,24 @@ $directory\
 $git_branch\
 $git_state\
 $git_status\
+$docker_context\
 $rust\
 $python\
-$package\
-$cmd_duration\
+$golang\
+$nodejs\
 $jobs\
+$cmd_duration\
 $line_break\
 $character\
 """
 
-scan_timeout = 20
+scan_timeout = 50 # ms
+command_timeout = 150 # ms
+
+[fill]
+symbol = "─"
+style = "bold green"
+
+[character]
+success_symbol = "[➜ ](bold green)"
 

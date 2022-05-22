@@ -7,6 +7,7 @@ require "dk.dap"
 require "dk.globals"
 require "dk.autocmds"
 require "dk.keymaps"
+require "dk.statusline"
 
 -- Neovim set abbreviations --------------------------------------------------------- {{{1
 

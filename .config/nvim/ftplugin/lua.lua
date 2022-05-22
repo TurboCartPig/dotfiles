@@ -43,7 +43,8 @@ lsp_config.sumneko_lua.setup {
 				path = vim.split(package.path, ";"),
 			},
 			completion = {
-				keywordSnippet = "Disable",
+				keywordSnippet = "Replace",
+				callSnippet = "Replace",
 			},
 			diagnostics = {
 				enable = true,

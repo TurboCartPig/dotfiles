@@ -62,12 +62,22 @@ local function make_component(group, status, ...)
 end
 
 -- Get the current vim mode
-M.mode = function()
-	-- Update the highlight group with the color associated with this mode
-	local m = vim.api.nvim_get_mode().mode
-	vim.api.nvim_set_hl(0, hi_groups.mode, { fg = mode_colors[m] })
+M.mode = function(self)
+	if self.flags.mode then
+		self.flags.mode = false
 
-	return make_component(hi_groups.mode, "")
+		-- Update the highlight group with the color associated with this mode
+		local m = vim.api.nvim_get_mode().mode
+		vim.api.nvim_set_hl(0, hi_groups.mode, { fg = mode_colors[m], bg = "#504945" })
+
+		self.cache.mode = table.concat {
+			make_component("GruvboxBg2", " "),
+			make_component(hi_groups.mode, ""),
+			make_component("GruvboxBg2", " "),
+		}
+	end
+
+	return self.cache.mode
 end
 
 -- Get the name of the file attached to this buffer
@@ -76,55 +86,68 @@ M.filename = function()
 end
 
 -- Get an icon representing the filetype
-M.filetype = function()
-	local filename = vim.fn.expand "%:t"
-	local fileext = vim.fn.expand "%:e"
-	local icon, group = devicons.get_icon(filename, fileext, { default = true })
+M.filetype = function(self)
+	if self.flags.filetype then
+		self.flags.filetype = false -- Unflag
 
-	return make_component(group, icon)
+		local filename = vim.fn.expand "%:t"
+		local fileext = vim.fn.expand "%:e"
+		local icon, group = devicons.get_icon(filename, fileext, { default = true })
+
+		self.cache.filetype = make_component(group, icon)
+	end
+
+	return self.cache.filetype -- Return cached value
 end
 
 -- Get change counts from git
-M.git = function()
-	local signs = vim.tbl_extend(
-		"keep",
-		vim.b.gitsigns_status_dict or {},
-		{ head = "", added = 0, changed = 0, removed = 0 }
-	)
+M.git = function(self)
+	if self.flags.git then
+		self.flags.git = false
 
-	return string.format(
-		"%s%s%s%s",
-		signs.added > 0 and make_component(hi_groups.add, "  %s", signs.added) or "",
-		signs.changed > 0 and make_component(hi_groups.change, " 柳%s", signs.changed) or "",
-		signs.removed > 0 and make_component(hi_groups.remove, "  %s", signs.removed) or "",
-		make_component(hi_groups.filename, "  %s", (signs.head ~= "" and signs.head or "DETACHED"))
-	)
+		local signs = vim.tbl_extend(
+			"keep",
+			vim.b.gitsigns_status_dict or {},
+			{ head = "", added = 0, changed = 0, removed = 0 }
+		)
+
+		self.cache.git = table.concat {
+			signs.added > 0 and make_component(hi_groups.add, "  %s", signs.added) or "",
+			signs.changed > 0 and make_component(hi_groups.change, " 柳%s", signs.changed) or "",
+			signs.removed > 0 and make_component(hi_groups.remove, "  %s", signs.removed) or "",
+			make_component(hi_groups.filename, "  %s", (signs.head ~= "" and signs.head or "DETACHED")),
+		}
+	end
+
+	return self.cache.git
 end
 
 -- Get LSP diagnostic counts
-M.lsp = function()
-	local diagnostics = {}
-	local levels = {
-		errors = vim.diagnostic.severity.ERROR,
-		warnings = vim.diagnostic.severity.WARN,
-		info = vim.diagnostic.severity.INFO,
-		hints = vim.diagnostic.severity.HINT,
-	}
+M.lsp = function(self)
+	if self.flags.lsp then
+		self.flags.lsp = false
+		local diagnostics = {}
+		local levels = {
+			errors = vim.diagnostic.severity.ERROR,
+			warnings = vim.diagnostic.severity.WARN,
+			info = vim.diagnostic.severity.INFO,
+			hints = vim.diagnostic.severity.HINT,
+		}
 
-	for k, level in pairs(levels) do
-		diagnostics[k] = #vim.diagnostic.get(0, { severity = level })
+		for k, level in pairs(levels) do
+			diagnostics[k] = #vim.diagnostic.get(0, { severity = level })
+		end
+
+		self.cache.lsp = table.concat {
+			diagnostics.errors > 0 and make_component(hi_groups.error, "%s  ", diagnostics.errors) or "",
+			diagnostics.warnings > 0 and make_component(hi_groups.warning, "%s  ", diagnostics.warnings) or "",
+			diagnostics.info > 0 and make_component(hi_groups.information, "%s  ", diagnostics.info) or "",
+			diagnostics.hints > 0 and make_component(hi_groups.hint, "%s  ", diagnostics.hints) or "",
+		}
 	end
 
-	return string.format(
-		"%s%s%s%s",
-		diagnostics.errors > 0 and make_component(hi_groups.error, " %s ", diagnostics.errors) or "",
-		diagnostics.warnings > 0 and make_component(hi_groups.warning, " %s ", diagnostics.warnings) or "",
-		diagnostics.info > 0 and make_component(hi_groups.information, " %s ", diagnostics.info) or "",
-		diagnostics.hints > 0 and make_component(hi_groups.hint, " %s ", diagnostics.hints) or ""
-	)
+	return self.cache.lsp
 end
-
--- local hello = " Hello "
 
 -- Get LSP progress
 M.lsp_progress = function()
@@ -156,34 +179,88 @@ M.dap = function()
 end
 
 -- Assemble the statusline
---
--- TODO: Fix centering of filename
--- I should calculate where the filename component should start and add paddingto
--- the components before that to fill out the distance, but no more.
 M.statusline = function(self)
+	local ignore = false
+	if vim.bo.filetype == "toggleterm" then
+		ignore = true
+	end
+
 	return table.concat {
-		" ",
-		self.mode(),
+		self:mode(),
+		not ignore and self.filename() or "",
+		not ignore and " " or "",
+		not ignore and self:filetype() or "",
 		" ",
 		self.lsp_progress(),
-		self.lsp(),
+		self:lsp(),
 		self.dap(),
 		"%=",
-		self.filetype(),
-		" ",
-		self.filename(),
-		"%=",
-		self.git(),
+		self:git(),
 		" ",
 	}
 end
 
+-- Cache of previously evaluated statusline components
+-- Some statusline components are memoized for performance
+M.cache = {}
+
+-- Flags indicating if a statusline component needs to be updated
+M.flags = {
+	mode = true,
+	filename = true,
+	filetype = true,
+	git = true,
+	lsp = true,
+	lsp_progress = true,
+	dap = true,
+}
+
+-- Setup autocmds for flagging that components need to be updated
+local g = vim.api.nvim_create_augroup("Statusline", {})
+vim.api.nvim_create_autocmd("ModeChanged", {
+	pattern = "*",
+	callback = function()
+		M.flags.mode = true
+	end,
+	group = g,
+})
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufEnter" }, {
+	pattern = "*",
+	callback = function()
+		M.flags.filename = true
+	end,
+	group = g,
+})
+vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+	pattern = "*",
+	callback = function()
+		M.flags.filetype = true
+	end,
+	group = g,
+})
+vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "BufNewFile", "BufEnter" }, {
+	pattern = "*",
+	callback = function()
+		M.flags.git = true
+	end,
+	group = g,
+})
+vim.api.nvim_create_autocmd("DiagnosticChanged", {
+	pattern = "*",
+	callback = function()
+		M.flags.lsp = true
+	end,
+	group = g,
+})
+
+-- Globally available statusline function with state
 Statusline = setmetatable(M, {
 	__call = function(statusline)
 		return statusline:statusline()
 	end,
 })
 
+-- Set the statusline globally
 vim.opt.statusline = "%!v:lua.Statusline()"
 
 return M

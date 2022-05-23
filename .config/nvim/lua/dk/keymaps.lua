@@ -113,11 +113,11 @@ wk.register {
 		end,
 		"Find files",
 	},
-	["<leader>r"] = {
+	R = {
 		function()
-			vim.lsp.buf.rename()
+			require("dk.lsp").rename()
 		end,
-		"LSP: Rename symbol",
+		"Rename symbol",
 	},
 	["<m-p>"] = {
 		function()

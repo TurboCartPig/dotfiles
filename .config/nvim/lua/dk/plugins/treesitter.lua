@@ -139,12 +139,6 @@ ts.setup {
 		highlight_current_scope = {
 			enable = false,
 		},
-		smart_rename = {
-			enable = true,
-			keymaps = {
-				smart_rename = "R",
-			},
-		},
 		navigation = {
 			enable = true,
 			keymaps = {

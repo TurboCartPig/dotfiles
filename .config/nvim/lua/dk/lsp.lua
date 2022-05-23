@@ -90,6 +90,19 @@ function M.format()
 	vim.cmd "Neoformat"
 end
 
+-- Rename symbol under cursor, either with LSP or Treesitter
+function M.rename()
+	for _, client in pairs(vim.lsp.get_active_clients()) do
+		if client.supports_method "textDocument/rename" and not vim.tbl_contains(sucky_servers, client.name) then
+			vim.lsp.buf.rename()
+			return
+		end
+	end
+
+	-- TODO: Check if treesitter supports rename
+	require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
+end
+
 -- Run this every time a language server attaches to a buffer
 function M.on_attach(client, bufnr)
 	-- Auto-clearing autocmd group. Unique for this client and buffer

@@ -75,7 +75,7 @@ local servers = {
 
 local M = {}
 
-local sucky_servers = { "jsonls", "tsserver", "html", "pyright", "gopls", "eslint" }
+local sucky_servers = { "jsonls", "tsserver", "html", "pyright", "gopls" }
 
 -- Format the buffer using either LSP or Neoformat
 function M.format()

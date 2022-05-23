@@ -150,23 +150,27 @@ M.lsp = function(self)
 end
 
 -- Get LSP progress
-M.lsp_progress = function()
-	local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
-	local ms = vim.loop.hrtime() / 1000000
-	local frame = (math.floor(ms / 240) % #spinners) + 1
+M.lsp_progress = function(self)
+	if self.flags.lsp_progress then
+		local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+		local ms = vim.loop.hrtime() / 1000000
+		local frame = (math.floor(ms / 240) % #spinners) + 1
 
-	local msgs = vim.lsp.util.get_progress_messages()
+		local msgs = vim.lsp.util.get_progress_messages()
 
-	for _, msg in pairs(msgs) do
-		if msg.percentage or 0 < 100 then
-			return make_component(
-				hi_groups.filename,
-				"%s %s: %d%%%% ",
-				spinners[frame],
-				msg.title or "LSP",
-				msg.percentage or 0
-			)
+		for _, msg in pairs(msgs) do
+			if msg.percentage or 0 < 100 then
+				return make_component(
+					hi_groups.filename,
+					"%s %s: %d%%%% ",
+					spinners[frame],
+					msg.title or "LSP",
+					msg.percentage or 0
+				)
+			end
 		end
+
+		self.flags.lsp_progress = false
 	end
 
 	return ""
@@ -191,7 +195,7 @@ M.statusline = function(self)
 		not ignore and " " or "",
 		not ignore and self:filetype() or "",
 		" ",
-		self.lsp_progress(),
+		self:lsp_progress(),
 		self:lsp(),
 		self.dap(),
 		"%=",
@@ -210,9 +214,9 @@ M.flags = {
 	filename = true,
 	filetype = true,
 	git = true,
-	lsp = true,
-	lsp_progress = true,
-	dap = true,
+	lsp = false,
+	lsp_progress = false,
+	dap = false,
 }
 
 -- Setup autocmds for flagging that components need to be updated
@@ -249,6 +253,13 @@ vim.api.nvim_create_autocmd("DiagnosticChanged", {
 	pattern = "*",
 	callback = function()
 		M.flags.lsp = true
+	end,
+	group = g,
+})
+vim.api.nvim_create_autocmd("User", {
+	pattern = "LspProgressUpdate",
+	callback = function()
+		M.flags.lsp_progress = true
 	end,
 	group = g,
 })

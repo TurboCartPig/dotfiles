@@ -51,7 +51,13 @@ local servers = {
 	pyright = {},
 	vimls = {},
 	elmls = {},
-	tsserver = {},
+	tsserver = {
+		settings = {
+			completions = {
+				completeFunctionCalls = true,
+			},
+		},
+	},
 	dockerls = {},
 	html = {},
 	cssls = {},

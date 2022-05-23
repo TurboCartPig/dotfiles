@@ -137,20 +137,21 @@ return require("packer").startup(function(use)
 	-- Treesitter
 	use {
 		"nvim-treesitter/nvim-treesitter",
+		requires = {
+			"nvim-treesitter/nvim-treesitter-refactor",
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			"nvim-treesitter/playground",
+			"p00f/nvim-ts-rainbow",
+			"JoosepAlviste/nvim-ts-context-commentstring",
+			"windwp/nvim-ts-autotag",
+			"lewis6991/spellsitter.nvim",
+			"romgrk/nvim-treesitter-context",
+		},
 		run = ":TSUpdate",
 		config = function()
 			require "dk.plugins.treesitter"
 		end,
 	}
-	use "nvim-treesitter/nvim-treesitter-refactor"
-	use "nvim-treesitter/nvim-treesitter-textobjects"
-	use "nvim-treesitter/playground"
-	use "p00f/nvim-ts-rainbow"
-	use "JoosepAlviste/nvim-ts-context-commentstring"
-	use "windwp/nvim-ts-autotag"
-	use "lewis6991/spellsitter.nvim"
-	-- FIXME: Broken on windows due to upstream bug neovim/neovim#15063
-	-- use "romgrk/nvim-treesitter-context"
 
 	-- Dap (Debugging)
 	use "mfussenegger/nvim-dap"

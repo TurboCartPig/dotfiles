@@ -3,6 +3,7 @@
 local parsers = require "nvim-treesitter.parsers"
 local ts = require "nvim-treesitter.configs"
 local orgmode = require "orgmode"
+local context = require "treesitter-context"
 
 -- Inverse a list of enabled parsers into a list of disabled parsers.
 local function inverse_enabled(enabled_list)
@@ -13,6 +14,12 @@ end
 
 -- Add install source for org parser
 orgmode.setup_ts_grammar()
+
+-- Enable ts context
+context.setup {
+	enable = true,
+	max_lines = 2,
+}
 
 -- Setup treesitters and treesitters plugins' settings
 ts.setup {

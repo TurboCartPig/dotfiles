@@ -16,18 +16,18 @@ get_github_release_name () {
 yadm submodule update --init --recursive
 
 # Make directories
-mkdir ~/Projects
-mkdir ~/.local/bin
-mkdir ~/.config/zsh/completions/
+mkdir -p ~/Projects
+mkdir -p ~/.local/bin
+mkdir -p ~/.config/zsh/completions/
 
 # Set gnome settings
-# FIXME: Check if this is a desktop pc first
-gsettings set org.freedesktop.ibus.panel.emoji hotkey '[]'
+# shellcheck disable=2086
+[ -v $DISPLAY ] && gsettings set org.freedesktop.ibus.panel.emoji hotkey '[]'
 
 # Install cli tools
 sudo dnf install -y \
 	neovim zsh direnv fzf exa bat git-delta \
-	fd-find ripgrep startship ShellCheck \
+	fd-find ripgrep jq starship ShellCheck \
 	wl-clipboard xsel xclip
 
 # Install neovim from source
@@ -37,23 +37,17 @@ sudo dnf install -y \
 # fi
 
 # Install development tools
-# FIXME: Avoid installing ccache as it conflicts with sccache
 sudo dnf install @"Development Tools" @"C Development Tools and Libraries" -y
+sudo dnf remove ccache
 sudo dnf install -y \
 	nodejs \
 	cmake ninja-build clang clang-tools-extra lldb \
 	golang golang-x-tools-goimports \
-	cargo rust rustfmt rust-source clippy lldb-rust \
+	cargo rust rustfmt rust-src clippy lldb-rust \
 	hadolint
 
 # TODO: Install rustup
 # TODO: Install sccache
-
-# Install rust-analyzer by downloading latest github release
-# NOTE: This also updates rust-analyzer
-curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz \
-	| gunzip -c - > ~/.local/bin/rust-analyzer
-chmod +x ~/.local/bin/rust-analyzer
 
 # Install nerd-fonts
 if [ ! -d "$HOME/Projects/nerd-fonts/" ]; then
@@ -65,7 +59,6 @@ if [ ! -d "$HOME/Projects/nerd-fonts/" ]; then
 fi
 
 # Install github cli
-# FIXME: Auth?
 sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo
 sudo dnf install -y gh
 echo "Remember to login to github with 'gh auth login'"
@@ -98,6 +91,12 @@ npm install --global \
 	elm elm-test elm-format elm-review \
 	@elm-tooling/elm-language-server
 
+## Rust
+# Install rust-analyzer by downloading latest github release
+# NOTE: This also updates rust-analyzer
+curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz \
+	| gunzip -c - > ~/.local/bin/rust-analyzer
+chmod +x ~/.local/bin/rust-analyzer
 
 ## Lua
 # Install pre-compiled binaries from github

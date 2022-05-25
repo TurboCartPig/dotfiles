@@ -3,6 +3,15 @@
 # TODO: Include all the stuff
 # TODO: Make idempotent
 
+# Get name of the latest release for a given github repo
+get_github_release_name () {
+	name=$(curl \
+		-H "Accept: application/vnd.github.v3+json" \
+		"https://api.github.com/repos/$1/$2/releases/latest" \
+		| jq '.name')
+	echo "$name"
+}
+
 # Checkout submodules
 yadm submodule update --init --recursive
 
@@ -78,7 +87,6 @@ npm install --global \
 # Install language servers
 
 ## NPM based ones
-
 npm install --global \
 	typescript typescript-language-server \
 	vscode-langservers-extracted \
@@ -90,24 +98,14 @@ npm install --global \
 	elm elm-test elm-format elm-review \
 	@elm-tooling/elm-language-server
 
-## Install lua language server from source
-if [ ! -d "$HOME/Projects/lua-language-server/" ]; then
-	### Install dependencies
-	sudo dnf install -y libstdc++-static
 
-	### Clone and initialize submodules
-	git clone https://github.com/sumneko/lua-language-server ~/Projects/lua-language-server
-	cd ~/Projects/lua-language-server || exit
-	git submodule update --init --recursive
+## Lua
+# Install pre-compiled binaries from github
+mkdir ~/.local/opt/lua-language-server/ || rm -rf ~/.local/opt/lua-language-server/*
+latest=$(get_github_release_name "sumneko" "lua-language-server")
 
-	### Build build system
-	cd ./3rd/luamake || exit
-	./compile/install.sh
-
-	### Build binary
-	cd ../..
-	./3rd/luamake/luamake rebuild
-
-	cd ~ || exit
-fi
+# shellcheck disable=2086
+curl -L https://github.com/sumneko/lua-language-server/releases/latest/download/lua-language-server-${latest}-linux-x64.tar.gz \
+	| tar -xzf - --directory ~/.local/opt/lua-language-server
+chmod +x ~/.local/opt/lua-language-server/bin/lua-language-server
 

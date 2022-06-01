@@ -258,59 +258,64 @@ M.flags = {
 	treesitter = true,
 }
 
--- Setup autocmds for flagging that components need to be updated
-local g = vim.api.nvim_create_augroup("Statusline", {})
-vim.api.nvim_create_autocmd("ModeChanged", {
-	pattern = "*",
-	callback = function()
-		M.flags.mode = true
-	end,
-	group = g,
-})
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufEnter" }, {
-	pattern = "*",
-	callback = function()
-		M.flags.filename = true
-	end,
-	group = g,
-})
-vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
-	pattern = "*",
-	callback = function()
-		M.flags.filetype = true
-	end,
-	group = g,
-})
-vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "BufNewFile", "BufEnter" }, {
-	pattern = "*",
-	callback = function()
-		M.flags.git = true
-	end,
-	group = g,
-})
-vim.api.nvim_create_autocmd("DiagnosticChanged", {
-	pattern = "*",
-	callback = function()
-		M.flags.lsp = true
-	end,
-	group = g,
-})
-vim.api.nvim_create_autocmd("User", {
-	pattern = "LspProgressUpdate",
-	callback = function()
-		M.flags.lsp_progress = true
-	end,
-	group = g,
-})
+--- Setup the statusline
+function M:setup()
+	-- Setup autocmds for flagging that components need to be updated
+	local g = vim.api.nvim_create_augroup("Statusline", {})
+	vim.api.nvim_create_autocmd("ModeChanged", {
+		pattern = "*",
+		callback = function()
+			M.flags.mode = true
+		end,
+		group = g,
+	})
+	vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile", "BufEnter" }, {
+		pattern = "*",
+		callback = function()
+			M.flags.filename = true
+		end,
+		group = g,
+	})
+	vim.api.nvim_create_autocmd({ "FileType", "BufEnter" }, {
+		pattern = "*",
+		callback = function()
+			M.flags.filetype = true
+		end,
+		group = g,
+	})
+	vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "BufNewFile", "BufEnter" }, {
+		pattern = "*",
+		callback = function()
+			M.flags.git = true
+		end,
+		group = g,
+	})
+	vim.api.nvim_create_autocmd("DiagnosticChanged", {
+		pattern = "*",
+		callback = function()
+			M.flags.lsp = true
+		end,
+		group = g,
+	})
+	vim.api.nvim_create_autocmd("User", {
+		pattern = "LspProgressUpdate",
+		callback = function()
+			M.flags.lsp_progress = true
+		end,
+		group = g,
+	})
 
--- Globally available statusline function with state
-Statusline = setmetatable(M, {
-	__call = function(statusline)
-		return statusline:statusline()
-	end,
-})
+	-- Globally available statusline function with state
+	Statusline = setmetatable(M, {
+		__call = function(statusline)
+			return statusline:statusline()
+		end,
+	})
 
--- Set the statusline globally
-vim.opt.statusline = "%!v:lua.Statusline()"
+	-- Set the statusline globally
+	vim.opt.statusline = "%!v:lua.Statusline()"
+end
+
+M:setup()
 
 return M

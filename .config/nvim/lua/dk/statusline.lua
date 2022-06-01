@@ -16,6 +16,8 @@ local colors = {
 	red = "#fb4632",
 }
 
+-- Mode to mode color mappings
+--- @type table<string, string>
 local mode_colors = setmetatable({
 	n = colors.red,
 	i = colors.green,
@@ -43,6 +45,8 @@ local mode_colors = setmetatable({
 	end,
 })
 
+-- Component name to highlight group mapping
+--- @type table<string, string>
 local hi_groups = {
 	mode = "Mode",
 	filename = "Normal",
@@ -57,13 +61,18 @@ local hi_groups = {
 
 local M = {}
 
--- Make a statusline component
+--- Make a statusline component
+--- @param group string Highlight group to use
+--- @param status string String containing status, can contain formatting groups
+--- @vararg string Optional params used for formatting
+--- @return string #Statusline component
 local function make_component(group, status, ...)
 	return string.format("%s%s#%s%s", "%#", group, string.format(status, ...), "%*")
 end
 
--- Get the current vim mode
-M.mode = function(self)
+--- Mode statusline component displays vim mode
+--- @return string
+function M:mode()
 	if self.flags.mode then
 		self.flags.mode = false
 
@@ -72,22 +81,24 @@ M.mode = function(self)
 		vim.api.nvim_set_hl(0, hi_groups.mode, { fg = mode_colors[m], bg = "#504945" })
 
 		self.cache.mode = table.concat {
-			make_component("GruvboxBg2", " "),
+			make_component("GruvboxBg2", ""),
 			make_component(hi_groups.mode, ""),
-			make_component("GruvboxBg2", " "),
+			make_component("GruvboxBg2", ""),
 		}
 	end
 
 	return self.cache.mode
 end
 
--- Get the name of the file attached to this buffer
-M.filename = function()
+--- Filename statusline component displays buffer filename
+--- @return string
+function M:filename()
 	return make_component(hi_groups.filename, "%s", "%t")
 end
 
--- Get an icon representing the filetype
-M.filetype = function(self)
+--- Filetype statusline component displays buffer filetype
+--- @return string
+function M:filetype()
 	if self.flags.filetype then
 		self.flags.filetype = false -- Unflag
 
@@ -101,8 +112,24 @@ M.filetype = function(self)
 	return self.cache.filetype -- Return cached value
 end
 
--- Get change counts from git
-M.git = function(self)
+--- File statusline component displays filename and filetype together
+--- @return string
+function M:file()
+	if vim.bo.filetype == "toggleterm" then
+		return ""
+	end
+
+	return table.concat {
+		self:filename(),
+		" ",
+		self:filetype(),
+	}
+end
+
+--- Git statusline component displays git change counts and cheched out branch.
+--- Depends on gitsigns.
+--- @return string
+function M:git()
 	if self.flags.git then
 		self.flags.git = false
 
@@ -123,8 +150,9 @@ M.git = function(self)
 	return self.cache.git
 end
 
--- Get LSP diagnostic counts
-M.lsp = function(self)
+--- LSP statusline component displays LSP diagnostic counts
+--- @return string
+function M:lsp()
 	if self.flags.lsp then
 		self.flags.lsp = false
 		local diagnostics = {}
@@ -150,8 +178,9 @@ M.lsp = function(self)
 	return self.cache.lsp
 end
 
--- Get LSP progress
-M.lsp_progress = function(self)
+--- LSP progress statusline component displays LSP progress messages
+--- @return string
+function M:lsp_progress()
 	if self.flags.lsp_progress then
 		local spinners = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
 		local ms = vim.loop.hrtime() / 1000000
@@ -177,18 +206,13 @@ M.lsp_progress = function(self)
 	return ""
 end
 
--- Get DAP status
-M.dap = function()
+--- DAP statusline component displays DAP status
+--- @return string
+function M:dap()
 	local status = dap.status()
 	return status ~= "" and make_component(hi_groups.filename, "DAP: %s", status) or ""
 end
 
--- Assemble the statusline
-M.statusline = function(self)
-	local ignore = false
-	if vim.bo.filetype == "toggleterm" then
-		ignore = true
-	end
 --- Treesitter statusline component displays treesitter node,
 --- or what function/class we are inside of.
 --- @return string
@@ -197,15 +221,18 @@ function M:treesitter()
 	return make_component(hi_groups.filename, "%s ", status)
 end
 
+--- Assemble the statusline
+--- @return string
+function M:statusline()
 	return table.concat {
+		" ",
 		self:mode(),
-		not ignore and self.filename() or "",
-		not ignore and " " or "",
-		not ignore and self:filetype() or "",
+		" ",
+		self:file(),
 		" ",
 		self:lsp_progress(),
 		self:lsp(),
-		self.dap(),
+		self:dap(),
 		"%=",
 		-- self.treesitter(),
 		self:git(),
@@ -215,17 +242,19 @@ end
 
 -- Cache of previously evaluated statusline components
 -- Some statusline components are memoized for performance
+--- @type table<string, string>
 M.cache = {}
 
 -- Flags indicating if a statusline component needs to be updated
+--- @type table<string, boolean>
 M.flags = {
 	mode = true,
 	filename = true,
 	filetype = true,
 	git = true,
-	lsp = false,
-	lsp_progress = false,
-	dap = false,
+	lsp = true,
+	lsp_progress = true,
+	dap = true,
 	treesitter = true,
 }
 

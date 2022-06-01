@@ -1,5 +1,6 @@
 local devicons = require "nvim-web-devicons"
 local dap = require "dap"
+local ts = require "nvim-treesitter"
 
 local colors = {
 	bg = "#292929",
@@ -188,6 +189,13 @@ M.statusline = function(self)
 	if vim.bo.filetype == "toggleterm" then
 		ignore = true
 	end
+--- Treesitter statusline component displays treesitter node,
+--- or what function/class we are inside of.
+--- @return string
+function M:treesitter()
+	local status = ts.statusline { indicator_size = 40 } or ""
+	return make_component(hi_groups.filename, "%s ", status)
+end
 
 	return table.concat {
 		self:mode(),
@@ -199,6 +207,7 @@ M.statusline = function(self)
 		self:lsp(),
 		self.dap(),
 		"%=",
+		-- self.treesitter(),
 		self:git(),
 		" ",
 	}
@@ -217,6 +226,7 @@ M.flags = {
 	lsp = false,
 	lsp_progress = false,
 	dap = false,
+	treesitter = true,
 }
 
 -- Setup autocmds for flagging that components need to be updated

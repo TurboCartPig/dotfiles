@@ -79,15 +79,8 @@ local sucky_servers = { "jsonls", "tsserver", "html", "pyright", "gopls" }
 
 -- Format the buffer using either LSP or Neoformat
 function M.format()
-	-- Find the first client that can do formatting
-	for _, client in pairs(vim.lsp.get_active_clients()) do
-		if client.supports_method "textDocument/formatting" and not vim.tbl_contains(sucky_servers, client.name) then
-			vim.lsp.buf.formatting_sync(nil, 1000)
-		end
-	end
 
-	-- Else sync with neoformat
-	vim.cmd "Neoformat"
+	vim.lsp.buf.formatting_seq_sync({}, 1000, {})
 end
 
 -- Rename symbol under cursor, either with LSP or Treesitter
@@ -129,6 +122,12 @@ function M.on_attach(client, bufnr)
 		end,
 		group = augroup,
 	})
+
+	-- Disable formatting with sucky servers
+	if vim.tbl_contains(sucky_servers, client.name) then
+		client.server_capabilities.document_formatting = false -- For <=0.7
+		client.server_capabilities.documentFormattingProvider = false -- For >=0.8
+	end
 
 	-- TODO : Rewrite with client.supports_method() api
 	-- Setup lsp-hover on hold

@@ -79,7 +79,7 @@ wk.register {
 	},
 	["gs"] = {
 		function()
-			tb.lsp_document_symbols()
+			tb.lsp_dynamic_workspace_symbols()
 		end,
 		"LSP: Symbols",
 	},

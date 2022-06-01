@@ -160,7 +160,7 @@ return require("packer").startup(function(use)
 		"mfussenegger/nvim-dap-python",
 		config = function()
 			require("dap-python").test_runner = "pytest"
-			require("dap-python").setup "/usr/bin/python"
+			require("dap-python").setup("/usr/bin/python", {})
 		end,
 	}
 	use {
@@ -228,6 +228,7 @@ return require("packer").startup(function(use)
 		config = function()
 			require("dk.plugins.misc").colorizer()
 		end,
+		disable = true,
 	}
 	use { "junegunn/goyo.vim", cmd = "Goyo" }
 	use {

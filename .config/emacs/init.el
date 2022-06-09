@@ -93,7 +93,7 @@
 
 (use-package rainbow-delimiters
   :ensure t
-  :hook emacs-lisp-mode)
+  :hook (emacs-lisp-mode . rainbow-delimiters-mode))
 
 (use-package all-the-icons
   :ensure t)

@@ -61,7 +61,9 @@
   :ensure t
   :init
   (setq evil-want-integration t
-        evil-want-keybinding nil)
+        evil-want-keybinding nil
+        evil-want-Y-yank-to-eol t
+        evil-undo-system 'undo-redo)
   :config
   (evil-mode 1))
 

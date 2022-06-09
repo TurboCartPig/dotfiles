@@ -75,6 +75,7 @@
 
 (use-package which-key
   :ensure t
+  :diminish
   :init
   (setq which-key-allow-evil-operators t)
   :config
@@ -82,6 +83,7 @@
 
 (use-package company
   :ensure t
+  :diminish
   :config
   (global-company-mode))
 
@@ -93,6 +95,7 @@
 
 (use-package rainbow-delimiters
   :ensure t
+  :diminish
   :hook (emacs-lisp-mode . rainbow-delimiters-mode))
 
 (use-package all-the-icons

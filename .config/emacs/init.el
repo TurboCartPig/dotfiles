@@ -77,6 +77,8 @@
 ;; Define all the packages I use
 (require 'use-package)
 
+;; Vim emulation for emacs
+;; How could you even use emacs without it?
 (use-package evil
   :ensure t
   :init
@@ -87,9 +89,11 @@
   :config
   (evil-mode 1))
 
+;; Collection of extensions of evil mode
 (use-package evil-collection
   :after evil
   :ensure t
+  :diminish
   :config
   (evil-collection-init))
 
@@ -115,6 +119,7 @@
   :diminish
   :hook (prog-mode . format-all-mode))
 
+;; Show completions for partial keybindings
 (use-package which-key
   :ensure t
   :diminish

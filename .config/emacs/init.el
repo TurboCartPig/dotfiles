@@ -13,7 +13,10 @@
 ;;; Tweak UI elements
 
 ;; Set fonts
-(set-face-attribute 'default nil :font "FiraCode NF" :height 135)
+(when (equal system-type 'windows-nt)
+  (set-face-attribute 'default nil :font "FiraCode NF" :height 135))
+(when (equal system-type 'gnu/linux)
+  (set-face-attribute 'default nil :font "Fira Code" :height 135))
 
 ;; Disable the default startup screen
 (setq inhibit-startup-message t)

@@ -163,6 +163,15 @@
   :config
   (show-paren-mode 0))
 
+(use-package rust-mode
+  :ensure t
+  :config
+  (setq indent-tabs-mode nil))
+
+(use-package lsp-mode
+  :ensure t
+  :hook (rust-mode python-mode))
+
 (use-package all-the-icons
   :ensure t)
 

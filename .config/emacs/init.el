@@ -102,6 +102,13 @@
   (xclip-mode 1))
 
 ;; Format any and all code with external formatters.
+;; Also auto-format on save.
+;; See https://github.com/radian-software/apheleia for an alternative
+(use-package format-all
+  :ensure t
+  :diminish
+  :hook (prog-mode . format-all-mode))
+
 (use-package which-key
   :ensure t
   :diminish

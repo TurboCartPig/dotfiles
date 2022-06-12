@@ -47,6 +47,12 @@
 ;; `completion-at-point' is often bound to M-TAB.
 (setq tab-always-indent 'complete)
 
+;; Auto-enable and disable electric pair mode based on major mode
+(add-hook 'prog-mode-hook
+    (lambda () (electric-pair-mode 1)))
+(add-hook 'emacs-lisp-mode-hook
+    (lambda () (electric-pair-mode 0)))
+
 ;;; Keyboard settings
 
 ;; <escape> quits prompts
@@ -140,11 +146,14 @@
   :init
   (global-corfu-mode 1))
 
+;; Infer paren balance based on indentation
 (use-package parinfer-rust-mode
   :ensure t
   :hook emacs-lisp-mode
   :init
-  (setq parinfer-rust-auto-download t))
+  (setq parinfer-rust-auto-download t
+        parinfer-rust-troublesome-modes nil
+        parinfer-rust-check-before-enable nil))
 
 (use-package rainbow-delimiters
   :ensure t

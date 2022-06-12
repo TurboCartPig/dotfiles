@@ -35,6 +35,17 @@
 ;; Highlight the cursor line
 (global-hl-line-mode 1)
 
+;;; Completion
+;; Ties in with corfu
+
+;; Emacs 28: Hide commands in M-x which do not apply to the current mode.
+;; Corfu commands are hidden, since they are not supposed to be used via M-x.
+(setq read-extended-command-predicate
+      #'command-completion-default-include-p)
+
+;; Enable indentation+completion using the TAB key.
+;; `completion-at-point' is often bound to M-TAB.
+(setq tab-always-indent 'complete)
 
 ;;; Keyboard settings
 
@@ -76,6 +87,7 @@
   :config
   (evil-collection-init))
 
+;; Format any and all code with external formatters.
 (use-package which-key
   :ensure t
   :diminish
@@ -84,11 +96,17 @@
   :config
   (which-key-mode 1))
 
-(use-package company
+
+;; Auto-completion
+(use-package corfu
   :ensure t
   :diminish
-  :config
-  (global-company-mode))
+  :custom
+  (corfu-cycle t)
+  (corfu-auto t)
+  (corfu-preview-current nil)
+  :init
+  (global-corfu-mode 1))
 
 (use-package parinfer-rust-mode
   :ensure t

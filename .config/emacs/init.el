@@ -95,6 +95,12 @@
   :config
   (evil-commentary-mode 1))
 
+;; Allows syncing X11/Wayland clipboard and emacs
+(use-package xclip
+  :ensure t
+  :config
+  (xclip-mode 1))
+
 ;; Format any and all code with external formatters.
 (use-package which-key
   :ensure t

@@ -96,6 +96,17 @@
   :config
   (which-key-mode 1))
 
+;; Replace emacs' default help system with a more helpful one
+(use-package helpful
+  :ensure t
+  :init
+  ;; Override default emacs keybinds
+  (global-set-key (kbd "C-h f") #'helpful-callable)
+  (global-set-key (kbd "C-h v") #'helpful-variable)
+  (global-set-key (kbd "C-h k") #'helpful-key))
+;; Hook into Ivy
+;; (setq counsel-describe-function-function #'helpful-callable)
+;; (setq counsel-describe-variable-function #'helpful-variable))
 
 ;; Auto-completion
 (use-package corfu

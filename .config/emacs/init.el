@@ -155,10 +155,13 @@
         parinfer-rust-troublesome-modes nil
         parinfer-rust-check-before-enable nil))
 
+;; Show matching delimiters in rainbow colors
 (use-package rainbow-delimiters
   :ensure t
   :diminish
-  :hook (emacs-lisp-mode . rainbow-delimiters-mode))
+  :hook (emacs-lisp-mode . rainbow-delimiters-mode)
+  :config
+  (show-paren-mode 0))
 
 (use-package all-the-icons
   :ensure t)

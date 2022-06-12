@@ -122,6 +122,10 @@
 (use-package all-the-icons
   :ensure t)
 
+;; Diminish lets me hide some minor-modes from modeline
+(use-package diminish
+  :ensure t)
+
 (use-package doom-themes
   :ensure t
   :config

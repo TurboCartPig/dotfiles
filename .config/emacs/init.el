@@ -87,6 +87,14 @@
   :config
   (evil-collection-init))
 
+;; Commentary (as in tpop's) for evil mode
+(use-package evil-commentary
+  :after evil
+  :ensure t
+  :diminish
+  :config
+  (evil-commentary-mode 1))
+
 ;; Format any and all code with external formatters.
 (use-package which-key
   :ensure t

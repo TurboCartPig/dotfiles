@@ -2,6 +2,7 @@ vim.filetype.add {
 	extensions = {
 		graphqlrc = "yaml",
 		babelrc = "json",
+		cppm = "cpp",
 	},
 	filename = {
 		[".babelrc"] = "json",

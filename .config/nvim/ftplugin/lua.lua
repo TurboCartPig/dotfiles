@@ -10,7 +10,9 @@ if vim.fn.has "win32" == 1 then
 	sumneko_root = "C:/Projects/lua-language-server"
 	sumneko_bin = sumneko_root .. "/bin/lua-language-server.exe"
 elseif vim.fn.has "unix" == 1 then
-	sumneko_root = vim.fn.expand "$HOME/Projects/lua-language-server"
+	-- sumneko_root = vim.fn.expand "$HOME/Projects/lua-language-server"
+	-- sumneko_bin = sumneko_root .. "/bin/lua-language-server"
+	sumneko_root = vim.fn.expand "$HOME/.local/opt/lua-language-server"
 	sumneko_bin = sumneko_root .. "/bin/lua-language-server"
 end
 

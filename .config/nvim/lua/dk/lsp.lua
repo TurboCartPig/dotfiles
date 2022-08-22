@@ -79,6 +79,13 @@ local sucky_servers = { "jsonls", "tsserver", "html", "pyright", "gopls" }
 
 -- Format the buffer using either LSP or Neoformat
 function M.format()
+	-- local fmt_servers = vim.tbl_filter(function(client)
+	-- 	return client.supports_method "textDocument/formatting"
+	-- end, vim.lsp.get_active_clients())
+	-- if vim.tbl_isempty(fmt_servers) then
+	-- 	vim.cmd [[Neoformat]]
+	-- 	return
+	-- end
 
 	vim.lsp.buf.formatting_seq_sync({}, 1000, {})
 end

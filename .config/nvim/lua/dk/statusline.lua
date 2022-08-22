@@ -102,6 +102,9 @@ function M:filetype()
 	if self.flags.filetype then
 		self.flags.filetype = false -- Unflag
 
+		-- local filename = string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd(), "")
+		-- local fileext = vim.bo.filetype
+
 		local filename = vim.fn.expand "%:t"
 		local fileext = vim.fn.expand "%:e"
 		local icon, group = devicons.get_icon(filename, fileext, { default = true })

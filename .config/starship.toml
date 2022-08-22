@@ -16,6 +16,11 @@ $line_break\
 $character\
 """
 
+# format = """
+# [┌](bold green)$fill
+# [│](bold green)$directory$git_branch$git_state$git_status$rust$python$golang$nodejs$jobs
+# [└](bold green)$character"""
+
 scan_timeout = 50 # ms
 command_timeout = 150 # ms
 

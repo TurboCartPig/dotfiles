@@ -77,6 +77,10 @@ npm install --global \
 	prettier @fsouza/prettierd \
 	eslint eslint_d
 
+# Install go tools
+# TODO: Install golangci-lint
+go install github.com/rhysd/actionlint/cmd/actionlint@latest
+
 # Install language servers
 
 ## NPM based ones

@@ -365,28 +365,31 @@ function M.null()
 			fmt.stylua,
 			fmt.black,
 			fmt.isort,
-			-- fmt.prettier,
 			fmt.prettierd,
-			-- fmt.stylelint,
 			fmt.goimports,
+			fmt.latexindent,
+			-- fmt.prettier,
+			-- fmt.stylelint,
+			-- fmt.statix,
 
 			-- Diagnostics
 			diag.gitlint,
-			-- diag.selene,
-			-- diag.mypy,
 			diag.pylint,
 			diag.pydocstyle,
-			-- diag.stylelint,
 			diag.shellcheck,
 			diag.markdownlint,
 			diag.hadolint,
 			diag.golangci_lint,
+			diag.actionlint,
+			-- diag.statix,
+			-- diag.stylelint,
+			-- diag.selene,
 
 			-- Code Actions
-			-- ca.gitsigns,
 			ca.shellcheck,
+			-- ca.gitsigns,
 		},
-		on_attach = M.on_attach,
+		on_attach = require("dk.lsp").on_attach,
 	}
 end
 

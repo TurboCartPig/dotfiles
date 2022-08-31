@@ -1,0 +1,6 @@
+; vim:ft=gitconfig
+
+[user]
+	name = Dennis Kristiansen
+	email = denniskristiansen@protonmail.com
+	username = TurboCartPig

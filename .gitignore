@@ -1,0 +1,5 @@
+# Transient and cached emacs files
+.config/emacs/transient/
+.config/emacs/elpa/
+.config/emacs/auto-save-list/
+.config/emacs/parinfer-rust/

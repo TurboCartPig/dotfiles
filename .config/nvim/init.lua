@@ -1,13 +1,11 @@
 -- Source config modules
 require "dk.options"
+require "dk.lazy"
 require "dk.colorscheme"
--- require "dk.plugins"
-require "dk.lsp"
-require "dk.dap"
 require "dk.globals"
-require "dk.autocmds"
+-- require "dk.autocmds"
 require "dk.keymaps"
-require "dk.statusline"
+-- require "dk.statusline"
 
 -- Neovim set abbreviations --------------------------------------------------------- {{{1
 

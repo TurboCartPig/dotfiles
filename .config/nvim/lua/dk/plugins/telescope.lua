@@ -23,7 +23,7 @@ return {
             { "<leader>fl", function() require("telescope.builtin").live_grep() end,                     desc = "Find lines / grep" },
             { "<leader>fr", function() require("telescope.builtin").oldfiles() end,                      desc = "Find recent files" },
             { "<leader>fh", function() require("telescope.builtin").help_tags() end,                     desc = "Find help" },
-            { "<leader>fp", function() require("telescope.builtin").find_files() end,                    desc = "Find files" },
+            { "<leader>fp", function() require("telescope").extensions.project.project() end,            desc = "Find projects" },
         },
         opts = {
             defaults = {

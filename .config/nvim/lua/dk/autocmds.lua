@@ -2,6 +2,7 @@
 
 -- Automatically start in insert mode in terminals.
 -- And turn off the number column in terminal buffers.
+-- TODO: Remove in nvim 0.11
 local Term = vim.api.nvim_create_augroup("Term", {})
 vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	pattern = "*",

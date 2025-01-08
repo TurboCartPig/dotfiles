@@ -4,13 +4,12 @@ return {
         dependencies = {
             "nvim-treesitter/nvim-treesitter-refactor",
             "nvim-treesitter/nvim-treesitter-textobjects",
-            "nvim-treesitter/playground",
             "JoosepAlviste/nvim-ts-context-commentstring",
             "windwp/nvim-ts-autotag",
-            "lewis6991/spellsitter.nvim",
             "romgrk/nvim-treesitter-context",
+			"https://github.com/HiPhish/rainbow-delimiters.nvim",
         },
-        cmd = "TsUpdate",
+		lazy = false,
         opts = {
             ensure_installed = {
                 "bash",
@@ -139,9 +138,6 @@ return {
                     },
                 },
             },
-            playground = {
-                enable = true,
-            },
             autotag = {
                 enable = true,
             },
@@ -149,12 +145,15 @@ return {
         config = function(_, opts)
             local ts = require "nvim-treesitter.configs"
             local context = require "treesitter-context"
+			local rainbow = require "rainbow-delimiters.setup"
 
             -- Enable ts context
             context.setup {
                 enable = true,
                 max_lines = 2,
             }
+
+			rainbow.setup()
 
             ts.setup(opts)
         end,

@@ -11,14 +11,17 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 })
 
 -- Auto-format buffers before writing them using either language server or Neoformat.
-local AutoFormat = vim.api.nvim_create_augroup("AutoFormat", {})
-vim.api.nvim_create_autocmd({ "BufWritePre" }, {
-	pattern = "*",
-	callback = function()
-		require("dk.lsp").format()
-	end,
-	group = AutoFormat,
-})
+-- local AutoFormat = vim.api.nvim_create_augroup("AutoFormat", {})
+-- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+-- 	pattern = "*",
+-- 	callback = function()
+-- 		vim.lsp.buf.format {
+-- 			timeout_ms = 1000,
+-- 			async = false,
+-- 		}
+-- 	end,
+-- 	group = AutoFormat,
+-- })
 
 -- Set language specific local options automatically.
 local LanguageOverrides = vim.api.nvim_create_augroup("LanguageOverrides", {})

@@ -16,7 +16,7 @@ end
 
 -- Run this every time a language server attaches to a buffer
 local function on_attach(client, bufnr)
-	-- Auto-clearing autocmd group. Unique for this client and buffer
+	-- Auto-clearing autocmd group. Unique for this buffer
 	local augroup = vim.api.nvim_create_augroup("LspAttach" .. bufnr, { clear = true })
 
 	-- Setup completion

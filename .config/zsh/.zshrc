@@ -1,13 +1,18 @@
+# Homebrew
+# ========
+
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Plugins
 # =======
 
-source ~/.config/zsh/plugins/zsh-completions/zsh-completions.plugin.zsh
-source ~/.config/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source ~/.config/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.config/zsh/plugins/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# Add custom completions
-fpath+=~/.config/zsh/completions/
+# Add brew completions
+if type brew &>/dev/null; then
+    FPATH=$(brew --prefix)/share/zsh-completions:$FPATH
+fi
 
 # Autocompletion
 # ==============
@@ -17,7 +22,7 @@ zmodload zsh/complist
 
 # Enable completion caching
 zstyle ':completion:*' use-cache on
-zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+zstyle ':completion:*' cache-path "$HOME/.cache/zsh/.zcompcache"
 
 # Autocomplete with interactive menu
 zstyle ':completion:*' menu select
@@ -70,13 +75,12 @@ setopt INTERACTIVE_COMMENTS
 # Aliases
 # =======
 
-alias ls="exa"
-alias ll="exa -la --git-ignore"
-alias lt="exa -lT --git-ignore"
-
-alias diff="colordiff"
+alias ls="eza"
+alias ll="eza -la --git-ignore"
+alias lt="eza -lT --git-ignore"
 
 alias v="nvim"
+alias vi="nvim"
 alias sv="sudo nvim"
 
 # Lazygit for yadm
@@ -86,9 +90,16 @@ alias lg="lazygit"
 # Prompt
 # ======
 
-eval $(starship init zsh)
+eval "$(starship init zsh)"
 
-# Hooks
-# =====
+# Make JetBrains IDEs launchable from cli
+if [[ $(uname) == "Darwin" ]]; then
+	export PATH="$PATH:/Users/dennis/Library/Application Support/JetBrains/Toolbox/scripts"
+fi
 
-eval "$(direnv hook zsh)"
+# JEnv
+# ====
+
+export PATH="$HOME/.jenv/bin:$PATH"
+eval "$(jenv init -)"
+

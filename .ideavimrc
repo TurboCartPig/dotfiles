@@ -1,9 +1,9 @@
 " Extensions
+" See: https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
 set surround
 set commentary
 
 " Search/Filter
-" See: https://github.com/JetBrains/ideavim/wiki/Emulated-plugins
 set smartcase
 set incsearch
 
@@ -19,11 +19,11 @@ set sidescrolloff=5
 " Map leader
 let mapleader = ' '
 
-" IdeaVim keymappings
+" IdeaVim actions
 nmap R  <Action>(RenameElement)
 nmap gs <Action>(GotoSymbol)
-nmap gd <Action>(GotoDeclaration)
-nmap gi <Action>(ShowErrorDescription)
+nmap gi <Action>(GotoImplementation)
+nmap gH <Action>(ShowErrorDescription)
 nmap gh <Action>(QuickJavaDoc)
 
 " Use Up/Down to scroll

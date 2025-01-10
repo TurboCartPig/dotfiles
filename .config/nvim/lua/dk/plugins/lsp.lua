@@ -36,10 +36,7 @@ local function on_attach(client, bufnr)
 	vim.api.nvim_create_autocmd({ "CursorHold" }, {
 		buffer = bufnr,
 		callback = function()
-			vim.diagnostic.open_float(
-				nil,
-				{ focusable = false, border = "rounded", scope = "cursor" }
-			)
+			vim.diagnostic.open_float(nil, { focusable = false, border = "rounded", scope = "cursor" })
 		end,
 		group = augroup,
 	})
@@ -68,8 +65,8 @@ return {
 	event = { "BufReadPost", "BufWritePost", "BufNewFile" },
 	keys = {
 		{ "<c-.>", vim.lsp.buf.code_action, desc = "LSP: Code Actions" },
-		{ "R",     rename,                  desc = "LSP: Rename" },
-		{ "gh",    vim.lsp.buf.hover,       desc = "LSP: Hover" },
+		{ "R", rename, desc = "LSP: Rename" },
+		{ "gh", vim.lsp.buf.hover, desc = "LSP: Hover" },
 	},
 	config = function()
 		local lsp_config = require "lspconfig"
@@ -152,8 +149,8 @@ return {
 							semicolon = "Disable",
 							arrayIndex = "Disable",
 						},
-					}
-				}
+					},
+				},
 			},
 			rust_analyzer = {},
 		}

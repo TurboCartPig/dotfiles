@@ -3,21 +3,21 @@ vim.g.mapleader = " "
 
 -- Set shell to powershell core on windows
 if vim.fn.has "win32" == 1 and vim.fn.exists "pwsh.exe" == 1 then
-    vim.opt.shell = "pwsh.exe"
+	vim.opt.shell = "pwsh.exe"
 elseif vim.fn.has "unix" == 1 and vim.fn.exists "/opt/homebrew/bin/zsh" == 1 then
-    vim.opt.shell = "/opt/homebrew/bin/zsh"
+	vim.opt.shell = "/opt/homebrew/bin/zsh"
 elseif vim.fn.has "unix" == 1 and vim.fn.exists "/usr/bin/zsh" == 1 then
-    vim.opt.shell = "/usr/bin/zsh"
+	vim.opt.shell = "/usr/bin/zsh"
 end
 
 vim.cmd [[filetype plugin indent on]]
 
 -- Defaults to Norwegian on Windows for some reason
 if vim.fn.has "win32" == 1 then
-    vim.cmd [[language en_US.utf8]]
+	vim.cmd [[language en_US.utf8]]
 else
-    -- macOS
-    vim.cmd [[language en_US.UTF-8]]
+	-- macOS
+	vim.cmd [[language en_US.UTF-8]]
 end
 
 -- Needed for some plugins to work properly
@@ -61,7 +61,7 @@ vim.opt.signcolumn = "yes"
 vim.opt.cursorline = true
 vim.opt.showmode = false -- Redundant by statusline
 vim.opt.showcmd = false
-vim.opt.laststatus = 3   -- Global statusline
+vim.opt.laststatus = 3 -- Global statusline
 
 -- Visual stuff
 vim.opt.termguicolors = true
@@ -89,7 +89,7 @@ vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.fillchars = "fold: "
 vim.opt.foldtext =
-[[substitute(getline(v:foldstart), '\t', repeat('\ ', &tabstop), 'g').'...'.trim(getline(v:foldend))]]
+	[[substitute(getline(v:foldstart), '\t', repeat('\ ', &tabstop), 'g').'...'.trim(getline(v:foldend))]]
 
 -- Conceals
 vim.opt.concealcursor = "nc"

@@ -1,12 +1,12 @@
 -- Bootstrap lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
 	local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-	local out = vim.fn.system({ "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath })
+	local out = vim.fn.system { "git", "clone", "--filter=blob:none", "--branch=stable", lazyrepo, lazypath }
 	if vim.v.shell_error ~= 0 then
 		vim.api.nvim_echo({
 			{ "Failed to clone lazy.nvim:\n", "ErrorMsg" },
-			{ out,                            "WarningMsg" },
+			{ out, "WarningMsg" },
 			{ "\nPress any key to exit..." },
 		}, true, {})
 		vim.fn.getchar()
@@ -16,31 +16,31 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- Setup lazy.nvim
-require("lazy").setup({
+require("lazy").setup {
 	spec = {
 		-- Import your plugins
 		{ import = "dk.plugins" },
 
-		{ "tpope/vim-surround",             lazy = false },
-		{ "tpope/vim-commentary",           lazy = false },
-		{ "tpope/vim-repeat",               lazy = false },
-		{ "airblade/vim-rooter",            lazy = false },
-		{ "wellle/targets.vim",             lazy = false },
+		{ "tpope/vim-surround", lazy = false },
+		{ "tpope/vim-commentary", lazy = false },
+		{ "tpope/vim-repeat", lazy = false },
+		{ "airblade/vim-rooter", lazy = false },
+		{ "wellle/targets.vim", lazy = false },
 		{ "christoomey/vim-tmux-navigator", lazy = false },
 
-		{ "ryanoasis/vim-devicons",         lazy = false },
-		{ "kyazdani42/nvim-web-devicons",   lazy = false },
+		{ "ryanoasis/vim-devicons", lazy = false },
+		{ "kyazdani42/nvim-web-devicons", lazy = false },
 		{ "akinsho/org-bullets.nvim" },
 		{ "lukas-reineke/headlines.nvim" },
-		{ "akinsho/nvim-bufferline.lua",    lazy = false },
-		{ "ellisonleao/gruvbox.nvim",       lazy = false, config = true },
-		{ "stevearc/dressing.nvim",         config = true },
+		{ "akinsho/nvim-bufferline.lua", lazy = false },
+		{ "ellisonleao/gruvbox.nvim", lazy = false, config = true },
+		{ "stevearc/dressing.nvim", config = true },
 		{
 			"chentoast/marks.nvim",
 			opts = {
 				default_mappings = true,
 				refresh_interval = 500,
-			}
+			},
 		},
 		{
 			"rcarriga/nvim-notify",
@@ -76,4 +76,4 @@ require("lazy").setup({
 	install = { colorscheme = { "gruvbox" } },
 	-- Automatically check for plugin updates
 	checker = { enabled = false },
-})
+}

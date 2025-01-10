@@ -156,5 +156,5 @@ return {
 
 			ts.setup(opts)
 		end,
-	}
+	},
 }

@@ -5,25 +5,114 @@ return {
 			"nvim-lua/plenary.nvim",
 			"nvim-lua/popup.nvim",
 			"nvim-telescope/telescope-project.nvim",
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release" },
+			{
+				"nvim-telescope/telescope-fzf-native.nvim",
+				build = "cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release",
+			},
 		},
 		lazy = true,
 		keys = {
-			{ "gr",         function() require("telescope.builtin").lsp_references() end,                                              desc = "LSP: References" },
-			{ "gs",         function() require("telescope.builtin").lsp_document_symbols() end,                                        desc = "LSP: Symbols" },
-			{ "z=",         function() require("telescope.builtin").spell_suggest() end,                                               desc = "Spelling suggestions" },
-			{ "<c-p>",      function() require("telescope.builtin").find_files({ hidden = true }) end,                                 desc = "Find files" },
-			{ "<m-p>",      function() require("telescope.builtin").builtin() end,                                                     desc = "Telescope" },
-			{ "<d-p>",      function() require("telescope.builtin").builtin() end,                                                     desc = "Telescope" },
-			{ "<leader>bb", function() require("telescope.builtin").buffers() end,                                                     desc = "Buffers" },
-			{ "<leader>bn", "<cmd>bnext<cr>",                                                                                          desc = "Next buffer" },
-			{ "<leader>bp", "<cmd>bprevious<cr>",                                                                                      desc = "Previous buffer" },
-			{ "<leader>ff", function() require("telescope.builtin").find_files() end,                                                  desc = "Find files" },
-			{ "<leader>fc", function() require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config"), hidden = true }) end, desc = "Find config files" },
-			{ "<leader>fl", function() require("telescope.builtin").live_grep() end,                                                   desc = "Find lines / grep" },
-			{ "<leader>fr", function() require("telescope.builtin").oldfiles() end,                                                    desc = "Find recent files" },
-			{ "<leader>fh", function() require("telescope.builtin").help_tags() end,                                                   desc = "Find help" },
-			{ "<leader>fp", function() require("telescope").extensions.project.project() end,                                          desc = "Find projects" },
+			{
+				"gr",
+				function()
+					require("telescope.builtin").lsp_references()
+				end,
+				desc = "LSP: References",
+			},
+			{
+				"gs",
+				function()
+					require("telescope.builtin").lsp_document_symbols()
+				end,
+				desc = "LSP: Symbols",
+			},
+			{
+				"z=",
+				function()
+					require("telescope.builtin").spell_suggest()
+				end,
+				desc = "Spelling suggestions",
+			},
+			{
+				"<c-p>",
+				function()
+					require("telescope.builtin").find_files { hidden = true }
+				end,
+				desc = "Find files",
+			},
+			{
+				"<m-p>",
+				function()
+					require("telescope.builtin").builtin()
+				end,
+				desc = "Telescope",
+			},
+			{
+				"<d-p>",
+				function()
+					require("telescope.builtin").builtin()
+				end,
+				desc = "Telescope",
+			},
+			{
+				"<leader>bb",
+				function()
+					require("telescope.builtin").buffers()
+				end,
+				desc = "Buffers",
+			},
+			{
+				"<leader>bn",
+				"<cmd>bnext<cr>",
+				desc = "Next buffer",
+			},
+			{
+				"<leader>bp",
+				"<cmd>bprevious<cr>",
+				desc = "Previous buffer",
+			},
+			{
+				"<leader>ff",
+				function()
+					require("telescope.builtin").find_files()
+				end,
+				desc = "Find files",
+			},
+			{
+				"<leader>fc",
+				function()
+					require("telescope.builtin").find_files { cwd = vim.fn.stdpath "config", hidden = true }
+				end,
+				desc = "Find config files",
+			},
+			{
+				"<leader>fl",
+				function()
+					require("telescope.builtin").live_grep()
+				end,
+				desc = "Find lines / grep",
+			},
+			{
+				"<leader>fr",
+				function()
+					require("telescope.builtin").oldfiles()
+				end,
+				desc = "Find recent files",
+			},
+			{
+				"<leader>fh",
+				function()
+					require("telescope.builtin").help_tags()
+				end,
+				desc = "Find help",
+			},
+			{
+				"<leader>fp",
+				function()
+					require("telescope").extensions.project.project()
+				end,
+				desc = "Find projects",
+			},
 		},
 		opts = {
 			defaults = {
@@ -61,8 +150,8 @@ return {
 		},
 		config = function(_, opts)
 			require("telescope").setup(opts)
-			require("telescope").load_extension("fzf")
-			require("telescope").load_extension("project")
-		end
+			require("telescope").load_extension "fzf"
+			require("telescope").load_extension "project"
+		end,
 	},
 }

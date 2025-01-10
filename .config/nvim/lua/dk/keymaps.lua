@@ -17,4 +17,3 @@ vim.keymap.set("n", "<leader><leader>", "<cmd>buffer#<cr>")
 
 -- Change
 vim.keymap.set("n", "<c-d>", "*<c-o>cgn")
-

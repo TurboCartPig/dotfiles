@@ -102,9 +102,8 @@ function M:filetype()
 		local fileext = vim.fn.expand "%:e"
 
 		local has_devicons, devicons = pcall(require, "nvim-web-devicons")
-		local icon, group = has_devicons
-			and devicons.get_icon(filename, fileext, { default = true })
-			or "", "GruvboxBg2"
+		local icon, group =
+			has_devicons and devicons.get_icon(filename, fileext, { default = true }) or "", "GruvboxBg2"
 
 		self.cache.filetype = make_component(group, icon)
 	end
@@ -133,11 +132,8 @@ function M:git()
 	if self.flags.git then
 		self.flags.git = false
 
-		local signs = vim.tbl_extend(
-			"keep",
-			vim.b.gitsigns_status_dict or {},
-			{ head = "", added = 0, changed = 0, removed = 0 }
-		)
+		local signs =
+			vim.tbl_extend("keep", vim.b.gitsigns_status_dict or {}, { head = "", added = 0, changed = 0, removed = 0 })
 
 		self.cache.git = table.concat {
 			signs.added > 0 and make_component(hi_groups.add, "  %s", signs.added) or "",

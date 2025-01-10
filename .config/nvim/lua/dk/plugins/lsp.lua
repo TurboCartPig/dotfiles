@@ -65,7 +65,7 @@ return {
 		"b0o/schemastore.nvim",
 		"ray-x/lsp_signature.nvim",
 	},
-	lazy = false,
+	event = { "BufReadPost", "BufWritePost", "BufNewFile" },
 	keys = {
 		{ "<c-.>", vim.lsp.buf.code_action, desc = "LSP: Code Actions" },
 		{ "R",     rename,                  desc = "LSP: Rename" },

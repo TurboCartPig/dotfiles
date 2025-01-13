@@ -272,6 +272,7 @@ function M:setup()
 	})
 
 	-- Globally available statusline function with state
+	-- selene: allow(unused_variable, unscoped_variables)
 	Statusline = setmetatable(M, {
 		__call = function(statusline)
 			return statusline:statusline()

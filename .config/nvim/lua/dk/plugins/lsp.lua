@@ -15,7 +15,7 @@ local function rename()
 end
 
 -- Run this every time a language server attaches to a buffer
-local function on_attach(client, bufnr)
+local function on_attach(_, bufnr)
 	-- Auto-clearing autocmd group. Unique for this buffer
 	local augroup = vim.api.nvim_create_augroup("LspAttach" .. bufnr, { clear = true })
 
@@ -56,8 +56,8 @@ return {
 	event = { "BufReadPost", "BufWritePost", "BufNewFile" },
 	keys = {
 		{ "<c-.>", vim.lsp.buf.code_action, desc = "LSP: Code Actions" },
-		{ "R",     rename,                  desc = "LSP: Rename" },
-		{ "gh",    vim.lsp.buf.hover,       desc = "LSP: Hover" },
+		{ "R", rename, desc = "LSP: Rename" },
+		{ "gh", vim.lsp.buf.hover, desc = "LSP: Hover" },
 	},
 	config = function()
 		local lsp_config = require "lspconfig"

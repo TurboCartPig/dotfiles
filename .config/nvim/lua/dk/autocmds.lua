@@ -10,19 +10,6 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 	group = Term,
 })
 
--- Auto-format buffers before writing them using either language server or Neoformat.
--- local AutoFormat = vim.api.nvim_create_augroup("AutoFormat", {})
--- vim.api.nvim_create_autocmd({ "BufWritePre" }, {
--- 	pattern = "*",
--- 	callback = function()
--- 		vim.lsp.buf.format {
--- 			timeout_ms = 1000,
--- 			async = false,
--- 		}
--- 	end,
--- 	group = AutoFormat,
--- })
-
 -- Set language specific local options automatically.
 local LanguageOverrides = vim.api.nvim_create_augroup("LanguageOverrides", {})
 vim.api.nvim_create_autocmd({ "FileType" }, {
@@ -57,6 +44,15 @@ vim.api.nvim_create_autocmd({ "BufWritePre" }, {
 		end
 	end,
 	group = MkDir,
+})
+
+-- Setup line diagnostic on hover
+local Diag = vim.api.nvim_create_augroup("Diag", {})
+vim.api.nvim_create_autocmd({ "CursorHold" }, {
+	callback = function()
+		vim.diagnostic.open_float(nil, { focusable = false, border = "rounded", scope = "cursor" })
+	end,
+	group = Diag,
 })
 
 -- Fix CursorHold and CursorHoldI by decoupling them from 'updatetime'

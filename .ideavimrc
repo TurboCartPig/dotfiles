@@ -10,8 +10,7 @@ set incsearch
 " IdeaVim stuff
 " See: https://github.com/JetBrains/ideavim/wiki/%22set%22-commands
 set ideajoin                " Use IDEA's joins
-set idearefactormode="keep" " Do not change mode on refactor
-set ideavimsupport=""       " Where to enable vim emulation
+set idearefactormode=keep   " Do not change mode on refactor
 
 set scrolloff=5
 set sidescrolloff=5
@@ -20,18 +19,18 @@ set sidescrolloff=5
 let mapleader = ' '
 
 " IdeaVim actions
-nmap R  <Action>(RenameElement)
-nmap gs <Action>(GotoSymbol)
-nmap gi <Action>(GotoImplementation)
-nmap gH <Action>(ShowErrorDescription)
-nmap gh <Action>(QuickJavaDoc)
+nnoremap R  <Action>(RenameElement)
+nnoremap gs <Action>(GotoSymbol)
+nnoremap gi <Action>(GotoImplementation)
+nnoremap gH <Action>(ShowErrorDescription)
+nnoremap gh <Action>(QuickJavaDoc)
 
 " Use Up/Down to scroll
-nmap J <C-d>
-nmap K <C-u>
+nnoremap J <C-d>
+nnoremap K <C-u>
 
 " Map Left/Right to line beginning/end
-nmap H 0
-nmap L $
-vmap H 0
-vmap L $
+nnoremap H 0
+nnoremap L $
+vnoremap H 0
+vnoremap L $

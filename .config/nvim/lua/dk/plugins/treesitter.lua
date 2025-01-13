@@ -82,9 +82,9 @@ return {
 			incremental_selection = {
 				enable = true,
 				keymaps = {
-					init_selection = "grn",
-					node_incremental = "grn",
-					node_decremental = "grm",
+					init_selection = "<C-S-l>",
+					node_incremental = "<C-S-l>",
+					node_decremental = "<C-S-h>",
 				},
 			},
 			textobjects = {
@@ -150,9 +150,9 @@ return {
 				max_lines = 2,
 			}
 
-			rainbow.setup()
+			rainbow.setup {}
 
-			autotag.setup()
+			autotag.setup {}
 
 			ts.setup(opts)
 		end,

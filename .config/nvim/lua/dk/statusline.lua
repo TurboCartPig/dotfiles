@@ -129,21 +129,15 @@ end
 --- Depends on gitsigns.
 --- @return string
 function M:git()
-	if self.flags.git then
-		self.flags.git = false
+	local signs =
+		vim.tbl_extend("keep", vim.b.gitsigns_status_dict or {}, { head = "", added = 0, changed = 0, removed = 0 })
 
-		local signs =
-			vim.tbl_extend("keep", vim.b.gitsigns_status_dict or {}, { head = "", added = 0, changed = 0, removed = 0 })
-
-		self.cache.git = table.concat {
-			signs.added > 0 and make_component(hi_groups.add, "  %s", signs.added) or "",
-			signs.changed > 0 and make_component(hi_groups.change, " 柳%s", signs.changed) or "",
-			signs.removed > 0 and make_component(hi_groups.remove, "  %s", signs.removed) or "",
-			make_component(hi_groups.filename, "  %s", (signs.head ~= "" and signs.head or "DETACHED")),
-		}
-	end
-
-	return self.cache.git
+	return table.concat {
+		signs.added > 0 and make_component(hi_groups.add, "  %s", signs.added) or "",
+		signs.changed > 0 and make_component(hi_groups.change, " 柳%s", signs.changed) or "",
+		signs.removed > 0 and make_component(hi_groups.remove, "  %s", signs.removed) or "",
+		make_component(hi_groups.filename, "  %s", (signs.head ~= "" and signs.head or "DETACHED")),
+	}
 end
 
 --- LSP statusline component displays LSP diagnostic counts
@@ -218,10 +212,7 @@ M.flags = {
 	mode = true,
 	filename = true,
 	filetype = true,
-	git = true,
 	lsp = true,
-	lsp_progress = true,
-	treesitter = true,
 }
 
 --- Setup the statusline
@@ -249,24 +240,10 @@ function M:setup()
 		end,
 		group = g,
 	})
-	vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost", "BufNewFile", "BufEnter" }, {
-		pattern = "*",
-		callback = function()
-			M.flags.git = true
-		end,
-		group = g,
-	})
 	vim.api.nvim_create_autocmd("DiagnosticChanged", {
 		pattern = "*",
 		callback = function()
 			M.flags.lsp = true
-		end,
-		group = g,
-	})
-	vim.api.nvim_create_autocmd("User", {
-		pattern = "LspProgressUpdate",
-		callback = function()
-			M.flags.lsp_progress = true
 		end,
 		group = g,
 	})

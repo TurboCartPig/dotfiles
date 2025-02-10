@@ -11,7 +11,7 @@ local function rename()
 	end
 
 	-- TODO: Check if treesitter supports rename
-	require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
+	require("nvim-treesitter-refactor.smart_rename").smart_rename()
 end
 
 -- Run this every time a language server attaches to a buffer

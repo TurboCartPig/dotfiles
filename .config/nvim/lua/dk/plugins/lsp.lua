@@ -106,6 +106,16 @@ return {
 			},
 			pyright = {},
 			elmls = {},
+			gleam = {},
+			elixirls = {
+				cmd = {
+					vim.fs.joinpath(
+						string.gsub(vim.fn.system { "brew", "--prefix", "elixir-ls" }, "%s+", ""),
+						"libexec",
+						"language_server.sh"
+					)
+				},
+			},
 			dockerls = {},
 			html = {},
 			cssls = {},

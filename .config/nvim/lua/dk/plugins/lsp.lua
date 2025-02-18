@@ -55,9 +55,10 @@ return {
 	},
 	event = { "BufReadPost", "BufWritePost", "BufNewFile" },
 	keys = {
-		{ "<c-.>", vim.lsp.buf.code_action, desc = "LSP: Code Actions" },
-		{ "R", rename, desc = "LSP: Rename" },
-		{ "gh", vim.lsp.buf.hover, desc = "LSP: Hover" },
+		{ "<C-.>", vim.lsp.buf.code_action, desc = "LSP: Code Actions" },
+		{ "<D-.>", vim.lsp.buf.code_action, desc = "LSP: Code Actions" },
+		{ "R",     rename,                  desc = "LSP: Rename" },
+		{ "gh",    vim.lsp.buf.hover,       desc = "LSP: Hover" },
 	},
 	config = function()
 		local lsp_config = require "lspconfig"

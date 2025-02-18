@@ -144,6 +144,21 @@ return {
 				},
 			},
 			rust_analyzer = {},
+			gopls = {
+				analyses = {
+					staticcheck = true,
+					vulncheck = true,
+				},
+				hoverKind = "Structured",
+				hints = {
+					assignVariableTypes = true,
+					compositeLiteralFields = true,
+					compositeLiteralTypes = false,
+					constantValues = true,
+					parameterNames = true,
+					rangeVariableTypes = true,
+				}
+			},
 		}
 
 		-- Setup all the servers with their respective settings

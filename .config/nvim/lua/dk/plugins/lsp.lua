@@ -11,7 +11,7 @@ local function rename()
 	end
 
 	-- TODO: Check if treesitter supports rename
-	require("nvim-treesitter-refactor.smart_rename").smart_rename(0)
+	require("nvim-treesitter-refactor.smart_rename").smart_rename()
 end
 
 -- Run this every time a language server attaches to a buffer
@@ -107,6 +107,16 @@ return {
 			},
 			pyright = {},
 			elmls = {},
+			gleam = {},
+			elixirls = {
+				cmd = {
+					vim.fs.joinpath(
+						string.gsub(vim.fn.system { "brew", "--prefix", "elixir-ls" }, "%s+", ""),
+						"libexec",
+						"language_server.sh"
+					)
+				},
+			},
 			dockerls = {},
 			html = {},
 			cssls = {},

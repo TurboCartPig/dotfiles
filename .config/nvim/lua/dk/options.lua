@@ -110,8 +110,11 @@ vim.opt.wildmenu = true
 vim.opt.completeopt = "menuone,noselect,noinsert"
 vim.opt.shortmess = "filoOTcF"
 
--- Misc
+-- Mouse
 vim.opt.mouse = "a"
+vim.opt.mousescroll = "ver:3,hor:0"
+
+-- Misc
 vim.opt.clipboard = "unnamed,unnamedplus"
 -- vim.opt.updatetime = 200
 vim.opt.viewoptions = "folds,cursor,curdir"

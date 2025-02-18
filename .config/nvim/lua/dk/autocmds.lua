@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd({ "TermOpen" }, {
 -- Set language specific local options automatically.
 local LanguageOverrides = vim.api.nvim_create_augroup("LanguageOverrides", {})
 vim.api.nvim_create_autocmd({ "FileType" }, {
-	pattern = { "haskell", "cabal", "yaml" },
+	pattern = { "haskell", "cabal", "yaml", "gleam", "elixir" },
 	command = "setlocal expandtab shiftwidth=2",
 	group = LanguageOverrides,
 })

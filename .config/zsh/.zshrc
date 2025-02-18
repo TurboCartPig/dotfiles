@@ -72,6 +72,11 @@ setopt INC_APPEND_HISTORY
 # Allow comments in command line
 setopt INTERACTIVE_COMMENTS
 
+# Vi Mode
+# =======
+
+bindkey '^?' backward-delete-char
+
 # Aliases
 # =======
 

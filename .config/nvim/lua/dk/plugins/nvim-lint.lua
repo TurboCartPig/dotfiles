@@ -12,10 +12,12 @@ return {
 		lint.linters_by_ft = opts
 
 		local group = vim.api.nvim_create_augroup("NvimLint", { clear = true })
-		vim.api.nvim_create_autocmd({ "BufReadPost", "BufWritePost" }, {
+		vim.api.nvim_create_autocmd({ "BufEnter", "BufReadPost", "BufWritePost" }, {
 			group = group,
 			callback = function()
-				lint.try_lint()
+				vim.schedule(function()
+					lint.try_lint()
+				end)
 			end,
 		})
 	end,

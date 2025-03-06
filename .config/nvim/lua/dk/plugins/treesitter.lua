@@ -67,14 +67,12 @@ return {
 				"vue",
 				"yaml",
 				"zig",
-				"org",
 				"teal",
 				"query",
 			},
 			auto_install = false,
 			highlight = {
 				enable = true,
-				disable = { "org" },
 				additional_vim_regex_highlighting = true,
 			},
 			indent = {

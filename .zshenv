@@ -26,6 +26,14 @@ export PATH="$HOME/go/bin/:$PATH"
 export NPM_CONFIG_USERCONFIG="$HOME/.config/npm/config"
 export PATH="$HOME/.local/share/npm/bin/:$PATH"
 
+# Oracle sqlcl
+export PATH="$(realpath /opt/homebrew/Caskroom/sqlcl/*/sqlcl/bin):$PATH"
+
+# Make JetBrains IDEs launchable from cli
+if [[ $(uname) == "Darwin" ]]; then
+	export PATH="$PATH:/Users/dennis/Library/Application Support/JetBrains/Toolbox/scripts"
+fi
+
 # Fzf configuration
 export FZF_DEFAULT_COMMAND="fd --type f --hidden"
 export FZF_DEFAULT_OPTS="--layout=reverse --tabstop=4"

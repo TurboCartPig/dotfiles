@@ -85,13 +85,13 @@ return {
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
 		-- Override options for lsp handlers
-		local handlers = {
-			["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { focusable = true, border = "rounded" }),
-			["textDocument/signatureHelp"] = vim.lsp.with(
-				vim.lsp.handlers.signature_help,
-				{ focusable = false, border = "rounded" }
-			),
-		}
+		-- local handlers = {
+		-- 	["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { focusable = true, border = "rounded" }),
+		-- 	["textDocument/signatureHelp"] = vim.lsp.with(
+		-- 		vim.lsp.handlers.signature_help,
+		-- 		{ focusable = false, border = "rounded" }
+		-- 	),
+		-- }
 
 		-- All the servers I want to use and any custom configuration
 		local servers = {
@@ -114,7 +114,7 @@ return {
 						string.gsub(vim.fn.system { "brew", "--prefix", "elixir-ls" }, "%s+", ""),
 						"libexec",
 						"language_server.sh"
-					)
+					),
 				},
 			},
 			dockerls = {},
@@ -168,7 +168,7 @@ return {
 					constantValues = true,
 					parameterNames = true,
 					rangeVariableTypes = true,
-				}
+				},
 			},
 		}
 
@@ -177,7 +177,7 @@ return {
 			local s = vim.tbl_extend(
 				"error",
 				settings,
-				{ on_attach = on_attach, capabilities = capabilities, handlers = handlers }
+				{ on_attach = on_attach, capabilities = capabilities }
 			)
 			lsp_config[ls].setup(s)
 		end

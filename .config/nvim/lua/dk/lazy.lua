@@ -63,10 +63,6 @@ require("lazy").setup {
 			enabled = false,
 		},
 		{
-			"kristijanhusak/orgmode.nvim",
-			enabled = false,
-		},
-		{
 			"fatih/vim-go",
 			ft = { "go", "gomod", "gosum", "godoc" },
 			enabled = false,

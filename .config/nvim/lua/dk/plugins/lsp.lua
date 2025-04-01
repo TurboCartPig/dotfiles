@@ -21,16 +21,16 @@ local function on_attach(_, bufnr)
 
 	-- Setup completion
 	vim.bo.omnifunc = "v:lua.vim.lsp.omnifunc"
+end
 
-	-- Setup lightbulb on code_action
-	vim.fn.sign_define("LightBulbSign", { text = "", texthl = "DiagnosticsSignInfo" })
-	vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-		buffer = bufnr,
-		callback = function()
-			require("nvim-lightbulb").update_lightbulb()
-		end,
-		group = augroup,
-	})
+local function setup_lightbulb()
+	local lightbulb = require "nvim-lightbulb"
+
+	lightbulb.setup {
+		autocmd = {
+			enable = true,
+		},
+	}
 end
 
 -- Setup lsp_signature -------------------------------------------------------------- {{{1
@@ -183,5 +183,6 @@ return {
 		end
 
 		setup_lsp_signature()
+		setup_lightbulb()
 	end,
 }

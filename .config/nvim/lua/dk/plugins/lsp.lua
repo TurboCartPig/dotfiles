@@ -65,19 +65,22 @@ return {
 
 		-- Override diagnostic signs
 		local signs = { Error = "", Warn = "", Hint = "", Info = "" }
-		for type, icon in pairs(signs) do
-			local hl = "DiagnosticSign" .. type
-			local opts = { text = icon, texthl = hl, numhl = hl }
-			vim.fn.sign_define(hl, opts)
-		end
 
 		-- Setup look of diagnostics
 		vim.diagnostic.config {
 			underline = true,
 			virtual_text = true,
-			signs = true,
 			update_in_insert = true,
 			severity_sort = true,
+			signs = {
+				enable = true,
+				text = {
+					[vim.diagnostic.severity.ERROR] = signs.Error,
+					[vim.diagnostic.severity.WARN] = signs.Warn,
+					[vim.diagnostic.severity.HINT] = signs.Hint,
+					[vim.diagnostic.severity.INFO] = signs.Info,
+				}
+			}
 		}
 
 		-- Advertise client capabilities to servers

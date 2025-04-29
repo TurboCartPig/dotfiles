@@ -78,7 +78,7 @@ function M:mode()
 
 		self.cache.mode = table.concat {
 			make_component("GruvboxBg2", ""),
-			make_component(hi_groups.mode, ""),
+			make_component(hi_groups.mode, "  "),
 			make_component("GruvboxBg2", ""),
 		}
 	end
@@ -133,9 +133,9 @@ function M:git()
 		vim.tbl_extend("keep", vim.b.gitsigns_status_dict or {}, { head = "", added = 0, changed = 0, removed = 0 })
 
 	return table.concat {
-		signs.added > 0 and make_component(hi_groups.add, "  %s", signs.added) or "",
-		signs.changed > 0 and make_component(hi_groups.change, " 柳%s", signs.changed) or "",
-		signs.removed > 0 and make_component(hi_groups.remove, "  %s", signs.removed) or "",
+		signs.added > 0 and make_component(hi_groups.add, " +%s", signs.added) or "",
+		signs.changed > 0 and make_component(hi_groups.change, " ~%s", signs.changed) or "",
+		signs.removed > 0 and make_component(hi_groups.remove, " -%s", signs.removed) or "",
 		make_component(hi_groups.filename, "  %s", (signs.head ~= "" and signs.head or "DETACHED")),
 	}
 end

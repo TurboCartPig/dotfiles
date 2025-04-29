@@ -7,7 +7,11 @@ return {
 			"JoosepAlviste/nvim-ts-context-commentstring",
 			"windwp/nvim-ts-autotag",
 			"romgrk/nvim-treesitter-context",
-			"https://github.com/HiPhish/rainbow-delimiters.nvim",
+			{
+				"https://github.com/HiPhish/rainbow-delimiters.nvim",
+				submodules = false,
+				main = "rainbow-delimiters.setup"
+			},
 		},
 		lazy = false,
 		opts = {
